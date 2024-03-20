@@ -45,49 +45,6 @@ app.get("/",(req, res)=> {
     
 })
 
-app.get("/post/:id",(req,res)=>{
-    conn.query("select * from post where postId = ?",
-        [req.params.id],
-        function (err,results){
-            if (err) {
-                console.error(err);
-                return res.status(500).render("error_page500.ejs");
-            }
-    
-            // 如果找不到紀錄，導致錯誤頁面
-            if (results.length === 0) {
-                return res.status(404).render("error_page400.ejs");
-            }
-
-            // 執行第二個查詢
-            conn.query("SELECT * FROM coment WHERE com_postId = ?", [req.params.id], function(err, comentResult) {
-                if (err) {
-                    console.error(err);
-                    return res.status(500).render("error_page500.ejs");
-                }
-            
-                // 渲染模板
-                res.render("post_page.ejs", { 
-                    post: results[0],
-                    comments: comentResult // 將評論資料傳遞給模板
-                });
-                // console.log(results);
-                // console.log(comentResult);
-    });
-        }
-    )  
-})
-
-//新增貼文
-app.get("/create",(req,res)=>{
-    res.render("post_create");
-})
-
-
-
-
-
-
 
 //登入者的貼文
 app.get("/ownpost/:id",(req,res)=>{
@@ -149,6 +106,7 @@ app.get("/index/post", function (req, res) {
         }
     )
 })
+
 // 活動貼文
 app.get("/index/postitem/:id", function (req, res) {
     conn.query("select * from post where postID = ?", 
@@ -168,6 +126,7 @@ app.get("/index/chatitem/:id", function (req, res) {
 )
 })
 
+//新增貼文
 app.post("/post/create",function(req, res){
     conn.query("insert into post (type,title, registeredDate, registeredTime, activityDate, activityTime, minPeople, maxPeople, location, price, content) values(?,?,?,?,?,?,?,?,?,?,?)",
     [req.body.postItem.type,req.body.postItem.title, req.body.postItem.registeredDate, req.body.postItem.registeredTime, req.body.postItem.activityDate, req.body.postItem.activityTime, req.body.postItem.minPeople, req.body.postItem.maxPeople, req.body.postItem.location, req.body.postItem.price, req.body.postItem.content],
