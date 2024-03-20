@@ -11,7 +11,7 @@ class JoingIndex extends Component {
     render() { 
         return (
                                    
-<body>
+<div onClick={this.toggleLogoIn}>
     <Header/>
     <div class="main">
         <a href="/Joing/postcreate" class="post_create_btn">
@@ -79,7 +79,7 @@ class JoingIndex extends Component {
             </div>
         </div>
     </div>
-</body>
+</div>
 
 
     
@@ -104,10 +104,9 @@ class JoingIndex extends Component {
     // }
     // this.setState(newState);
     }
-    toggleLogoIn = () => {
+    toggleLogoIn = (e) => {
         const logoIn = document.querySelector(".logoIn");
-        logoIn.classList.toggle("show");
-        console.log("OK");
+        logoIn.classList.remove("show");
     }
 
 }  
