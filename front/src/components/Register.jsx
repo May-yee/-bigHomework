@@ -7,7 +7,7 @@ class Register extends Component {
         userEmail: "",
         passWord: "",
         passWord2:"",
-        passWordPoint: 1,
+        passWordPoint: 0,
         userName: "",
         birth: "",
         birthBoolean: 0,
@@ -144,26 +144,30 @@ class Register extends Component {
     }
     onSubmit = async (e) => {
         e.preventDefault();
-        var formData = new FormData();
-        var config = {headers: {'Content-Type': 'multipart/form-data'}};
-        formData.append('headShot',  this.state.headShot);
-        formData.append('userEmail', this.state.userEmail);
-        formData.append('passWord', this.state.passWord);
-        formData.append('userName', this.state.userName);
-        formData.append('birth',  this.state.birth);
-        formData.append('birthBoolean', this.state.birthBoolean);
-        formData.append('sex', this.state.sex);
-        formData.append('introduction', this.state.introduction);
-        var result = await axios.post(
-            'http://localhost:8000/member/register',
-            formData,
-            config
-        );
-        if(result.data['success']) {
-            alert("登入成功");
-        }else {
-            alert('帳號或密碼錯誤');
+        if(this.state.passWord == this.state.passWord2) {
+            var formData = new FormData();
+            var config = {headers: {'Content-Type': 'multipart/form-data'}};
+            formData.append('headShot',  this.state.headShot);
+            formData.append('userEmail', this.state.userEmail);
+            formData.append('passWord', this.state.passWord);
+            formData.append('userName', this.state.userName);
+            formData.append('birth',  this.state.birth);
+            formData.append('birthBoolean', this.state.birthBoolean);
+            formData.append('sex', this.state.sex);
+            formData.append('introduction', this.state.introduction);
+            var result = await axios.post(
+                'http://localhost:8000/member/register',
+                formData,
+                config
+            );
+            if(result.data['success']) {
+                alert("註冊成功");
+                window.location = "/"
+            }
+        } else {
+            alert("密碼不相同")
         }
+        
     }
 }
 

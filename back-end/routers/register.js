@@ -9,7 +9,7 @@ const iv = crypto.randomBytes(16);
 
 var myStorage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, "./public/uploads/");    // 保存的路徑 (需先自己創建)
+        cb(null, "../front/public/headshots");    // 保存的路徑 (需先自己創建)
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + '-' + 'id.png');  // 自定義檔案名稱
@@ -28,11 +28,11 @@ var conn = mysql.createConnection({
     database: "jiuing"
 });
 //註冊
-router.post("/", upload.single('headShot'), function(req,res){
+router.post("/register", upload.single('headShot'), function(req,res){
     var cipher = crypto.createCipheriv(algorithm, key, iv);
     let encrypted = cipher.update(req.body.passWord, 'utf8', 'hex');
     encrypted += cipher.final('hex');   //  密碼加密
-    var headShot = (req.file.path.substring(6)) //頭貼路徑
+    var headShot = (req.file.path.substring(15)) //頭貼路徑
     conn.query("insert into member (userName, password, userEmail, headShot, birth, birthBoolean, sex, introduction, cryptokey, cryptoiv) values (?,?,?,?,?,?,?,?,?,?)",
         [req.body.userName, encrypted, req.body.userEmail, headShot,
         req.body.birth, req.body.birthBoolean, req.body.sex, req.body.introduction, key, iv],
@@ -67,5 +67,16 @@ router.post("/login", function(req, res) {
             
         }
     )
+})
+router.get("/info", function(req, res) {
+    console.log(req.session.userID)
+    // if(req.session.userID) {
+    //     conn.query("select * from member where userID = ?",
+    //     [req.session.userID],
+    //     function(err, rows) {
+    //         res.send(rows[0])
+    //     }
+    //     )
+    // }
 })
 module.exports = router;

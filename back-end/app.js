@@ -82,7 +82,6 @@ app.get("/ownpost/:id",(req,res)=>{
 
 //登入者的會員頁面 
 app.get("/ownMember",(req,res)=>{
-    console.log(req.session.userID);
     res.render("own_member");
 })
 
@@ -91,13 +90,9 @@ app.get("/ownMember/settingEdit",(req,res)=>{
     res.render("setting_edit");
 })
 
-//註冊 
-app.get("/register",(req,res)=>{
-    res.render("register");
-})
 //導入註冊
 var register = require("./routers/register");
-app.use("/member/register", register);
+app.use("/member", register);
 
 app.get("/index/post", function (req, res) {
     conn.query("select * from post", [],

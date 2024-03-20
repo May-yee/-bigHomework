@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 class Header extends Component {
     state = { 
-        userEmail: "",
-        passWord: "",
         userName: "會員名稱",
         headShot: "http://localhost:3000/images/head_sticker.png"
      } 
@@ -34,16 +32,22 @@ class Header extends Component {
                 <input type="text" name="userEmail" id="userEmail" required/>
                 <input type="password" name="passWord" id="passWord" required/>
                 <input type="submit" value="登入"/>
-                <a href="/register">註冊帳號</a>
+                <a href="/Joing/register">註冊帳號</a>
             </form>
         </div>
     </header>
         );
     }
+    componentDidMount = async () => {
+        var result = await axios.get("http://localhost:8000/member/info");
+        // console.log(result)
+        // var newState = {...this.state};
+        // newState.TodoList = result.data;
+        // this.setState(newState);
+    }
     toggleLogoIn = (e) => {
         e.stopPropagation();
-        const member_box = document.querySelector(".member_box");
-        const logoIn = document.querySelector(".logoIn")
+        const logoIn = document.querySelector(".logoIn");
         logoIn.classList.add("show");
     }
     logindiv = (e) => {
@@ -61,12 +65,15 @@ class Header extends Component {
             }
         }
         var result = await axios.post(
-            'http://localhost:8000/member/register/login', 
+            'http://localhost:8000/member/login', 
             dataToServer,
             config
         )
         if(result.data['success']) {
-            this.setState({userName:result.data.userName})
+            this.setState({
+                userName: result.data.userName,
+                headShot: result.data.headShot,
+            })
             alert("登入成功");
 
         }else {
