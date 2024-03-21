@@ -47,9 +47,49 @@ app.get("/index/post", function (req, res) {
         }
     )
 })
-
+// 篩選活動功能
 app.get("/index/post/exercise", function (req, res) {
     conn.query("select * from post where type = 0", [],
+        function (err, rows) {
+            res.send( JSON.stringify(rows) );
+        }
+    )
+})
+
+app.get("/index/post/handmade", function (req, res) {
+    conn.query("select * from post where type = 1", [],
+        function (err, rows) {
+            res.send( JSON.stringify(rows) );
+        }
+    )
+})
+
+app.get("/index/post/eat", function (req, res) {
+    conn.query("select * from post where type = 2", [],
+        function (err, rows) {
+            res.send( JSON.stringify(rows) );
+        }
+    )
+})
+
+app.get("/index/post/movie", function (req, res) {
+    conn.query("select * from post where type = 3", [],
+        function (err, rows) {
+            res.send( JSON.stringify(rows) );
+        }
+    )
+})
+
+app.get("/index/post/show", function (req, res) {
+    conn.query("select * from post where type = 4", [],
+        function (err, rows) {
+            res.send( JSON.stringify(rows) );
+        }
+    )
+})
+
+app.get("/index/post/other", function (req, res) {
+    conn.query("select * from post where type = 5", [],
         function (err, rows) {
             res.send( JSON.stringify(rows) );
         }

@@ -44,11 +44,11 @@ class JoingIndex extends Component {
                 <div className="btn_group">
                     <button className="btn btn_orange">桌遊</button>
                     <button className="btn btn_orange" onClick={this.select_exercise}>運動</button>
-                    <button className="btn btn_orange">手作</button>
-                    <button className="btn btn_orange">吃喝</button>
-                    <button className="btn btn_orange">電影</button>
-                    <button className="btn btn_orange">展覽</button>
-                    <button className="btn btn_orange">其他</button>
+                    <button className="btn btn_orange" onClick={this.select_handmade}>手作</button>
+                    <button className="btn btn_orange" onClick={this.select_eat}>吃喝</button>
+                    <button className="btn btn_orange" onClick={this.select_movie}>電影</button>
+                    <button className="btn btn_orange" onClick={this.select_show}>展覽</button>
+                    <button className="btn btn_orange"onClick={this.select_other}>其他</button>
                 </div>
                 <div className="filter_area">
                     <label htmlFor="date">
@@ -117,6 +117,37 @@ class JoingIndex extends Component {
         newState.postList = result.data;
         this.setState(newState);
     }
+    select_handmade = async () => {
+        var result =  await axios.get("http://localhost:8000/index/post/handmade")
+        var newState = {...this.state};
+        newState.postList = result.data;
+        this.setState(newState);
+    }
+    select_eat = async () => {
+        var result =  await axios.get("http://localhost:8000/index/post/eat")
+        var newState = {...this.state};
+        newState.postList = result.data;
+        this.setState(newState);
+    }
+    select_movie = async () => {
+        var result =  await axios.get("http://localhost:8000/index/post/movie")
+        var newState = {...this.state};
+        newState.postList = result.data;
+        this.setState(newState);
+    }
+    select_show = async () => {
+        var result =  await axios.get("http://localhost:8000/index/post/show")
+        var newState = {...this.state};
+        newState.postList = result.data;
+        this.setState(newState);
+    }
+    select_other = async () => {
+        var result =  await axios.get("http://localhost:8000/index/post/other")
+        var newState = {...this.state};
+        newState.postList = result.data;
+        this.setState(newState);
+    }
 }  
+    
     
 export default JoingIndex;
