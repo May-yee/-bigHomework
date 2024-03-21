@@ -110,7 +110,7 @@ class JoingIndex extends Component {
         const logoIn = document.querySelector(".logoIn");
         logoIn.classList.remove("show");
     }
-
+    
 }  
     
 export default JoingIndex;
