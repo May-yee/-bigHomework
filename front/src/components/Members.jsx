@@ -9,7 +9,7 @@ class MemberEdit extends Component {
         return (    
         
     <React.Fragment>
-    <Header/>
+    <Header id={this.props.match.params.id}/>
     
     <div className="main">
         <div className="container row member">
