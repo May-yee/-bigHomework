@@ -7,10 +7,10 @@ import Register from './components/Register'
 import PostCreate from './components/PostCreate';
 import PostEdit from './components/PostEdit';
 import PostDelete from './components/PostDelete';
-import Members from './components/Members';
+import OwnMembers from './components/OwnMembers';
 import MemberEdit from './components/MemberEdit';
 import OwnPost from './components/OwnPost';
-import AnotherMember from './components/AnotherMember';
+import Members from './components/Members';
 
 
 
@@ -30,8 +30,8 @@ class App extends Component {
              <Route path="/Joing/postdelete/:id" component={PostDelete}/>
              <Route path="/Joing/memberedit" component={MemberEdit}/>
              <Route path="/Joing/post/:id" component={Post}/>
-             <Route path="/Joing/members/:id" component={Members}/>
-             <Route path="/Joing/anothermember" component={AnotherMember}/>     
+             <Route path="/Joing/ownmembers/:id" component={OwnMembers}/>
+             <Route path="/Joing/members/:id" component={Members}/> 
            </Switch>
         </div>
       </BrowserRouter>

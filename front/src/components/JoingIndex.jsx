@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from './header';
 import axios from 'axios';
+let originalPoster = 0;
 class JoingIndex extends Component {
     state = { 
         userinfo: {},
@@ -41,32 +42,31 @@ class JoingIndex extends Component {
         <div className="container ">
             <div className="post">
                 <div className="btn_group">
-                    <button className="btn btn_orange click">桌遊</button>
-                    <button className="btn btn_orange">運動</button>
-                    <button className="btn btn_orange">手作</button>
-                    <button className="btn btn_orange">吃喝</button>
-                    <button className="btn btn_orange">電影</button>
-                    <button className="btn btn_orange">展覽</button>
-                    <button className="btn btn_orange">其他</button>
+                    <button className="btn btn_orange">桌遊</button>
+                    <button className="btn btn_orange" onClick={this.select_exercise}>運動</button>
+                    <button className="btn btn_orange" onClick={this.select_handmade}>手作</button>
+                    <button className="btn btn_orange" onClick={this.select_eat}>吃喝</button>
+                    <button className="btn btn_orange" onClick={this.select_movie}>電影</button>
+                    <button className="btn btn_orange" onClick={this.select_show}>展覽</button>
+                    <button className="btn btn_orange"onClick={this.select_other}>其他</button>
                 </div>
-                <div className="filter_area">
-                    <label htmlFor="date">
-                        日期
-                        <input type="date"/>
-                    </label>
-                    <label htmlFor="search">搜尋
-                        <input type="text"/>
-                    </label>
+                <div class="filter_area">
+                    <label htmlFor="date">日期</label>
+                    <input type="date"/>
+                    <label htmlFor="search">搜尋</label>
+                    <input type="text"/>
                 </div>
                 <div className="post_area">
-                    {this.state.postList.map(post =>
+                    {this.state.postList.map(post => 
                     <a href={`/Joing/post/${post.postID}`} key={post.postID}>
                             <div className="post_box">
-                                <div className="post_img"></div>
+                                <div className="post_img">
+                                    <img src={post.postIMG} alt="" />
+                                </div>
                                 <div className="post_content">
                                     <h3>{post.title}</h3>
-                                    <p className="mark_orange">{post.location}</p>
-                                    <p>活動時間:{post.activityDate}  {post.activityTime}</p>
+                                    <p>{post.location}</p>
+                                    <p className='content_box'>活動時間:{post.activityDate}  {post.activityTime}</p>
                                     <p>{post.minPeople}</p>
                                     <p>{post.maxPeople}</p>
                                     <p>{post.price} /人</p>
@@ -110,7 +110,43 @@ class JoingIndex extends Component {
         const logoIn = document.querySelector(".logoIn");
         logoIn.classList.remove("show");
     }
-
+    select_exercise = async () => {
+        var result =  await axios.get("http://localhost:8000/index/post/exercise")
+        var newState = {...this.state};
+        newState.postList = result.data;
+        this.setState(newState);
+    }
+    select_handmade = async () => {
+        var result =  await axios.get("http://localhost:8000/index/post/handmade")
+        var newState = {...this.state};
+        newState.postList = result.data;
+        this.setState(newState);
+    }
+    select_eat = async () => {
+        var result =  await axios.get("http://localhost:8000/index/post/eat")
+        var newState = {...this.state};
+        newState.postList = result.data;
+        this.setState(newState);
+    }
+    select_movie = async () => {
+        var result =  await axios.get("http://localhost:8000/index/post/movie")
+        var newState = {...this.state};
+        newState.postList = result.data;
+        this.setState(newState);
+    }
+    select_show = async () => {
+        var result =  await axios.get("http://localhost:8000/index/post/show")
+        var newState = {...this.state};
+        newState.postList = result.data;
+        this.setState(newState);
+    }
+    select_other = async () => {
+        var result =  await axios.get("http://localhost:8000/index/post/other")
+        var newState = {...this.state};
+        newState.postList = result.data;
+        this.setState(newState);
+    }
 }  
+    
     
 export default JoingIndex;

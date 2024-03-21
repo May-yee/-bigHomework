@@ -1,6 +1,8 @@
 var express = require("express");
 var app = express();
 var cors = require("cors");
+var multer=require("multer");
+const path = require('path');
 app.use(cors());
 
 app.listen(8000,()=>{
@@ -16,10 +18,9 @@ app.use(session({
 
 var bp =require("body-parser");
 app.use(bp.urlencoded({extended:false}))
-app.set("view engine", "ejs");
 
-// 將 public 文件夾下的靜態文件暴露出來
-app.use(express.static(__dirname +'/public'));
+// 將靜態文件暴露出來
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use( express.urlencoded({extended:true}) ); //解析表單資料
 app.use( express.json() );
@@ -47,6 +48,54 @@ app.get("/index/post", function (req, res) {
         }
     )
 })
+// 篩選活動功能
+app.get("/index/post/exercise", function (req, res) {
+    conn.query("select * from post where type = 0", [],
+        function (err, rows) {
+            res.send( JSON.stringify(rows) );
+        }
+    )
+})
+
+app.get("/index/post/handmade", function (req, res) {
+    conn.query("select * from post where type = 1", [],
+        function (err, rows) {
+            res.send( JSON.stringify(rows) );
+        }
+    )
+})
+
+app.get("/index/post/eat", function (req, res) {
+    conn.query("select * from post where type = 2", [],
+        function (err, rows) {
+            res.send( JSON.stringify(rows) );
+        }
+    )
+})
+
+app.get("/index/post/movie", function (req, res) {
+    conn.query("select * from post where type = 3", [],
+        function (err, rows) {
+            res.send( JSON.stringify(rows) );
+        }
+    )
+})
+
+app.get("/index/post/show", function (req, res) {
+    conn.query("select * from post where type = 4", [],
+        function (err, rows) {
+            res.send( JSON.stringify(rows) );
+        }
+    )
+})
+
+app.get("/index/post/other", function (req, res) {
+    conn.query("select * from post where type = 5", [],
+        function (err, rows) {
+            res.send( JSON.stringify(rows) );
+        }
+    )
+})
 
 // 活動貼文
 app.get("/index/postitem/:id", function (req, res) {
@@ -67,17 +116,31 @@ app.get("/index/chatitem/:id", function (req, res) {
 )
 })
 
+
+// 設置 Multer 用於上傳的存儲引擎和文件保存位置
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads') // 將上傳的文件保存到 uploads 目錄中
+    },
+    filename: function (req, file, cb) {
+      cb(null, Date.now() + path.extname(file.originalname)) // 使用時間戳作為文件名
+    }
+  })
+  const upload = multer({ storage: storage });
+
 //新增貼文
-app.post("/post/create",function(req, res){
-    conn.query("insert into post (type,title, registeredDate, registeredTime, activityDate, activityTime, minPeople, maxPeople, location, price, content) values(?,?,?,?,?,?,?,?,?,?,?)",
-    [req.body.postItem.type,req.body.postItem.title, req.body.postItem.registeredDate, req.body.postItem.registeredTime, req.body.postItem.activityDate, req.body.postItem.activityTime, req.body.postItem.minPeople, req.body.postItem.maxPeople, req.body.postItem.location, req.body.postItem.price, req.body.postItem.content],
+app.post("/post/create",upload.single('postIMG'),function(req, res){
+    const img = "http://localhost:8000/uploads/"+ req.file.filename;
+    // console.log(img);
+    conn.query("insert into post (postIMG,type,title, registeredDate, registeredTime, activityDate, activityTime, minPeople, maxPeople, location, price, content) values(?,?,?,?,?,?,?,?,?,?,?,?)",
+    [img,req.body.type,req.body.title, req.body.registeredDate, req.body.registeredTime, req.body.activityDate, req.body.activityTime, req.body.minPeople, req.body.maxPeople, req.body.location, req.body.price, req.body.content],
     function(err, rows){
         if (err) {
             console.error("Error updating post:", err);
             res.status(500).send("Error updating post");
             return;
         }
-        res.send( JSON.stringify( req.body.postItem ));
+        res.send( JSON.stringify( req.body));
     }     
     )
 })

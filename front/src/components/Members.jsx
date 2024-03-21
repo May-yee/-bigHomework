@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Header from './header';
 import axios from 'axios';
-class MemberEdit extends Component {
+class Members extends Component {
     state = { 
         
      } 
@@ -9,18 +9,14 @@ class MemberEdit extends Component {
         return (    
         
     <React.Fragment>
-    <Header id={this.props.match.params.id}/>
+    <Header/>
     
     <div className="main">
         <div className="container row member">
             <div className="memberNav">
                 <div className="memberNavBtn row" id="settingBtn" onClick={this.btn_setting}>
                     <img src="http://localhost:3000/images/setting_icon.png" alt=""/>
-                    <h3 className="p_letter">帳號設定</h3>
-                </div>
-                <div className="memberNavBtn row" id="noteBtn" onClick={this.btn_note}>
-                    <img src="http://localhost:3000/images/notification_icon.png" alt=""/>
-                    <h3 className="p_letter">訊息通知</h3>
+                    <h3 className="p_letter">帳號資訊</h3>
                 </div>
                 <div className="memberNavBtn row" id="recordBtn" onClick={this.btn_record}>
                     <img src="http://localhost:3000/images/jiu_icon.png" alt=""/>
@@ -30,18 +26,11 @@ class MemberEdit extends Component {
                     <img src="http://localhost:3000/images/join_icon.png" alt=""/>
                     <h3 className="p_letter">參加紀錄</h3>
                 </div>
-                <div className="memberNavBtn row" id="likeBtn" onClick={this.btn_like}>
-                    <img src="http://localhost:3000/images/like_icon.png" alt=""/>
-                    <h3 className="p_letter">已收藏</h3>
-                </div>
             </div>
             <div className="memberMain">
-                <h2>帳號設定 </h2>
+                <h2>帳號資訊 </h2>
                 {/* setting */}
                 <div className="memberMainBody setting show">
-                    <div className="btn_group">
-                        <a href="/Joing/memberedit" className="btn btn_blue">編輯</a>
-                    </div>
                     <div className="member_img">
                         <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
                     </div>
@@ -76,40 +65,6 @@ class MemberEdit extends Component {
                         <p>人這次到很的心的在我環境，的都當朋友裡面是，家都結人點的，是因為是一個的可以，了嗎還會有什麼換成，就說縮著愛。新的好棒結果是來了，明的感覺一個他可能：樣的感情得有來了好不好，早晨還有，被兩剛看到最後是這，我看著手機大家別人家自己不的慾望。我還是了他我需我懷疑樂是我，的太不好意都化可愛啊怎樣，分是太我也不難然會被得這加上，的心真的只可，一我比較，早了會的這笑的武器的記。例如這個人都不自己哈哈，我認為不是一樣，怎麼說爆炸我就是沒有，也都是聖誕節，不然⋯不然結果是我一定要。 </p>
                     </div>
 
-                </div>
-
-                {/* note */}
-                <div className="memberMainBody note">
-                    <div className="noteBox">
-                        <div className="noteBoxTop row">
-                            <div className="time">
-                                <p>2024/04/03</p>
-                                <p>18:00</p>
-                            </div>
-                            <div className="subject">
-                                <h3>您的揪團已有人申請</h3>
-                            </div>
-                            <button className="delet"><img src="http://localhost:3000/images/trash_icon.png" alt=""/></button>
-                        </div>
-                        <div className="noteBoxTContent">
-                            <p>會員名稱 已申請參加您的揪團:  台中玩桌遊</p>
-                        </div>
-                    </div>
-                    <div className="noteBox">
-                        <div className="noteBoxTop row">
-                            <div className="time">
-                                <p>2024/04/03</p>
-                                <p>18:00</p>
-                            </div>
-                            <div className="subject">
-                                <h3>您的揪團已有人申請</h3>
-                            </div>
-                            <button className="delet"><img src="http://localhost:3000/images/trash_icon.png" alt=""/></button>
-                        </div>
-                        <div className="noteBoxTContent">
-                            <p>會員名稱 已申請參加您的揪團:  台中玩桌遊</p>
-                        </div>
-                    </div>
                 </div>
 
 
@@ -334,117 +289,7 @@ class MemberEdit extends Component {
                 </div>
 
 
-                {/* like */}
-                <div className="memberMainBody like">
-                    <div className="memberEvent">
-                        <button className="delet"><img src="http://localhost:3000/images/trash_icon.png" alt=""/></button>
-                        <div className="memberEventImg">
-                            <img src="" alt=""/>
-                        </div>
-                        <div className="memberEventContentBlock">
-                            <h3>貼文主標貼文主標貼文主標貼文主標貼文主標貼文主標</h3>
-                            <div className="content_box_group">
-                                <div className="content_box">
-                                    <p>
-                                        <span className="p_letter">活動時間</span>
-                                        2024-03-17 18:00 
-                                    </p>
-                                </div>
-                                <div className="content_box box_blue">
-                                    <p>
-                                        <span className="p_letter">地點:</span>
-                                        <a href=""> 403台中市西區公益路111號1樓</a>
-                                    </p>
-                                </div>
-                                <div className="content_box">
-                                    <p>
-                                        <span className="p_letter">每人費用:</span>
-                                        500 
-                                    </p>
-                                </div>
-                            </div>
-                            
-                        </div>
-                        <div className="memberEventJoiner">
-                            <div>
-                                <h4>主揪人</h4>
-                                <div className="memberEventAvatar">
-                                    <div className="member_img">
-                                        <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <h4>已參加</h4>
-                                <div className="memberEventAvatar">
-                                    <div className="member_img">
-                                        <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                    </div>
-                                    <div className="member_img">
-                                        <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                    </div>
-                                    <div className="member_img">
-                                        <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>   
-                    <div className="memberEvent expired">
-                        <button className="delet"><img src="http://localhost:3000/images/trash_icon.png" alt=""/></button>
-                        <div className="memberEventImg">
-                            <img src="" alt=""/>
-                        </div>
-                        <div className="memberEventContentBlock">
-                            <h3>貼文主標貼文主標貼文主標貼文主標貼文主標貼文主標</h3>
-                            <div className="content_box_group">
-                                <div className="content_box">
-                                    <p>
-                                        <span className="p_letter">活動時間</span>
-                                        2024-03-17 18:00 
-                                    </p>
-                                </div>
-                                <div className="content_box box_blue">
-                                    <p>
-                                        <span className="p_letter">地點:</span>
-                                        <a href=""> 403台中市西區公益路111號1樓</a>
-                                    </p>
-                                </div>
-                                <div className="content_box">
-                                    <p>
-                                        <span className="p_letter">每人費用:</span>
-                                        500 
-                                    </p>
-                                </div>
-                            </div>
-                            
-                        </div>
-                        <div className="memberEventJoiner">
-                            <div>
-                                <h4>主揪人</h4>
-                                <div className="memberEventAvatar">
-                                    <div className="member_img">
-                                        <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <h4>已參加</h4>
-                                <div className="memberEventAvatar">
-                                    <div className="member_img">
-                                        <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                    </div>
-                                    <div className="member_img">
-                                        <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                    </div>
-                                    <div className="member_img">
-                                        <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> 
-                </div>
+
             </div>
 
         </div>
@@ -513,4 +358,4 @@ class MemberEdit extends Component {
     
 
  
-export default MemberEdit;
+export default Members;
