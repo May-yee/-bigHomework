@@ -50,23 +50,22 @@ class JoingIndex extends Component {
                     <button class="btn btn_orange">其他</button>
                 </div>
                 <div class="filter_area">
-                    <label for="date">
-                        日期
-                        <input type="date"/>
-                    </label>
-                    <label for="search">搜尋
-                        <input type="text"/>
-                    </label>
+                    <label for="date">日期</label>
+                    <input type="date"/>
+                    <label for="search">搜尋</label>
+                    <input type="text"/>
                 </div>
                 <div className="post_area">
                     {this.state.postList.map(post =>
                     <a href={`/Joing/post/${post.postID}`} key={post.postID}>
                             <div className="post_box">
-                                <div className="post_img"></div>
+                                <div className="post_img">
+                                    <img src={post.postIMG} alt="" />
+                                </div>
                                 <div className="post_content">
                                     <h3>{post.title}</h3>
-                                    <p className="mark_orange">{post.location}</p>
-                                    <p>活動時間:{post.activityDate}  {post.activityTime}</p>
+                                    <p>{post.location}</p>
+                                    <p className='content_box'>活動時間:{post.activityDate}  {post.activityTime}</p>
                                     <p>{post.minPeople}</p>
                                     <p>{post.maxPeople}</p>
                                     <p>{post.price} /人</p>
