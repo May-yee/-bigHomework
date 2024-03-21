@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from './header';
 import axios from 'axios';
+let originalPoster = 0;
 class JoingIndex extends Component {
     state = { 
         userinfo: {},
@@ -41,8 +42,8 @@ class JoingIndex extends Component {
         <div className="container ">
             <div className="post">
                 <div className="btn_group">
-                    <button className="btn btn_orange click">桌遊</button>
-                    <button className="btn btn_orange">運動</button>
+                    <button className="btn btn_orange">桌遊</button>
+                    <button className="btn btn_orange" onClick={this.select_exercise}>運動</button>
                     <button className="btn btn_orange">手作</button>
                     <button className="btn btn_orange">吃喝</button>
                     <button className="btn btn_orange">電影</button>
@@ -59,7 +60,7 @@ class JoingIndex extends Component {
                     </label>
                 </div>
                 <div className="post_area">
-                    {this.state.postList.map(post =>
+                    {this.state.postList.map(post => 
                     <a href={`/Joing/post/${post.postID}`} key={post.postID}>
                             <div className="post_box">
                                 <div className="post_img"></div>
@@ -110,7 +111,12 @@ class JoingIndex extends Component {
         const logoIn = document.querySelector(".logoIn");
         logoIn.classList.remove("show");
     }
-    
+    select_exercise = async () => {
+        var result =  await axios.get("http://localhost:8000/index/post/exercise")
+        var newState = {...this.state};
+        newState.postList = result.data;
+        this.setState(newState);
+    }
 }  
     
 export default JoingIndex;

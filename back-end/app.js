@@ -48,6 +48,14 @@ app.get("/index/post", function (req, res) {
     )
 })
 
+app.get("/index/post/exercise", function (req, res) {
+    conn.query("select * from post where type = 0", [],
+        function (err, rows) {
+            res.send( JSON.stringify(rows) );
+        }
+    )
+})
+
 // 活動貼文
 app.get("/index/postitem/:id", function (req, res) {
     conn.query("select * from post where postID = ?", 
