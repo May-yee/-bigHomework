@@ -22,7 +22,7 @@ class App extends Component {
         <div>
             <Switch>
              <Route path="/" component={JoingIndex} exact/>
-             <Route path="/Joing/index/:id?" component={JoingIndex}/>
+             <Route path="/Joing/index/:id" component={JoingIndex}/>
              <Route path="/Joing/register" component={Register}/>            
              <Route path="/Joing/ownpost/:id" component={OwnPost}/>
              <Route path="/Joing/postcreate" component={PostCreate}/>
