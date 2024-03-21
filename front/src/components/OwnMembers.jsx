@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from './header';
 import axios from 'axios';
+import cookie from 'react-cookies'
 class OwnMembers extends Component {
     state = { 
         
@@ -9,7 +10,7 @@ class OwnMembers extends Component {
         return (    
         
     <React.Fragment>
-    <Header/>
+    <Header id={this.props.match.params.id}/>
     
     <div className="main">
         <div className="container row member">
@@ -453,6 +454,7 @@ class OwnMembers extends Component {
     ) 
     }
     componentDidMount = async () => {
+        console.log(cookie.load('userID')) 
         var result = await axios.get("http://localhost:8000/member/info/" + this.props.match.params.id);
         var newState = {...this.state};
         newState = result.data;

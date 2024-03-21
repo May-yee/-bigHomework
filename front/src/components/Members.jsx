@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from './header';
 import axios from 'axios';
+import cookie from 'react-cookies'
 class Members extends Component {
     state = { 
         
@@ -9,7 +10,7 @@ class Members extends Component {
         return (    
         
     <React.Fragment>
-    <Header/>
+    <Header id={this.props.match.params.id}/>
     
     <div className="main">
         <div className="container row member">

@@ -164,7 +164,9 @@ class Register extends Component {
             console.log(result.data)
             if(result.data['success']) {
                 alert("註冊成功");
-                window.location = "/"
+                window.location.href = "/"
+            }else {
+                alert("註冊失敗");
             }
         } else {
             alert("密碼不相同")

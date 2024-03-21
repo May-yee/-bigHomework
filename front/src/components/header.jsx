@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import cookie from 'react-cookies'
+
 class Header extends Component {
     state = { 
         userName: "會員名稱",
@@ -40,7 +42,6 @@ class Header extends Component {
         );
     }
     componentDidMount = async () => {
-        console.log(this.props.id)
         if(this.props.id) {
             var userinfo = await axios.get("http://localhost:8000/member/info/" +  this.props.id);  
             var newState = userinfo.data;
@@ -78,7 +79,9 @@ class Header extends Component {
                 headShot: result.data.headShot,
                 userID: result.data.userID,
             })
-            window.location = "/Joing/index/" + result.data.userID
+            cookie.save('userID', result.data.userID, { path: '/' })
+
+            window.location = "/Joing/index/" + result.data.userID;
 
         }else {
             alert('帳號或密碼錯誤')

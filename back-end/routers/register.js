@@ -37,7 +37,12 @@ router.post("/register", upload.single('headShot'), function(req,res){
         [req.body.userName, encrypted, req.body.userEmail, headShot,
         req.body.birth, req.body.birthBoolean, req.body.sex, req.body.introduction, key, iv],
         function (err, rows) {
-            res.send({success: true});
+            if(!err){
+                res.send({success: true});
+            }else{
+                res.send({success: false});
+            }
+            
         }
     )
 });
