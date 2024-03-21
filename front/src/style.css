@@ -61,7 +61,7 @@ input:focus{
 }
 
 input[type="checkbox"]{
-    opacity: 1;
+    opacity: 0;
     position: absolute;
     left: 0;
 }
