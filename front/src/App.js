@@ -10,7 +10,7 @@ import PostDelete from './components/PostDelete';
 import OwnMembers from './components/OwnMembers';
 import MemberEdit from './components/MemberEdit';
 import OwnPost from './components/OwnPost';
-import AnotherMember from './components/AnotherMember';
+import Members from './components/Members';
 
 
 
@@ -31,7 +31,7 @@ class App extends Component {
              <Route path="/Joing/memberedit" component={MemberEdit}/>
              <Route path="/Joing/post/:id" component={Post}/>
              <Route path="/Joing/ownmembers/:id" component={OwnMembers}/>
-             <Route path="/Joing/anothermember" component={AnotherMember}/>     
+             <Route path="/Joing/members/:id" component={Members}/> 
            </Switch>
         </div>
       </BrowserRouter>
