@@ -36,60 +36,6 @@ var conn= mysql.createConnection({
     database:"jiuing"
 })
 
-app.get("/",(req, res)=> {
-     // 查詢數據庫中的數據
-     conn.query("SELECT * FROM post", {},(err, results) => {
-         // 渲染模板並將數據發送到客戶端
-         res.render("index", { data: results });
-        //  console.log(results);[{}]
-     });
-    
-})
-
-
-//登入者的貼文
-app.get("/ownpost/:id",(req,res)=>{
-    conn.query("select * from post where postId = ?",
-        [req.params.id],
-        function (err,results){
-            if (err) {
-                console.error(err);
-                return res.status(500).render("error_page500.ejs");
-            }
-    
-            // 如果找不到紀錄，導致錯誤頁面
-            if (results.length === 0) {
-                return res.status(404).render("error_page400.ejs");
-            }
-
-            // 執行第二個查詢
-            conn.query("SELECT * FROM coment WHERE com_postId = ?", [req.params.id], function(err, comentResult) {
-                if (err) {
-                    console.error(err);
-                    return res.status(500).render("error_page500.ejs");
-                }
-            
-                // 渲染模板
-                res.render("own_post_page.ejs", { 
-                    post: results[0],
-                    comments: comentResult // 將評論資料傳遞給模板
-                });
-                // console.log(results);
-                // console.log(comentResult);
-    });
-        }
-    )  
-})
-
-//登入者的會員頁面 
-app.get("/ownMember",(req,res)=>{
-    res.render("own_member");
-})
-
-//登入者的會員帳號編輯頁面 
-app.get("/ownMember/settingEdit",(req,res)=>{
-    res.render("setting_edit");
-})
 
 //導入註冊
 var register = require("./routers/register");
@@ -97,6 +43,54 @@ app.use("/member", register);
 
 app.get("/index/post", function (req, res) {
     conn.query("select * from post", [],
+        function (err, rows) {
+            res.send( JSON.stringify(rows) );
+        }
+    )
+})
+// 篩選活動功能
+app.get("/index/post/exercise", function (req, res) {
+    conn.query("select * from post where type = 0", [],
+        function (err, rows) {
+            res.send( JSON.stringify(rows) );
+        }
+    )
+})
+
+app.get("/index/post/handmade", function (req, res) {
+    conn.query("select * from post where type = 1", [],
+        function (err, rows) {
+            res.send( JSON.stringify(rows) );
+        }
+    )
+})
+
+app.get("/index/post/eat", function (req, res) {
+    conn.query("select * from post where type = 2", [],
+        function (err, rows) {
+            res.send( JSON.stringify(rows) );
+        }
+    )
+})
+
+app.get("/index/post/movie", function (req, res) {
+    conn.query("select * from post where type = 3", [],
+        function (err, rows) {
+            res.send( JSON.stringify(rows) );
+        }
+    )
+})
+
+app.get("/index/post/show", function (req, res) {
+    conn.query("select * from post where type = 4", [],
+        function (err, rows) {
+            res.send( JSON.stringify(rows) );
+        }
+    )
+})
+
+app.get("/index/post/other", function (req, res) {
+    conn.query("select * from post where type = 5", [],
         function (err, rows) {
             res.send( JSON.stringify(rows) );
         }
@@ -150,7 +144,7 @@ app.post("/post/create",upload.single('postIMG'),function(req, res){
     }     
     )
 })
-
+//修改貼文
 app.put("/index/postitem",function(req, res){
     conn.query("update post set type=? ,title= ?, registeredDate= ?, registeredTime= ?, activityDate= ?, activityTime= ?, minPeople= ?, maxPeople= ?, location= ?, price= ?, content= ? where postID= ?",
     [req.body.postItem.type,req.body.postItem.title, req.body.postItem.registeredDate, req.body.postItem.registeredTime, req.body.postItem.activityDate, req.body.postItem.activityTime, req.body.postItem.minPeople, req.body.postItem.maxPeople, req.body.postItem.location, req.body.postItem.price, req.body.postItem.content, req.body.postItem.postID],
@@ -166,8 +160,7 @@ app.put("/index/postitem",function(req, res){
 })
 
 
-
-
+// 刪除貼文
 app.delete("/post/delete/:id", function (req, res) {
     conn.query("delete from post where postID = ?",
         [req.params.id], 
@@ -177,4 +170,19 @@ app.delete("/post/delete/:id", function (req, res) {
     )
 })
 
+
+// 新增留言板留言
+app.post("/post/chat",function(req, res){
+    conn.query("insert into coment (com_postID, message) values(?,?)",
+    [req.body.com_postID, req.body.message],
+    function(err, rows){
+        if (err) {
+            console.error("Error updating post:", err);
+            res.status(500).send("Error updating post");
+            return;
+        }
+        res.send( JSON.stringify( req.body.postItem ));
+    }     
+    )
+})
 

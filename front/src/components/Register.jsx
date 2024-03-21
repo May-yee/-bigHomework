@@ -43,12 +43,13 @@ class Register extends Component {
                                 <label htmlFor="passWord" className="settingItemTitle row"><h3>密</h3><h3>碼:</h3></label>
                                 <input pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,13}$" type="passWord" value={this.state.passWord} onChange={this.passWordChange} 
                                 onFocus={this.onFocus} onBlur={this.onBlur} name="passWord" id="passWord" required/>
+                                 {(this.state.passWordPoint) ? 
+                                <ul id="passWordPoint">
+                                    <li>長度為6~13字元</li>
+                                    <li>至少包含一個大寫、小寫、數字</li>
+                                </ul> : ""}
                             </div>
-                            {(this.state.passWordPoint) ? 
-                            <ul id="passWordPoint">
-                                <li>長度為6~13字元</li>
-                                <li>至少包含一個大寫、小寫、數字</li>
-                            </ul> : ""}
+    
                             <div className="settingItem row">
                                 <label htmlFor="passWord2" className="settingItemTitle row"><h3>重</h3><h3>新</h3><h3>輸</h3><h3>入:</h3></label>
                                 <input pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,13}$" type="passWord" value={this.state.passWord2} onChange={this.passWordChange2} name="passWord2" id="passWord2" required/>
@@ -160,6 +161,7 @@ class Register extends Component {
                 formData,
                 config
             );
+            console.log(result.data)
             if(result.data['success']) {
                 alert("註冊成功");
                 window.location = "/"

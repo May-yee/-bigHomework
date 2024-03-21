@@ -17,7 +17,7 @@ class Header extends Component {
                 </div>
             </a>
             <ul className="row">
-                <a href={"/Joing/memebers/" + this.state.userID}><li>會員專區</li></a>
+                <a href={"/Joing/ownmembers/" + this.state.userID}><li>會員專區</li></a>
                 <a href=""><li>新手上路</li></a>
                 <a href=""><li>聯絡我們</li></a>
             </ul>

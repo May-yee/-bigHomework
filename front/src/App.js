@@ -7,10 +7,10 @@ import Register from './components/Register'
 import PostCreate from './components/PostCreate';
 import PostEdit from './components/PostEdit';
 import PostDelete from './components/PostDelete';
-import Members from './components/Members';
+import OwnMembers from './components/OwnMembers';
 import MemberEdit from './components/MemberEdit';
 import OwnPost from './components/OwnPost';
-import AnotherMember from './components/AnotherMember';
+import Members from './components/Members';
 
 
 
@@ -22,16 +22,16 @@ class App extends Component {
         <div>
             <Switch>
              <Route path="/" component={JoingIndex} exact/>
-             <Route path="/Joing/index/:id?" component={JoingIndex}/>
+             <Route path="/Joing/index/:id" component={JoingIndex}/>
              <Route path="/Joing/register" component={Register}/>            
              <Route path="/Joing/ownpost/:id" component={OwnPost}/>
              <Route path="/Joing/postcreate" component={PostCreate}/>
              <Route path="/Joing/postedit/:id" component={PostEdit}/>
              <Route path="/Joing/postdelete/:id" component={PostDelete}/>
-             <Route path="/Joing/memeberedit" component={MemberEdit}/>
+             <Route path="/Joing/memberedit" component={MemberEdit}/>
              <Route path="/Joing/post/:id" component={Post}/>
-             <Route path="/Joing/memebers/:id" component={Members}/>
-             <Route path="/Joing/anothermemeber" component={AnotherMember}/>     
+             <Route path="/Joing/ownmembers/:id" component={OwnMembers}/>
+             <Route path="/Joing/members/:id" component={Members}/> 
            </Switch>
         </div>
       </BrowserRouter>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from './header';
 import axios from 'axios';
+let originalPoster = 0;
 class JoingIndex extends Component {
     state = { 
         userinfo: {},
@@ -14,19 +15,19 @@ class JoingIndex extends Component {
                                    
 <div onClick={this.toggleLogoIn}>
     <Header id={this.props.match.params.id}/>
-    <div class="main">
-        <a href="/Joing/postcreate" class="post_create_btn">
-            <div class="post_create">
-                <div class="line"></div>
-                <div class="line"></div>
+    <div className="main">
+        <a href="/Joing/postcreate" className="post_create_btn">
+            <div className="post_create">
+                <div className="line"></div>
+                <div className="line"></div>
             </div>
         </a>
-        <div class="jumbotron ">
-            <div class="mask"></div>
-            <div class="jumbotron_content">
+        <div className="jumbotron ">
+            <div className="mask"></div>
+            <div className="jumbotron_content">
                 <h1>揪團ING讓你不再孤單</h1>
                 <h3>像候鳥一樣隨人群而飛</h3>
-                <div class="jumbotron_p">
+                <div className="jumbotron_p">
                     <p>
                         渴望與志同道合的人一起度過精彩時光？快來加入我們的揪團網站吧！
                         <br />
@@ -38,25 +39,25 @@ class JoingIndex extends Component {
 
             </div>
         </div>
-        <div class="container ">
-            <div class="post">
-                <div class="btn_group">
-                    <button class="btn btn_orange click">桌遊</button>
-                    <button class="btn btn_orange">運動</button>
-                    <button class="btn btn_orange">手作</button>
-                    <button class="btn btn_orange">吃喝</button>
-                    <button class="btn btn_orange">電影</button>
-                    <button class="btn btn_orange">展覽</button>
-                    <button class="btn btn_orange">其他</button>
+        <div className="container ">
+            <div className="post">
+                <div className="btn_group">
+                    <button className="btn btn_orange">桌遊</button>
+                    <button className="btn btn_orange" onClick={this.select_exercise}>運動</button>
+                    <button className="btn btn_orange" onClick={this.select_handmade}>手作</button>
+                    <button className="btn btn_orange" onClick={this.select_eat}>吃喝</button>
+                    <button className="btn btn_orange" onClick={this.select_movie}>電影</button>
+                    <button className="btn btn_orange" onClick={this.select_show}>展覽</button>
+                    <button className="btn btn_orange"onClick={this.select_other}>其他</button>
                 </div>
                 <div class="filter_area">
-                    <label for="date">日期</label>
+                    <label htmlFor="date">日期</label>
                     <input type="date"/>
-                    <label for="search">搜尋</label>
+                    <label htmlFor="search">搜尋</label>
                     <input type="text"/>
                 </div>
                 <div className="post_area">
-                    {this.state.postList.map(post =>
+                    {this.state.postList.map(post => 
                     <a href={`/Joing/post/${post.postID}`} key={post.postID}>
                             <div className="post_box">
                                 <div className="post_img">
@@ -109,7 +110,43 @@ class JoingIndex extends Component {
         const logoIn = document.querySelector(".logoIn");
         logoIn.classList.remove("show");
     }
-
+    select_exercise = async () => {
+        var result =  await axios.get("http://localhost:8000/index/post/exercise")
+        var newState = {...this.state};
+        newState.postList = result.data;
+        this.setState(newState);
+    }
+    select_handmade = async () => {
+        var result =  await axios.get("http://localhost:8000/index/post/handmade")
+        var newState = {...this.state};
+        newState.postList = result.data;
+        this.setState(newState);
+    }
+    select_eat = async () => {
+        var result =  await axios.get("http://localhost:8000/index/post/eat")
+        var newState = {...this.state};
+        newState.postList = result.data;
+        this.setState(newState);
+    }
+    select_movie = async () => {
+        var result =  await axios.get("http://localhost:8000/index/post/movie")
+        var newState = {...this.state};
+        newState.postList = result.data;
+        this.setState(newState);
+    }
+    select_show = async () => {
+        var result =  await axios.get("http://localhost:8000/index/post/show")
+        var newState = {...this.state};
+        newState.postList = result.data;
+        this.setState(newState);
+    }
+    select_other = async () => {
+        var result =  await axios.get("http://localhost:8000/index/post/other")
+        var newState = {...this.state};
+        newState.postList = result.data;
+        this.setState(newState);
+    }
 }  
+    
     
 export default JoingIndex;
