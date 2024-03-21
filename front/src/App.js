@@ -28,10 +28,10 @@ class App extends Component {
              <Route path="/Joing/postcreate" component={PostCreate}/>
              <Route path="/Joing/postedit/:id" component={PostEdit}/>
              <Route path="/Joing/postdelete/:id" component={PostDelete}/>
-             <Route path="/Joing/memeberedit" component={MemberEdit}/>
+             <Route path="/Joing/memberedit" component={MemberEdit}/>
              <Route path="/Joing/post/:id" component={Post}/>
-             <Route path="/Joing/memebers/:id" component={Members}/>
-             <Route path="/Joing/anothermemeber" component={AnotherMember}/>     
+             <Route path="/Joing/members/:id" component={Members}/>
+             <Route path="/Joing/anothermember" component={AnotherMember}/>     
            </Switch>
         </div>
       </BrowserRouter>

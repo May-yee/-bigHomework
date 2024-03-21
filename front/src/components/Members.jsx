@@ -40,7 +40,7 @@ class MemberEdit extends Component {
                 {/* setting */}
                 <div className="memberMainBody setting show">
                     <div className="btn_group">
-                        <a href="/Joing/memeberedit" className="btn btn_blue">編輯</a>
+                        <a href="/Joing/memberedit" className="btn btn_blue">編輯</a>
                     </div>
                     <div className="member_img">
                         <img src="http://localhost:3000/images/head_sticker.png" alt=""/>

@@ -81,7 +81,7 @@ app.post("/post/create",function(req, res){
     }     
     )
 })
-
+//修改貼文
 app.put("/index/postitem",function(req, res){
     conn.query("update post set type=? ,title= ?, registeredDate= ?, registeredTime= ?, activityDate= ?, activityTime= ?, minPeople= ?, maxPeople= ?, location= ?, price= ?, content= ? where postID= ?",
     [req.body.postItem.type,req.body.postItem.title, req.body.postItem.registeredDate, req.body.postItem.registeredTime, req.body.postItem.activityDate, req.body.postItem.activityTime, req.body.postItem.minPeople, req.body.postItem.maxPeople, req.body.postItem.location, req.body.postItem.price, req.body.postItem.content, req.body.postItem.postID],
@@ -97,8 +97,7 @@ app.put("/index/postitem",function(req, res){
 })
 
 
-
-
+// 刪除貼文
 app.delete("/post/delete/:id", function (req, res) {
     conn.query("delete from post where postID = ?",
         [req.params.id], 
@@ -108,4 +107,19 @@ app.delete("/post/delete/:id", function (req, res) {
     )
 })
 
+
+// 新增留言板留言
+app.post("/post/chat",function(req, res){
+    conn.query("insert into coment (com_postID, message) values(?,?)",
+    [req.body.com_postID, req.body.message],
+    function(err, rows){
+        if (err) {
+            console.error("Error updating post:", err);
+            res.status(500).send("Error updating post");
+            return;
+        }
+        res.send( JSON.stringify( req.body.postItem ));
+    }     
+    )
+})
 
