@@ -10,41 +10,41 @@ class Post extends Component {
         return (
         <React.Fragment>
         <Header/>     
-            <div class="main">            
-            <div class="container post_page">
-                    <div class="post_item">                
-                    <div class="images"></div>
-                    <div class="post_item_content">
-                        <div class="member_box">
+            <div className="main">            
+            <div className="container post_page">
+                    <div className="post_item">                
+                    <div className="images"></div>
+                    <div className="post_item_content">
+                        <div className="member_box">
                             <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
                             <p>會員名稱</p>
                         </div>
                         <h2>{this.state.postItem.title}</h2>
-                        <div class="btn_group row">
-                            <a href={`/Joing/postedit/${this.props.match.params.id}`}><div class="btn btn_blue">編輯</div></a>
-                            <a href={`/Joing/postdelete/${this.props.match.params.id}`}><div class="btn btn_gray">刪除</div></a>
+                        <div className="btn_group row">
+                            <a href={`/Joing/postedit/${this.props.match.params.id}`}><div className="btn btn_blue">編輯</div></a>
+                            <a href={`/Joing/postdelete/${this.props.match.params.id}`}><div className="btn btn_gray">刪除</div></a>
                         </div>
-                        <div class="content_box row">
+                        <div className="content_box row">
                             <h4>揪團時間:</h4><p>{this.state.postItem.registeredDate} {this.state.postItem.registeredTime}</p>
                         </div>
-                        <div class="content_box row">
+                        <div className="content_box row">
                             <h4>活動時間:</h4><p>{this.state.postItem.activityDate} {this.state.postItem.activityTime}</p>
                         </div>
-                        <div class="content_box row box_blue">
+                        <div className="content_box row box_blue">
                             <h4>地點:</h4><a href="">{this.state.postItem.location}</a>
                         </div>
-                        <div class="content_icon row">
-                            <div class="col-3">
+                        <div className="content_icon row">
+                            <div className="col-3">
                                 <p>最低人數</p>
                                 <img src="http://localhost:3000/images/MIN.png" alt=""/>
                                 <p>{this.state.postItem.minPeople}</p>
                             </div>
-                            <div class="col-3">
+                            <div className="col-3">
                                 <p>最多人數</p>
                                 <img src="http://localhost:3000/images/MAX.png" alt=""/>
                                 <p>{this.state.postItem.maxPeople}</p>
                             </div>
-                            <div class="col-3">
+                            <div className="col-3">
                                 <p>每人價錢</p>
                                 <img src="http://localhost:3000/images/PRICE.png" alt=""/>
                                 <p>{this.state.postItem.price}</p>
@@ -56,15 +56,15 @@ class Post extends Component {
             
             
 
-            <div class="post_right">
-                <div class="comment">
-                    <div class="comment_title">
+            <div className="post_right">
+                <div className="comment">
+                    <div className="comment_title">
                         <h2>揪團討論ING</h2>
                     </div>
-                    <div class="message_area">
+                    <div className="message_area">
                         {this.state.chatList.map(chat=>
-                            <div class="message">
-                            <div class="member_box">
+                            <div className="message">
+                            <div className="member_box">
                                 <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
                                 <p>會員名稱</p>
                             </div>
@@ -72,9 +72,9 @@ class Post extends Component {
                         </div>
                         )}
                     </div>
-                    <div class="comment_input">
+                    <div className="comment_input">
                         <input type="text" placeholder="傳送留言...." value={this.state.chatList.message} onChange={this.message_change}/>
-                        <div class="submit"><img src="http://localhost:3000/images/submit.svg" alt="" onClick={this.send_message}/></div>
+                        <div className="submit"><img src="http://localhost:3000/images/submit.svg" alt="" onClick={this.send_message}/></div>
                     </div>
                 </div>
             </div>

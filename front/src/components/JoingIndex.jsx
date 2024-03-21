@@ -14,19 +14,19 @@ class JoingIndex extends Component {
                                    
 <div onClick={this.toggleLogoIn}>
     <Header id={this.props.match.params.id}/>
-    <div class="main">
-        <a href="/Joing/postcreate" class="post_create_btn">
-            <div class="post_create">
-                <div class="line"></div>
-                <div class="line"></div>
+    <div className="main">
+        <a href="/Joing/postcreate" className="post_create_btn">
+            <div className="post_create">
+                <div className="line"></div>
+                <div className="line"></div>
             </div>
         </a>
-        <div class="jumbotron ">
-            <div class="mask"></div>
-            <div class="jumbotron_content">
+        <div className="jumbotron ">
+            <div className="mask"></div>
+            <div className="jumbotron_content">
                 <h1>揪團ING讓你不再孤單</h1>
                 <h3>像候鳥一樣隨人群而飛</h3>
-                <div class="jumbotron_p">
+                <div className="jumbotron_p">
                     <p>
                         渴望與志同道合的人一起度過精彩時光？快來加入我們的揪團網站吧！
                         <br />
@@ -38,23 +38,23 @@ class JoingIndex extends Component {
 
             </div>
         </div>
-        <div class="container ">
-            <div class="post">
-                <div class="btn_group">
-                    <button class="btn btn_orange click">桌遊</button>
-                    <button class="btn btn_orange">運動</button>
-                    <button class="btn btn_orange">手作</button>
-                    <button class="btn btn_orange">吃喝</button>
-                    <button class="btn btn_orange">電影</button>
-                    <button class="btn btn_orange">展覽</button>
-                    <button class="btn btn_orange">其他</button>
+        <div className="container ">
+            <div className="post">
+                <div className="btn_group">
+                    <button className="btn btn_orange click">桌遊</button>
+                    <button className="btn btn_orange">運動</button>
+                    <button className="btn btn_orange">手作</button>
+                    <button className="btn btn_orange">吃喝</button>
+                    <button className="btn btn_orange">電影</button>
+                    <button className="btn btn_orange">展覽</button>
+                    <button className="btn btn_orange">其他</button>
                 </div>
-                <div class="filter_area">
-                    <label for="date">
+                <div className="filter_area">
+                    <label htmlFor="date">
                         日期
                         <input type="date"/>
                     </label>
-                    <label for="search">搜尋
+                    <label htmlFor="search">搜尋
                         <input type="text"/>
                     </label>
                 </div>
