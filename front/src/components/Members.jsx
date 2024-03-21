@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import Header from './header';
+import axios from 'axios';
 class MemberEdit extends Component {
-    state = {  } 
+    state = { 
+        
+     } 
     render()  {
         return (    
         
@@ -46,7 +49,7 @@ class MemberEdit extends Component {
                         <div className="settingItemTitle  row">
                             <h3>會</h3><h3>員</h3><h3>名</h3><h3>稱:</h3>
                         </div>
-                        <p>會員名稱會員名稱</p>
+                        <p>{this.state.userName}</p>
                     </div>
                     <div className="settingItem row">
                         <div className="settingItemTitle  row">
@@ -448,7 +451,13 @@ class MemberEdit extends Component {
     </div>
     </React.Fragment>
     ) 
-    } 
+    }
+    componentDidMount = async () => {
+        var result = await axios.get("http://localhost:8000/member/info/" + this.props.match.params.id);
+        var newState = {...this.state};
+        newState = result.data;
+        this.setState(newState);
+    }
     btn_setting = () => {
             var memberMainBodies = document.querySelectorAll(".memberMainBody");
             memberMainBodies.forEach(function(body) {

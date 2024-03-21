@@ -52,11 +52,11 @@ router.post("/login", function(req, res) {
                 decrypted += decipher.final('utf8');    //解析密碼
                 console.log(decrypted);
                 if(decrypted == req.body.passWord) {
-                    req.session.userID = rows[0].userID;
                     res.send({
                         success: true, 
                         headShot: rows[0].headShot,
-                        userName: rows[0].userName
+                        userName: rows[0].userName,
+                        userID: rows[0].userID,
                     })
                 }else {
                     res.send({success: false})
@@ -68,15 +68,15 @@ router.post("/login", function(req, res) {
         }
     )
 })
-router.get("/info", function(req, res) {
-    console.log(req.session.userID)
-    // if(req.session.userID) {
-    //     conn.query("select * from member where userID = ?",
-    //     [req.session.userID],
-    //     function(err, rows) {
-    //         res.send(rows[0])
-    //     }
-    //     )
-    // }
+router.get("/info/:id", function(req, res) {
+    // console.log(req.params.id)
+    if(req.params.id) {
+        conn.query("select * from member where userID = ?",
+        [req.params.id],
+        function(err, rows) {
+            res.send(rows[0])
+        }
+        )
+    }
 })
 module.exports = router;

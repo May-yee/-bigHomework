@@ -3,6 +3,7 @@ import Header from './header';
 import axios from 'axios';
 class JoingIndex extends Component {
     state = { 
+        userinfo: {},
         postList: []
         // memberId : 2,
         // path : "/Joing/memeberjoinrecord"
@@ -12,7 +13,7 @@ class JoingIndex extends Component {
         return (
                                    
 <div onClick={this.toggleLogoIn}>
-    <Header/>
+    <Header id={this.props.match.params.id}/>
     <div class="main">
         <a href="/Joing/postcreate" class="post_create_btn">
             <div class="post_create">
@@ -96,6 +97,7 @@ class JoingIndex extends Component {
         var newState = {...this.state};
         newState.postList = result.data;
         this.setState(newState);
+        
         //     var newState = {...this.state};
     // if(newState.memberId !== 1){
     //     newState.path = "/Joing/anothermemeberjoinrecord"

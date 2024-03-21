@@ -3,7 +3,8 @@ import axios from 'axios';
 class Header extends Component {
     state = { 
         userName: "會員名稱",
-        headShot: "http://localhost:3000/images/head_sticker.png"
+        headShot: "http://localhost:3000/images/head_sticker.png",
+        userID: "",
      } 
     render() { 
         return (
@@ -16,7 +17,7 @@ class Header extends Component {
                 </div>
             </a>
             <ul className="row">
-                <a href="/Joing/memebers"><li>會員專區</li></a>
+                <a href={"/Joing/memebers/" + this.state.userID}><li>會員專區</li></a>
                 <a href=""><li>新手上路</li></a>
                 <a href=""><li>聯絡我們</li></a>
             </ul>
@@ -39,11 +40,12 @@ class Header extends Component {
         );
     }
     componentDidMount = async () => {
-        var result = await axios.get("http://localhost:8000/member/info");
-        // console.log(result)
-        // var newState = {...this.state};
-        // newState.TodoList = result.data;
-        // this.setState(newState);
+        console.log(this.props.id)
+        if(this.props.id) {
+            var userinfo = await axios.get("http://localhost:8000/member/info/" +  this.props.id);  
+            var newState = userinfo.data;
+            this.setState(newState);
+        }
     }
     toggleLogoIn = (e) => {
         e.stopPropagation();
@@ -54,6 +56,7 @@ class Header extends Component {
         e.stopPropagation();
     }
     logoIn = async (e) => {
+        console.log(this.props)
         e.preventDefault();
         var dataToServer = {
             userEmail: document.getElementById('userEmail').value,
@@ -73,8 +76,9 @@ class Header extends Component {
             this.setState({
                 userName: result.data.userName,
                 headShot: result.data.headShot,
+                userID: result.data.userID,
             })
-            alert("登入成功");
+            window.location = "/Joing/index/" + result.data.userID
 
         }else {
             alert('帳號或密碼錯誤')
