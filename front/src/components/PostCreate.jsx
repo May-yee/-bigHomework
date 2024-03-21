@@ -24,7 +24,7 @@ class JoingPostCreate extends Component {
 <div className="main">
         <div className="container">
             <div className="create">
-                <form action="" method="post">
+                <form action="" method="">
                     <div className="post_img">
                         <img  id="imagePreview" src={this.state.ImgPreview} alt=""/>
                     </div>
