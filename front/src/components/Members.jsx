@@ -67,7 +67,7 @@ class MemberEdit extends Component {
                         <div className="settingItemTitle  row">
                             <h3>生</h3><h3>日:</h3>
                         </div>
-                        <p>2024/03/16</p>
+                        <p>{this.state.birth}</p>
                     </div>
                     <div className="settingItem">
                         <div className="settingItemTitle  row">

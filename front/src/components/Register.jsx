@@ -160,6 +160,7 @@ class Register extends Component {
                 formData,
                 config
             );
+            console.log(result.data)
             if(result.data['success']) {
                 alert("註冊成功");
                 window.location = "/"
