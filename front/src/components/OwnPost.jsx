@@ -57,7 +57,7 @@ class OwnPost extends Component {
             
 
             <div class="post_right">
-                <div class="comment">
+            <div class="comment">
                     <div class="comment_title">
                         <h2>揪團討論ING</h2>
                     </div>
@@ -73,8 +73,8 @@ class OwnPost extends Component {
                         )}
                     </div>
                     <div class="comment_input">
-                        <input type="text" placeholder="傳送留言...."/>
-                        <div class="submit"><img src="http://localhost:3000/images/submit.svg" alt=""/></div>
+                        <input type="text" placeholder="傳送留言...." value={this.state.chatList.message} onChange={this.message_change}/>
+                        <div class="submit"><img src="http://localhost:3000/images/submit.svg" alt="" onClick={this.send_message}/></div>
                     </div>
                 </div>
                 <div class="join_box">
@@ -178,6 +178,24 @@ class OwnPost extends Component {
         newState.chatList = chatresult.data;        
         this.setState(newState);
     }
-    
+    message_change = (e) => {
+        var newState = {...this.state};
+        newState.chatList.message = e.target.value;
+        newState.chatList.com_postID = this.props.match.params.id;
+        this.setState(newState);
+    }
+
+
+
+    send_message = async () => {
+        var dataToSever = {
+            com_postID: this.props.match.params.id,
+            message: this.state.chatList.message
+        }
+        
+         await axios.post("http://localhost:8000/post/chat",dataToSever);
+         window.location.reload();
+        
+    }
 } 
 export default OwnPost;
