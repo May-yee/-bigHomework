@@ -6,7 +6,9 @@ class OwnMembers extends Component {
     state = { 
         
      } 
+     
     render()  {
+        
         return (    
         
     <React.Fragment>
@@ -62,7 +64,9 @@ class OwnMembers extends Component {
                         <div className="settingItemTitle  row">
                             <h3>性</h3><h3>別:</h3>
                         </div>
-                        <p>{this.state.sex}</p>
+                        <p>{this.state.sex==0?"男":
+                            this.state.sex==1?"女":
+                            this.state.sex==2?"其他":"不公開"}</p>
                     </div>
                     <div className="settingItem row">
                         <div className="settingItemTitle  row">
@@ -535,6 +539,8 @@ class OwnMembers extends Component {
             var mainHeader = document.querySelector(".memberMain h2");
             mainHeader.textContent = "已收藏"
         }
+        
+        
     }
         
     
