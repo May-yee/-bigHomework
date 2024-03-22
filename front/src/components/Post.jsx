@@ -21,8 +21,8 @@ class Post extends Component {
                         </div>
                         <h2>{this.state.postItem.title}</h2>
                         <div className="btn_group row">
-                            <a href={`/Joing/postedit/${this.props.match.params.id}`}><div className="btn btn_blue">編輯</div></a>
-                            <a href={`/Joing/postdelete/${this.props.match.params.id}`}><div className="btn btn_gray">刪除</div></a>
+                            <a><div className="btn btn_blue apply-btn">申請參加</div></a>
+                            
                         </div>
                         <div className="content_box row">
                             <h4>揪團時間:</h4><p>{this.state.postItem.registeredDate} {this.state.postItem.registeredTime}</p>
