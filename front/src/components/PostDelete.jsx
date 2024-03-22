@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from './header';
 import axios from 'axios';
+import cookie from 'react-cookies'
 class PostDelete extends Component {
     state = { 
         postItem:{},
@@ -8,7 +9,7 @@ class PostDelete extends Component {
     render() { 
         return (
         <React.Fragment>
-        <Header/>     
+        <Header id={cookie.load('userID')}/>     
             <div class="main">            
             <div class="container post_page">
                     <div class="post_item">                
