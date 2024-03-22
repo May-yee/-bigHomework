@@ -11,6 +11,7 @@ import OwnMembers from './components/OwnMembers';
 import MemberEdit from './components/MemberEdit';
 import OwnPost from './components/OwnPost';
 import Members from './components/Members';
+import Error from './components/Error';
 
 
 
@@ -31,7 +32,8 @@ class App extends Component {
              <Route path="/Joing/memberedit" component={MemberEdit}/>
              <Route path="/Joing/post/:id" component={Post}/>
              <Route path="/Joing/ownmembers/:id" component={OwnMembers}/>
-             <Route path="/Joing/members/:id" component={Members}/> 
+             <Route path="/Joing/members/:id" component={Members}/>
+             <Route component={Error}/> 
            </Switch>
         </div>
       </BrowserRouter>

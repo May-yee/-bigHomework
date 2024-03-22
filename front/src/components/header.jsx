@@ -3,7 +3,8 @@ import axios from 'axios';
 import cookie from 'react-cookies'
 
 class Header extends Component {
-    state = { 
+    state = {
+        onLogin: "",
         userName: "會員名稱",
         headShot: "http://localhost:3000/images/head_sticker.png",
         userID: "",
@@ -19,7 +20,7 @@ class Header extends Component {
                 </div>
             </a>
             <ul className="row">
-                <a href={"/Joing/ownmembers/" + this.state.userID}><li>會員專區</li></a>
+                <a href='/' onClick={this.gomember}><li>會員專區</li></a>
                 <a href=""><li>新手上路</li></a>
                 <a href=""><li>聯絡我們</li></a>
             </ul>
@@ -32,9 +33,12 @@ class Header extends Component {
         </div>
         <div className="container" id="logindiv" onClick={this.logindiv}>
             <form className="logoIn" method='post' id="logoInform" onSubmit={this.logoIn}>
-                <input type="text" name="userEmail" id="userEmail" required/>
-                <input type="password" name="passWord" id="passWord" required/>
+                <input type="text" name="userEmail" id="userEmail" placeholder='在此輸入信箱' required/>
+                <input type="password" name="passWord" id="passWord" placeholder='在此輸入密碼' required/>
+                {(this.state.onLogin) ? 
+                <input type="button" value="登出" id="logout" onClick={this.onLogout}/> :
                 <input type="submit" value="登入"/>
+                }
                 <a href="/Joing/register">註冊帳號</a>
             </form>
         </div>
@@ -42,10 +46,23 @@ class Header extends Component {
         );
     }
     componentDidMount = async () => {
-        if(this.props.id) {
+        if(cookie.load('userID')) {
             var userinfo = await axios.get("http://localhost:8000/member/info/" +  this.props.id);  
-            var newState = userinfo.data;
+            var newState = {...this.state};
+            newState.userName = userinfo.data.userName;
+            newState.headShot = userinfo.data.headShot;
+            newState.userID = userinfo.data.userID;
+            newState.onLogin = cookie.load('userID');
             this.setState(newState);
+        }
+    }
+    gomember = (e) => {
+        e.preventDefault();
+        var onLogin = cookie.load('userID');
+        if(onLogin) {
+            window.location.href = "/Joing/ownmembers/" + this.state.userID
+        }else {
+            alert("請先登入會員")
         }
     }
     toggleLogoIn = (e) => {
@@ -74,12 +91,13 @@ class Header extends Component {
             config
         )
         if(result.data['success']) {
+            cookie.save('userID', result.data.userID, { path: '/' })
             this.setState({
+                onLogin: result.data.userID,
                 userName: result.data.userName,
                 headShot: result.data.headShot,
                 userID: result.data.userID,
             })
-            cookie.save('userID', result.data.userID, { path: '/' })
 
             window.location = "/Joing/index/" + result.data.userID;
 
@@ -87,7 +105,13 @@ class Header extends Component {
             alert('帳號或密碼錯誤')
         }
     }
-
+    onLogout = (e) => {
+        cookie.remove('userID', { path: '/' })
+        var newState = {...this.state};
+        newState.onLogin = cookie.load('userID');
+        this.setState(newState);
+        window.location.href = "/"
+    }
 
 }
  
