@@ -366,6 +366,10 @@ footer{
     height: 400px;
     background-color: #969696;
 }
+.post_item .images img{
+    width: 100%;
+    height: 100%;
+}
 .post_item_content{
     margin-top: 20px;
 }
@@ -423,7 +427,7 @@ footer{
 .comment_title{
     border-bottom: #FFCC70 4px solid;
     text-align: center;
-    color: #FFCC70;
+    color: #22668D;
 }
 
 .message_area{
@@ -514,6 +518,7 @@ footer{
 }
 .join_member a{
     display: inline-block;
+    margin-right: 8px;
 }
 /* ---------------- *\
 	own_post_page

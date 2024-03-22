@@ -103,12 +103,27 @@ class OwnMembers extends Component {
                                 <p>18:00</p>
                             </div>
                             <div className="subject">
-                                <h3>您的揪團已有人申請</h3>
+                                <h3>您的參加申請已通過</h3>
                             </div>
                             <button className="delet"><img src="http://localhost:3000/images/trash_icon.png" alt=""/></button>
                         </div>
                         <div className="noteBoxTContent">
-                            <p>會員名稱 已申請參加您的揪團:  台中玩桌遊</p>
+                            <p>會員名稱 已通過您的申請:  礁溪泡溫泉</p>
+                        </div>
+                    </div>
+                    <div className="noteBox">
+                        <div className="noteBoxTop row">
+                            <div className="time">
+                                <p>2024/04/03</p>
+                                <p>18:00</p>
+                            </div>
+                            <div className="subject">
+                                <h3>您的參加申請已被婉拒</h3>
+                            </div>
+                            <button className="delet"><img src="http://localhost:3000/images/trash_icon.png" alt=""/></button>
+                        </div>
+                        <div className="noteBoxTContent">
+                            <p>會員名稱 已婉拒您的申請:  台南喝牛肉湯</p>
                         </div>
                     </div>
                 </div>
@@ -456,7 +471,7 @@ class OwnMembers extends Component {
     componentDidMount = async () => {
         var onLogin = cookie.load('userID');
         if(onLogin) {
-            var result = await axios.get("http://localhost:8000/member/info/" + this.props.match.params.id);
+            var result = await axios.get("http://localhost:8000/ownmembers/" + this.props.match.params.id);
             var newState = {...this.state};
             newState = result.data;
             this.setState(newState);
