@@ -150,7 +150,7 @@ class Register extends Component {
     };
     onSubmit = async (e) => {
         e.preventDefault();
-        if(this.state.passWord == this.state.passWord2) {
+        if(this.state.passWord === this.state.passWord2) {
             var formData = new FormData();
             var config = {headers: {'Content-Type': 'multipart/form-data'}};
             formData.append('headShot',  this.state.headShot);
