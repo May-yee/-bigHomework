@@ -219,3 +219,26 @@ app.get("/ownmembers/:id", function (req, res) {
     }
   );
 });
+
+// app.post("/post/apply", function (req, res) {
+//     conn.query(
+//       "insert into apply (memberID, postID, headShot) values(?,?,?)",
+//       [req.body.memberID, req.body.postID, req.body.headShot],
+//       function (err, rows) {
+//         if (err) {
+//           console.error("Error updating post:", err);
+//           res.status(500).send("Error updating post");
+//           return;
+//         }
+//         res.send(JSON.stringify(req.body.postItem));
+//       }
+//     );
+//   });
+
+// app.get("/apply/post/:id", function (req, res) {
+//     conn.query("select * from apply where postID = ?", 
+//     [req.params.id], 
+//     function (err, rows) {
+//       res.send(JSON.stringify(rows));
+//     });
+//   });

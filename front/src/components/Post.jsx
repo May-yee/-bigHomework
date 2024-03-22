@@ -5,7 +5,8 @@ import cookie from 'react-cookies'
 class Post extends Component {
     state = { 
         postItem:{},
-        chatList:[]
+        chatList:[],
+        // apply:[]
      } 
     render() { 
         return (
@@ -25,7 +26,7 @@ class Post extends Component {
                         </div>
                         <h2>{this.state.postItem.title}</h2>
                         <div className="btn_group row">
-                            <a><div className="btn btn_blue apply-btn"onClick={this.btn_join}>申請參加</div></a>
+                            <a><div className="btn btn_blue apply-btn">申請參加</div></a>
                             
                         </div>
                         <div className="content_box row">
@@ -141,7 +142,20 @@ class Post extends Component {
         
     }
 
-
+    // btn_apply = async () => {
+    //     var newState = {...this.state};
+    //     newState.apply.postID = this.props.match.params.id;
+    //     newState.apply.memberID = cookie.load("userID");
+    //     newState.apply.headShot = cookie.load('headShot');
+    //     this.setState(newState);
+    //     var dataToServer = {
+    //         postID: this.state.apply.postID,
+    //         memberID: this.state.apply.memberID,
+    //         headShot: this.state.apply.headShot
+    //     }
+    //     console.log(dataToServer)
+    //     await axios.post("http://localhost:8000/post/apply",dataToServer);
+    // }
 
     send_message = async () => {
         var dataToSever = {
