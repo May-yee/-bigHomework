@@ -50,7 +50,7 @@ class MemberEdit extends Component {
                             </div>
                             <div className="btn_group">
                                 <button className="btn btn_orange">確定</button>
-                                <a href="/ownMember" className="btn btn_gray">取消</a>
+                                <a href={"/Joing/ownmembers/"+this.props.match.params.id} className="btn btn_gray">取消</a>
                             </div>
                         </form>
                     </div>
