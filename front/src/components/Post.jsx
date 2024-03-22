@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from './header';
 import axios from 'axios';
+import cookie from 'react-cookies'
 class Post extends Component {
     state = { 
         postItem:{},
@@ -9,8 +10,8 @@ class Post extends Component {
     render() { 
         return (
         <React.Fragment>
-        <Header/>     
-            <div className="main">            
+        <Header id={cookie.load('userID')}/>     
+            <div className="main" onClick={this.toggleLogoIn}>            
             <div className="container post_page">
                     <div className="post_item">                
                     <div className="images"></div>
@@ -96,6 +97,10 @@ class Post extends Component {
         newState.postItem = result.data;
         newState.chatList = chatresult.data;        
         this.setState(newState);
+    }
+    toggleLogoIn = (e) => {
+        const logoIn = document.querySelector(".logoIn");
+        logoIn.classList.remove("show");
     }
     message_change = (e) => {
         var newState = {...this.state};

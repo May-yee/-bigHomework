@@ -12,7 +12,7 @@ class OwnMembers extends Component {
     <React.Fragment>
     <Header id={this.props.match.params.id}/>
     
-    <div className="main">
+    <div className="main" onClick={this.toggleLogoIn}>
         <div className="container row member">
             <div className="memberNav">
                 <div className="memberNavBtn row" id="settingBtn" onClick={this.btn_setting}>
@@ -465,6 +465,10 @@ class OwnMembers extends Component {
             window.location.href = "/";
         }
         
+    }
+    toggleLogoIn = (e) => {
+        const logoIn = document.querySelector(".logoIn");
+        logoIn.classList.remove("show");
     }
     btn_setting = () => {
             var memberMainBodies = document.querySelectorAll(".memberMainBody");
