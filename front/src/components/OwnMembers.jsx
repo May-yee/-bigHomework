@@ -12,7 +12,7 @@ class OwnMembers extends Component {
     <React.Fragment>
     <Header id={this.props.match.params.id}/>
     
-    <div className="main">
+    <div className="main" onClick={this.toggleLogoIn}>
         <div className="container row member">
             <div className="memberNav">
                 <div className="memberNavBtn row" id="settingBtn" onClick={this.btn_setting}>
@@ -41,7 +41,7 @@ class OwnMembers extends Component {
                 {/* setting */}
                 <div className="memberMainBody setting show">
                     <div className="btn_group">
-                        <a href="/Joing/memberedit" className="btn btn_blue">編輯</a>
+                        <a href={"/Joing/memberedit/"+this.props.match.params.id} className="btn btn_blue">編輯</a>
                     </div>
                     <div className="member_img">
                         <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
@@ -56,13 +56,13 @@ class OwnMembers extends Component {
                         <div className="settingItemTitle  row">
                             <h3>信</h3><h3>箱:</h3>
                         </div>
-                        <p>1616vvvvv@mail.com</p>
+                        <p>{this.state.userEmail}</p>
                     </div>
                     <div className="settingItem row">
                         <div className="settingItemTitle  row">
                             <h3>性</h3><h3>別:</h3>
                         </div>
-                        <p>其他性別</p>
+                        <p>{this.state.sex}</p>
                     </div>
                     <div className="settingItem row">
                         <div className="settingItemTitle  row">
@@ -74,7 +74,7 @@ class OwnMembers extends Component {
                         <div className="settingItemTitle  row">
                             <h3>自</h3><h3>我</h3><h3>介</h3><h3>紹:</h3>
                         </div>
-                        <p>人這次到很的心的在我環境，的都當朋友裡面是，家都結人點的，是因為是一個的可以，了嗎還會有什麼換成，就說縮著愛。新的好棒結果是來了，明的感覺一個他可能：樣的感情得有來了好不好，早晨還有，被兩剛看到最後是這，我看著手機大家別人家自己不的慾望。我還是了他我需我懷疑樂是我，的太不好意都化可愛啊怎樣，分是太我也不難然會被得這加上，的心真的只可，一我比較，早了會的這笑的武器的記。例如這個人都不自己哈哈，我認為不是一樣，怎麼說爆炸我就是沒有，也都是聖誕節，不然⋯不然結果是我一定要。 </p>
+                        <p>{this.state.introduction} </p>
                     </div>
 
                 </div>
@@ -465,6 +465,10 @@ class OwnMembers extends Component {
             window.location.href = "/";
         }
         
+    }
+    toggleLogoIn = (e) => {
+        const logoIn = document.querySelector(".logoIn");
+        logoIn.classList.remove("show");
     }
     btn_setting = () => {
             var memberMainBodies = document.querySelectorAll(".memberMainBody");

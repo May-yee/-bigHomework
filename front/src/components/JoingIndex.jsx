@@ -14,9 +14,9 @@ class JoingIndex extends Component {
     render() { 
         return (
                                    
-            <div onClick={this.toggleLogoIn}>
+            <div>
                 <Header id={this.props.match.params.id}/>
-                <div className="main">
+                <div className="main" onClick={this.toggleLogoIn}>
                     <a href="/Joing/postcreate" className="post_create_btn" onClick={this.onPostCreate}>
                         <div className="post_create">
                             <div className="line"></div>
