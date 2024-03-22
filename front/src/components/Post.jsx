@@ -25,7 +25,7 @@ class Post extends Component {
                         </div>
                         <h2>{this.state.postItem.title}</h2>
                         <div className="btn_group row">
-                            <a><div className="btn btn_blue apply-btn">申請參加</div></a>
+                            <a><div className="btn btn_blue apply-btn"onClick={this.btn_join}>申請參加</div></a>
                             
                         </div>
                         <div className="content_box row">
@@ -66,7 +66,7 @@ class Post extends Component {
                             {this.state.chatList.map(chat=>
                                 <div className="message">
                                 <div className="member_box">
-                                    <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
+                                    <img src={chat.headShot} alt=""/>
                                     <p>{chat.cmName}</p>
                                 </div>
                                 <p>{chat.message}</p>
@@ -136,6 +136,7 @@ class Post extends Component {
         newState.chatList.com_postID = this.props.match.params.id;
         newState.chatList.commenter = cookie.load('userID')
         newState.chatList.cmName = cookie.load('userName')
+        newState.chatList.headShot = cookie.load('headShot')
         this.setState(newState);
         
     }
@@ -147,7 +148,8 @@ class Post extends Component {
             com_postID: this.props.match.params.id,
             message: this.state.chatList.message,
             commenter: this.state.chatList.commenter,
-            cmName: this.state.chatList.cmName
+            cmName: this.state.chatList.cmName,
+            headShot: this.state.chatList.headShot
         }
         
          await axios.post("http://localhost:8000/post/chat",dataToSever);
