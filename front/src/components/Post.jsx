@@ -11,10 +11,13 @@ class Post extends Component {
         return (
         <React.Fragment>
         <Header id={cookie.load('userID')}/>     
-            <div className="main" onClick={this.toggleLogoIn}>            
+        <div className="main" onClick={this.toggleLogoIn}>  
+
             <div className="container post_page">
-                    <div className="post_item">                
-                    <div className="images"></div>
+                <div className="post_item">                
+                        <div className="images">
+                            <img src={this.state.postItem.postIMG} alt="" />
+                        </div>
                     <div className="post_item_content">
                         <div className="member_box">
                             <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
@@ -52,36 +55,61 @@ class Post extends Component {
                             </div>                       
                         </div>
                         <p>{this.state.postItem.content}</p>
-                    </div>                                
-            </div>
-            
-            
-
-            <div className="post_right">
-                <div className="comment">
-                    <div className="comment_title">
-                        <h2>揪團討論ING</h2>
                     </div>
-                    <div className="message_area">
-                        {this.state.chatList.map(chat=>
-                            <div className="message">
-                            <div className="member_box">
-                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                <p>會員名稱</p>
-                            </div>
-                            <p>{chat.message}</p>
+                </div>                                    
+                <div className="post_right">
+                    <div className="comment">
+                        <div className="comment_title">
+                            <h2>揪團討論ING</h2>
                         </div>
-                        )}
+                        <div className="message_area">
+                            {this.state.chatList.map(chat=>
+                                <div className="message">
+                                <div className="member_box">
+                                    <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
+                                    <p>會員名稱</p>
+                                </div>
+                                <p>{chat.message}</p>
+                            </div>
+                            )}
+                        </div>
+                        <div className="comment_input">
+                            <input type="text" placeholder="傳送留言...." value={this.state.chatList.message} onChange={this.message_change}/>
+                            <div className="submit"><img src="http://localhost:3000/images/submit.svg" alt="" onClick={this.send_message}/></div>
+                        </div>
                     </div>
-                    <div className="comment_input">
-                        <input type="text" placeholder="傳送留言...." value={this.state.chatList.message} onChange={this.message_change}/>
-                        <div className="submit"><img src="http://localhost:3000/images/submit.svg" alt="" onClick={this.send_message}/></div>
+                    <div class="join_box">
+                    <div class="already_join">
+                        <div class="join_box_title row">
+                            <h2>已參加</h2>
+                            <div class="num_box"><p>12</p></div>
+                        </div>
+                        <div class="join_member">
+                            <a href="">
+                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
+                            </a>
+                            <a href="">
+                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
+                            </a>
+                            <a href="">
+                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
+                            </a>
+                            <a href="">
+                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
+                            </a>
+                            <a href="">
+                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
+                            </a>
+                            <a href="">
+                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
+                            </a>
+                        </div>
                     </div>
                 </div>
+                </div>
             </div>
-
-        </div>
-    </div>        
+            
+        </div>       
             
         
     </React.Fragment>

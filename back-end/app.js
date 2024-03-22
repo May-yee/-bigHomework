@@ -132,6 +132,7 @@ const storage = multer.diskStorage({
 app.post("/post/create",upload.single('postIMG'),function(req, res){
     const img = "http://localhost:8000/uploads/"+ req.file.filename;
     // console.log(img);
+    console.log(req.body);
     conn.query("insert into post (postIMG,type,userID,title, registeredDate, registeredTime, activityDate, activityTime, minPeople, maxPeople, location, price, content) values(?,?,?,?,?,?,?,?,?,?,?,?,?)",
     [img,req.body.type,req.body.userID,req.body.title, req.body.registeredDate, req.body.registeredTime, req.body.activityDate, req.body.activityTime, req.body.minPeople, req.body.maxPeople, req.body.location, req.body.price, req.body.content],
     function(err, rows){
@@ -140,6 +141,7 @@ app.post("/post/create",upload.single('postIMG'),function(req, res){
             res.status(500).send("Error updating post");
             return;
         }
+        
         res.send( JSON.stringify( req.body));
         
     }     
