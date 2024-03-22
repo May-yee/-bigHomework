@@ -216,7 +216,9 @@ header ul li{
 .logoIn.show{
     display: flex;
 }
-
+#logout {
+    cursor: pointer;
+}
 
 /* ---------- *\
 	Footer

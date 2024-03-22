@@ -5,7 +5,7 @@ import cookie from 'react-cookies'
 
 class JoingIndex extends Component {
     state = { 
-        userinfo: {},
+        onLogin: "",
         postList: []
         // memberId : 2,
         // path : "/Joing/memeberjoinrecord"
@@ -17,7 +17,7 @@ class JoingIndex extends Component {
             <div onClick={this.toggleLogoIn}>
                 <Header id={this.props.match.params.id}/>
                 <div className="main">
-                    <a href="/Joing/postcreate" className="post_create_btn">
+                    <a href="/Joing/postcreate" className="post_create_btn" onClick={this.onPostCreate}>
                         <div className="post_create">
                             <div className="line"></div>
                             <div className="line"></div>
@@ -94,7 +94,6 @@ class JoingIndex extends Component {
         
     
     componentDidMount = async () =>{
-        console.log(cookie.load('userID'))
         var result = await axios.get("http://localhost:8000/index/post");
         var newState = {...this.state};
         newState.postList = result.data;
@@ -107,6 +106,14 @@ class JoingIndex extends Component {
     //     newState.path = "/Joing/memeberjoinrecord"
     // }
     // this.setState(newState);
+    }
+    onPostCreate = (e) => {
+        e.preventDefault();
+        if(cookie.load("userID")){
+            window.location.href = "/Joing/postcreate"
+        }else {
+            alert('請先登入會員');
+        }
     }
     toggleLogoIn = (e) => {
         const logoIn = document.querySelector(".logoIn");

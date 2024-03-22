@@ -454,11 +454,17 @@ class OwnMembers extends Component {
     ) 
     }
     componentDidMount = async () => {
-        console.log(cookie.load('userID')) 
-        var result = await axios.get("http://localhost:8000/member/info/" + this.props.match.params.id);
-        var newState = {...this.state};
-        newState = result.data;
-        this.setState(newState);
+        var onLogin = cookie.load('userID');
+        if(onLogin) {
+            var result = await axios.get("http://localhost:8000/member/info/" + this.props.match.params.id);
+            var newState = {...this.state};
+            newState = result.data;
+            this.setState(newState);
+        }else {
+            alert("請先登入會員");
+            window.location.href = "/";
+        }
+        
     }
     btn_setting = () => {
             var memberMainBodies = document.querySelectorAll(".memberMainBody");
