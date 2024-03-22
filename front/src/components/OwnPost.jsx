@@ -14,7 +14,9 @@ class OwnPost extends Component {
             <div class="main">            
             <div class="container post_page">
                     <div class="post_item">                
-                    <div class="images"></div>
+                    <div className="images">
+                            <img src={this.state.postItem.postIMG} alt="" />
+                        </div>
                     <div class="post_item_content">
                         <div class="member_box">
                             <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
