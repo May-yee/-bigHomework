@@ -192,8 +192,8 @@ app.delete("/post/delete/:id", function (req, res) {
 // 新增留言板留言
 app.post("/post/chat", function (req, res) {
   conn.query(
-    "insert into coment (com_postID, commenter, cmName, message) values(?,?,?,?)",
-    [req.body.com_postID, req.body.commenter, req.body.cmName, req.body.message],
+    "insert into coment (com_postID, commenter, cmName, headShot, message) values(?,?,?,?,?)",
+    [req.body.com_postID, req.body.commenter, req.body.cmName, req.body.headShot, req.body.message],
     function (err, rows) {
       if (err) {
         console.error("Error updating post:", err);

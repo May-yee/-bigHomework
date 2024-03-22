@@ -68,7 +68,7 @@ class OwnPost extends Component {
                             {this.state.chatList.map(chat=>
                                 <div class="message">
                                 <div class="member_box">
-                                    <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
+                                    <img src={chat.headShot} alt=""/>
                                     <p>{chat.cmName}</p>
                                 </div>
                                 <p>{chat.message}</p>
@@ -184,6 +184,7 @@ class OwnPost extends Component {
         newState.chatList.com_postID = this.props.match.params.id;
         newState.chatList.commenter = cookie.load('userID');
         newState.chatList.cmName = cookie.load('userName')
+        newState.chatList.headShot = cookie.load('headShot')
         this.setState(newState);
         
     }
@@ -195,7 +196,8 @@ class OwnPost extends Component {
             com_postID: this.props.match.params.id,
             message: this.state.chatList.message,
             commenter: this.state.chatList.commenter,
-            cmName: this.state.chatList.cmName
+            cmName: this.state.chatList.cmName,
+            headShot: this.state.chatList.headShot
         }
         
          await axios.post("http://localhost:8000/post/chat",dataToSever);

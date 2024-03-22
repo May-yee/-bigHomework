@@ -74,7 +74,6 @@ class Header extends Component {
         e.stopPropagation();
     }
     logoIn = async (e) => {
-        console.log(this.props)
         e.preventDefault();
         var dataToServer = {
             userEmail: document.getElementById('userEmail').value,
@@ -93,6 +92,7 @@ class Header extends Component {
         if(result.data['success']) {
             cookie.save('userID', result.data.userID, { path: '/' })
             cookie.save('userName', result.data.userName, { path: '/' })
+            cookie.save('headShot', result.data.headShot, { path: '/' })
             this.setState({
                 onLogin: result.data.userID,
                 userName: result.data.userName,

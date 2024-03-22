@@ -20,6 +20,9 @@ class Register extends Component {
 
         return (
             <div className="main">
+                {/* <input type="file" id="upload" multiple="false"/>
+                <button id="btnCrop">上傳</button>
+                <div id="main-cropper"></div> */}
                 <div className="container">
                     <h2 style={{ textAlign: "center" }}>註冊帳號</h2>
                     <div className="settingEdit">
