@@ -259,7 +259,7 @@ footer{
 }
 .jumbotron_p{
     margin: 40px auto;
-    width: 560px;
+    width: 80%;
     line-height: 32px;
 }
 /* post */
@@ -335,6 +335,8 @@ footer{
 }
 .post_box .post_img img{
     height: 100%;
+    width: 100%;
+    object-fit:cover;
 }
 .post_box .post_content{
     padding: 12px;
@@ -363,6 +365,10 @@ footer{
     width: 600px;
     height: 400px;
     background-color: #969696;
+}
+.post_item .images img{
+    width: 100%;
+    height: 100%;
 }
 .post_item_content{
     margin-top: 20px;
@@ -421,7 +427,7 @@ footer{
 .comment_title{
     border-bottom: #FFCC70 4px solid;
     text-align: center;
-    color: #FFCC70;
+    color: #22668D;
 }
 
 .message_area{
@@ -512,6 +518,7 @@ footer{
 }
 .join_member a{
     display: inline-block;
+    margin-right: 8px;
 }
 /* ---------------- *\
 	own_post_page
@@ -818,6 +825,8 @@ footer{
 }
 .create .post_img img{
     height: 100%;
+    width: 100%;
+    object-fit:cover;
 }
 
 .create .btn_group {

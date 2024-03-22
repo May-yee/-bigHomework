@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from './header';
 import axios from 'axios';
+import cookie from 'react-cookies';
 class OwnPost extends Component {
     state = { 
         postItem:{},
@@ -9,7 +10,7 @@ class OwnPost extends Component {
     render() { 
         return (
         <React.Fragment>
-        <Header/>     
+        <Header id={cookie.load('userID')}/>     
             <div class="main">            
             <div class="container post_page">
                     <div class="post_item">                
@@ -57,25 +58,25 @@ class OwnPost extends Component {
             
 
             <div class="post_right">
-            <div class="comment">
-                    <div class="comment_title">
-                        <h2>揪團討論ING</h2>
-                    </div>
-                    <div class="message_area">
-                        {this.state.chatList.map(chat=>
-                            <div class="message">
-                            <div class="member_box">
-                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                <p>會員名稱</p>
-                            </div>
-                            <p>{chat.message}</p>
+                <div class="comment">
+                        <div class="comment_title">
+                            <h2>揪團討論ING</h2>
                         </div>
-                        )}
-                    </div>
-                    <div class="comment_input">
-                        <input type="text" placeholder="傳送留言...." value={this.state.chatList.message} onChange={this.message_change}/>
-                        <div class="submit"><img src="http://localhost:3000/images/submit.svg" alt="" onClick={this.send_message}/></div>
-                    </div>
+                        <div class="message_area">
+                            {this.state.chatList.map(chat=>
+                                <div class="message">
+                                <div class="member_box">
+                                    <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
+                                    <p>會員名稱</p>
+                                </div>
+                                <p>{chat.message}</p>
+                            </div>
+                            )}
+                        </div>
+                        <div class="comment_input">
+                            <input type="text" placeholder="傳送留言...." value={this.state.chatList.message} onChange={this.message_change}/>
+                            <div class="submit"><img src="http://localhost:3000/images/submit.svg" alt="" onClick={this.send_message}/></div>
+                        </div>
                 </div>
                 <div class="join_box">
                     <div class="already_join">
@@ -84,9 +85,6 @@ class OwnPost extends Component {
                             <div class="num_box"><p>12</p></div>
                         </div>
                         <div class="join_member">
-                            <a href="">
-                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                            </a>
                             <a href="">
                                 <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
                             </a>

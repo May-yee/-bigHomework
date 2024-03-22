@@ -12,7 +12,7 @@ class OwnMembers extends Component {
     <React.Fragment>
     <Header id={this.props.match.params.id}/>
     
-    <div className="main">
+    <div className="main" onClick={this.toggleLogoIn}>
         <div className="container row member">
             <div className="memberNav">
                 <div className="memberNavBtn row" id="settingBtn" onClick={this.btn_setting}>
@@ -41,7 +41,7 @@ class OwnMembers extends Component {
                 {/* setting */}
                 <div className="memberMainBody setting show">
                     <div className="btn_group">
-                        <a href="/Joing/memberedit" className="btn btn_blue">編輯</a>
+                        <a href={"/Joing/memberedit/"+this.props.match.params.id} className="btn btn_blue">編輯</a>
                     </div>
                     <div className="member_img">
                         <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
@@ -480,6 +480,10 @@ class OwnMembers extends Component {
             window.location.href = "/";
         }
         
+    }
+    toggleLogoIn = (e) => {
+        const logoIn = document.querySelector(".logoIn");
+        logoIn.classList.remove("show");
     }
     btn_setting = () => {
             var memberMainBodies = document.querySelectorAll(".memberMainBody");

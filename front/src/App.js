@@ -29,7 +29,7 @@ class App extends Component {
              <Route path="/Joing/postcreate" component={PostCreate}/>
              <Route path="/Joing/postedit/:id" component={PostEdit}/>
              <Route path="/Joing/postdelete/:id" component={PostDelete}/>
-             <Route path="/Joing/memberedit" component={MemberEdit}/>
+             <Route path="/Joing/memberedit/:id" component={MemberEdit}/>
              <Route path="/Joing/post/:id" component={Post}/>
              <Route path="/Joing/ownmembers/:id" component={OwnMembers}/>
              <Route path="/Joing/members/:id" component={Members}/>

@@ -14,9 +14,9 @@ class JoingIndex extends Component {
     render() { 
         return (
                                    
-            <div onClick={this.toggleLogoIn}>
+            <div>
                 <Header id={this.props.match.params.id}/>
-                <div className="main">
+                <div className="main" onClick={this.toggleLogoIn}>
                     <a href="/Joing/postcreate" className="post_create_btn" onClick={this.onPostCreate}>
                         <div className="post_create">
                             <div className="line"></div>
@@ -27,12 +27,14 @@ class JoingIndex extends Component {
                         <div className="mask"></div>
                         <div className="jumbotron_content">
                             <h1>揪團ING讓你不再孤單</h1>
-                            <h3>像候鳥一樣隨人群而飛</h3>
+                            <h3>像候鳥一樣飛向溫暖</h3>
                             <div className="jumbotron_p">
                                 <p>
                                     渴望與志同道合的人一起度過精彩時光？快來加入我們的揪團網站吧！
                                     <br />
-                                    無論你是喜歡戶外活動、藝術文化、美食探險還是尋找新的興趣愛好，我們的揪團網站都能滿足你的需求。在這裡，你可以輕鬆地尋找到各種各樣的活動，並與來自台灣各地的新朋友一起共享難忘的體驗。
+                                    無論你是喜歡戶外活動、藝術文化、美食探險還是尋找新的興趣愛好，我們的揪團網站都能滿足你的需求。
+                                    <br />
+                                    在這裡，你可以輕鬆地尋找到各種各樣的活動，並與來自台灣各地的新朋友一起共享難忘的體驗。
                                     <br />
                                     參加我們的揪團活動，不僅可以擴展你的社交圈子，還可以豐富你的生活，打造屬於自己的精彩回憶。現在就加入我們，開始你的飛翔之旅吧！
                                 </p>

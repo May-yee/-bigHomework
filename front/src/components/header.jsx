@@ -13,7 +13,7 @@ class Header extends Component {
         return (
 <header>
         <div className="container">
-            <a href="/">
+            <a href={(cookie.load('userID')) ? "/Joing/index/" + cookie.load('userID') : "/"}>
                 <div className="logo_box row">
                     <img src="http://localhost:3000/images/LOGO.png" alt=""/>
                     <p>揪ing</p>
