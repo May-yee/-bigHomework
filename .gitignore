@@ -1,3 +1,5 @@
 back-end/node_modules/
 front/node_modules/
 back-end/uploads/
+front/public/index.html/
+front/src/components/copy.jsx

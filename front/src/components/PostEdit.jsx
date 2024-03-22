@@ -4,23 +4,23 @@ class PostEdit extends Component {
     state = { 
         postItem: {}, 
         today : new Date().toISOString().split('T')[0],
-        // imgPreview: this.state.postItem.postIMG
+        imgPreview: this.state.postItem.postIMG
     } 
-    // handleImageChange = (e) => {
-    //     const reader = new FileReader();
-    //     const file = e.target.files[0];
+    handleImageChange = (e) => {
+        const reader = new FileReader();
+        const file = e.target.files[0];
 
-    //     reader.onloadend = () => {
-    //         this.setState({ 
-    //             postIMG: file,
-    //             imgPreview: reader.result // 更新 imgPreview 狀態
-    //         });
-    //     };
+        reader.onloadend = () => {
+            this.setState({ 
+                postIMG: file,
+                imgPreview: reader.result // 更新 imgPreview 狀態
+            });
+        };
 
-    //     if (file) {
-    //         reader.readAsDataURL(file);
-    //     }
-    // }
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
     render() { 
         return (
                 <div className="main">
@@ -28,7 +28,7 @@ class PostEdit extends Component {
                             <div className="create">
                                 <form action="" method="post">
                                     <div className="post_img">
-                                        <img  id="imagePreview" src={this.state.postItem.postIMG} alt=""/>
+                                        <img  id="imagePreview" src={this.state.imgPreview || this.state.postItem.postIMG} alt=""/>
                                     </div>
                                     <div className="settingItem row">
                                         <label className="settingItemTitle row"><h3>上</h3><h3>傳</h3><h3>圖</h3><h3>片:</h3></label>
