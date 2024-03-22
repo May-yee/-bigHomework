@@ -74,7 +74,6 @@ class Header extends Component {
         e.stopPropagation();
     }
     logoIn = async (e) => {
-        console.log(this.props)
         e.preventDefault();
         var dataToServer = {
             userEmail: document.getElementById('userEmail').value,

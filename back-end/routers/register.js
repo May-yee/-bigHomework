@@ -73,8 +73,23 @@ router.post("/login", function(req, res) {
         }
     )
 })
+//編輯會員
+router.post("/edit", upload.single('headShot'), function(req, res) {
+    if(req.file.path) {
+        var headShot = (req.file.path.substring(15))
+    }else {
+        var headShot = req.body.headShot;
+    }
+    conn.query("update member set userName =?, userEmail =?, headShot =?, sex =?, introduction =? where userID = ?",
+    [req.body.userName, req.body.userEmail, headShot, 
+        req.body.sex, req.body.introduction, req.body.userID],
+    function(err, rows) {
+        console.log(err)
+        res.send('編輯成功')
+    }
+    )
+})
 router.get("/info/:id", function(req, res) {
-    // console.log(req.params.id)
     if(req.params.id) {
         conn.query("select * from member where userID = ?",
         [req.params.id],

@@ -2,8 +2,25 @@ import React, { Component } from 'react';
 import axios from 'axios';
 class PostEdit extends Component {
     state = { 
-        postItem: {} 
+        postItem: {}, 
+        today : new Date().toISOString().split('T')[0],
+        imgPreview: this.state.postItem.postIMG
     } 
+    handleImageChange = (e) => {
+        const reader = new FileReader();
+        const file = e.target.files[0];
+
+        reader.onloadend = () => {
+            this.setState({ 
+                postIMG: file,
+                imgPreview: reader.result // 更新 imgPreview 狀態
+            });
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
     render() { 
         return (
                 <div className="main">
@@ -11,11 +28,11 @@ class PostEdit extends Component {
                             <div className="create">
                                 <form action="" method="post">
                                     <div className="post_img">
-                                        <img  id="imagePreview" src={this.state.postItem.postIMG} alt=""/>
+                                        <img  id="imagePreview" src={this.state.imgPreview || this.state.postItem.postIMG} alt=""/>
                                     </div>
                                     <div className="settingItem row">
                                         <label className="settingItemTitle row"><h3>上</h3><h3>傳</h3><h3>圖</h3><h3>片:</h3></label>
-                                        <input type="file" id="imageInput" accept="image/*" multiple="false"/>    
+                                        <input type="file" id="imageInput" accept="image/*" multiple="false" onChange={this.handleImageChange}/>    
                                     </div>
                                     <div className="settingItem row">
                                         <label htmlFor="type" className="settingItemTitle row"><h3>類</h3><h3>別:</h3></label>
@@ -34,12 +51,12 @@ class PostEdit extends Component {
                                     </div>
                                     <div className="settingItem row">
                                         <label htmlFor="registeredDate" className="settingItemTitle row"><h3>揪</h3><h3>團</h3><h3>時</h3><h3>間:</h3></label>
-                                        <input type="date" value={this.state.postItem.registeredDate} onChange={this.registeredDate_change} name="registeredDate" style={{marginRight: "20px"}}/>
+                                        <input type="date" value={this.state.postItem.registeredDate} onChange={this.registeredDate_change} name="registeredDate" min={this.state.today}/>
                                         <input type="time" value={this.state.postItem.registeredTime} onChange={this.registeredTime_change} name="registeredTime"/>
                                     </div>
                                     <div className="settingItem row">
                                         <label htmlFor="activityDate" className="settingItemTitle row"><h3>活</h3><h3>動</h3><h3>時</h3><h3>間:</h3></label>
-                                        <input type="date" value={this.state.postItem.activityDate} onChange={this.activityDate_change} name="activityDate"/>
+                                        <input type="date" value={this.state.postItem.activityDate} onChange={this.activityDate_change} name="activityDate" min={this.state.today}/>
                                         <input type="time" value={this.state.postItem.activityTime} onChange={this.activityTime_change} name="activityTime"/>
                                     </div>
                                     <div className="settingItem row">
@@ -167,9 +184,6 @@ class PostEdit extends Component {
          
          window.location = "/";
     }
-
-
-
 
 }
  
