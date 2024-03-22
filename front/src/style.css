@@ -335,6 +335,8 @@ footer{
 }
 .post_box .post_img img{
     height: 100%;
+    width: 100%;
+    object-fit:cover;
 }
 .post_box .post_content{
     padding: 12px;
@@ -818,6 +820,8 @@ footer{
 }
 .create .post_img img{
     height: 100%;
+    width: 100%;
+    object-fit:cover;
 }
 
 .create .btn_group {
