@@ -67,7 +67,7 @@ class Post extends Component {
                                 <div className="message">
                                 <div className="member_box">
                                     <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                    <p>會員名稱</p>
+                                    <p>{chat.cmName}</p>
                                 </div>
                                 <p>{chat.message}</p>
                             </div>
@@ -134,7 +134,10 @@ class Post extends Component {
         var newState = {...this.state};
         newState.chatList.message = e.target.value;
         newState.chatList.com_postID = this.props.match.params.id;
+        newState.chatList.commenter = cookie.load('userID')
+        newState.chatList.cmName = cookie.load('userName')
         this.setState(newState);
+        
     }
 
 
@@ -142,7 +145,9 @@ class Post extends Component {
     send_message = async () => {
         var dataToSever = {
             com_postID: this.props.match.params.id,
-            message: this.state.chatList.message
+            message: this.state.chatList.message,
+            commenter: this.state.chatList.commenter,
+            cmName: this.state.chatList.cmName
         }
         
          await axios.post("http://localhost:8000/post/chat",dataToSever);
