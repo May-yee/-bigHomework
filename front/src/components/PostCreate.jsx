@@ -1,6 +1,7 @@
 import React,{ useState,Component } from 'react';
 import axios from 'axios';
 import cookie from 'react-cookies';
+import { StandaloneSearchBox } from '@react-google-maps/api';
 
 function JoingPostCreate(){
     const [postIMG,setImg] = useState("");
@@ -16,8 +17,25 @@ function JoingPostCreate(){
     const [price,setPrice] = useState(0);
     const [content,setContent] = useState("");
     const [imgPreview, setImgPreview] = useState('');
-    const userID = cookie.load('userID');
+    const userID = cookie.load('userID')
+    const [searchBox, setSearchBox] = useState(null);
 
+    //Google map------------------
+    const handleSearchBoxLoad = (ref) => {
+        setSearchBox(ref);
+    };
+
+    const handlePlacesChanged = () => {
+        if (searchBox) {
+            const places = searchBox.getPlaces();
+            console.log(places);
+            setLocation(places[0].name);
+        }
+    };
+    const goToGoogleMap = () => {
+        window.open(`https://www.google.com/maps/search/?api=1&query=${location}`, '_blank');
+    };
+    
     //--------------------
     let today = new Date().toISOString().split('T')[0];
 
@@ -109,8 +127,10 @@ function JoingPostCreate(){
                             </div>
                             <div className="settingItem row">
                                 <label htmlFor="location" className="settingItemTitle row"><h3>地</h3><h3>點:</h3></label>
-                                <input id="searchInput" type="text" onChange={(Event) =>{setLocation(Event.target.value)}} required/>
-                                <button id="searchButton" className="btn btn_orange">查看地圖</button>
+                                <StandaloneSearchBox onLoad={handleSearchBoxLoad} onPlacesChanged={handlePlacesChanged}>
+                                    <input id="searchInput" type="text" onChange={(Event) =>{setLocation(Event.target.value)}} required/>
+                                </StandaloneSearchBox>
+                                <button id="searchButton" className="btn btn_orange"  onClick={goToGoogleMap}>查看地圖</button>
                             </div>
                             <div className="settingItem row">
                                 <label htmlFor="minPeople" className="settingItemTitle row"><h3>最</h3><h3>少</h3><h3>人</h3><h3>數:</h3></label>
