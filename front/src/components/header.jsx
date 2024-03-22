@@ -92,6 +92,7 @@ class Header extends Component {
         )
         if(result.data['success']) {
             cookie.save('userID', result.data.userID, { path: '/' })
+            cookie.save('userName', result.data.userName, { path: '/' })
             this.setState({
                 onLogin: result.data.userID,
                 userName: result.data.userName,

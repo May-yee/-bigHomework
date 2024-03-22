@@ -14,7 +14,9 @@ class OwnPost extends Component {
             <div class="main">            
             <div class="container post_page">
                     <div class="post_item">                
-                    <div class="images"></div>
+                    <div className="images">
+                            <img src={this.state.postItem.postIMG} alt="" />
+                        </div>
                     <div class="post_item_content">
                         <div class="member_box">
                             <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
@@ -67,7 +69,7 @@ class OwnPost extends Component {
                                 <div class="message">
                                 <div class="member_box">
                                     <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                    <p>會員名稱</p>
+                                    <p>{chat.cmName}</p>
                                 </div>
                                 <p>{chat.message}</p>
                             </div>
@@ -180,7 +182,10 @@ class OwnPost extends Component {
         var newState = {...this.state};
         newState.chatList.message = e.target.value;
         newState.chatList.com_postID = this.props.match.params.id;
+        newState.chatList.commenter = cookie.load('userID');
+        newState.chatList.cmName = cookie.load('userName')
         this.setState(newState);
+        
     }
 
 
@@ -188,7 +193,9 @@ class OwnPost extends Component {
     send_message = async () => {
         var dataToSever = {
             com_postID: this.props.match.params.id,
-            message: this.state.chatList.message
+            message: this.state.chatList.message,
+            commenter: this.state.chatList.commenter,
+            cmName: this.state.chatList.cmName
         }
         
          await axios.post("http://localhost:8000/post/chat",dataToSever);

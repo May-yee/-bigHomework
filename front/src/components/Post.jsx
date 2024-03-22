@@ -25,8 +25,8 @@ class Post extends Component {
                         </div>
                         <h2>{this.state.postItem.title}</h2>
                         <div className="btn_group row">
-                            <a href={`/Joing/postedit/${this.props.match.params.id}`}><div className="btn btn_blue">編輯</div></a>
-                            <a href={`/Joing/postdelete/${this.props.match.params.id}`}><div className="btn btn_gray">刪除</div></a>
+                            <a><div className="btn btn_blue apply-btn">申請參加</div></a>
+                            
                         </div>
                         <div className="content_box row">
                             <h4>揪團時間:</h4><p>{this.state.postItem.registeredDate} {this.state.postItem.registeredTime}</p>
@@ -67,7 +67,7 @@ class Post extends Component {
                                 <div className="message">
                                 <div className="member_box">
                                     <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                    <p>會員名稱</p>
+                                    <p>{chat.cmName}</p>
                                 </div>
                                 <p>{chat.message}</p>
                             </div>
@@ -134,7 +134,10 @@ class Post extends Component {
         var newState = {...this.state};
         newState.chatList.message = e.target.value;
         newState.chatList.com_postID = this.props.match.params.id;
+        newState.chatList.commenter = cookie.load('userID')
+        newState.chatList.cmName = cookie.load('userName')
         this.setState(newState);
+        
     }
 
 
@@ -142,7 +145,9 @@ class Post extends Component {
     send_message = async () => {
         var dataToSever = {
             com_postID: this.props.match.params.id,
-            message: this.state.chatList.message
+            message: this.state.chatList.message,
+            commenter: this.state.chatList.commenter,
+            cmName: this.state.chatList.cmName
         }
         
          await axios.post("http://localhost:8000/post/chat",dataToSever);

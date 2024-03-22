@@ -66,15 +66,15 @@ class Register extends Component {
                             <div className="settingItem row">
                                 <label htmlFor="sex" className="settingItemTitle row"><h3>性</h3><h3>別:</h3></label>
                                 <select name="sex" id="sex" onChange={this.sexChange}>
-                                    <option value="0">男</option>
-                                    <option value="1">女</option>
-                                    <option value="2">其他</option>
-                                    <option value="3">不公開</option>
+                                    <option value="1">男</option>
+                                    <option value="2">女</option>
+                                    <option value="3">其他</option>
+                                    <option value="4">不公開</option>
                                 </select>
                             </div>
                             <div className="settingItem">
                                 <label htmlFor="introduction" className="settingItemTitle row"><h3>自</h3><h3>我</h3><h3>介</h3><h3>紹:</h3></label>
-                                <textarea name="introduction" id="introduction" cols="30" rows="10"></textarea>
+                                <textarea name="introduction" id="introduction" cols="30" rows="10" onChange={this.introductionChange}></textarea>
                             </div>
                             <div className="btn_group">
                                 <button type="submit" className="btn btn_orange">確定</button>
@@ -143,9 +143,14 @@ class Register extends Component {
         newState.sex = e.target.value;
         this.setState(newState);
     }
+    introductionChange = (e) => {
+        var newState = {...this.state};
+        newState.introduction = e.target.value;
+        this.setState(newState);
+    };
     onSubmit = async (e) => {
         e.preventDefault();
-        if(this.state.passWord == this.state.passWord2) {
+        if(this.state.passWord === this.state.passWord2) {
             var formData = new FormData();
             var config = {headers: {'Content-Type': 'multipart/form-data'}};
             formData.append('headShot',  this.state.headShot);

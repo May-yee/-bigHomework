@@ -61,18 +61,18 @@ class JoingIndex extends Component {
                             </div>
                             <div className="post_area">
                                 {this.state.postList.map(post => 
-                                <a href={`/Joing/post/${post.postID}`} key={post.postID}>
+                                <a href={cookie.load("userID")==post.userID ?`/Joing/ownpost/${post.postID}`:`/Joing/post/${post.postID}`} key={post.postID}>
                                         <div className="post_box">
                                             <div className="post_img">
                                                 <img src={post.postIMG} alt="" />
                                             </div>
                                             <div className="post_content">
-                                                <h3>{post.title}</h3>
-                                                <p>{post.location}</p>
+                                                <h3>標題:{post.title}</h3>
+                                                <p>地點:{post.location}</p>
                                                 <p className='content_box'>活動時間:{post.activityDate}  {post.activityTime}</p>
-                                                <p>{post.minPeople}</p>
-                                                <p>{post.maxPeople}</p>
-                                                <p>{post.price} /人</p>
+                                                <p>最低人數:{post.minPeople}</p>
+                                                <p>最高人數{post.maxPeople}</p>
+                                                <p>準備金額:{post.price} /人</p>
                                             </div>
                                         </div>
                                 </a>
