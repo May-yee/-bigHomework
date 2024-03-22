@@ -11,7 +11,7 @@ class PostEdit extends Component {
                             <div className="create">
                                 <form action="" method="post">
                                     <div className="post_img">
-                                        <img  id="imagePreview" src="" alt=""/>
+                                        <img  id="imagePreview" src={this.state.postItem.postIMG} alt=""/>
                                     </div>
                                     <div className="settingItem row">
                                         <label className="settingItemTitle row"><h3>上</h3><h3>傳</h3><h3>圖</h3><h3>片:</h3></label>
@@ -84,6 +84,12 @@ class PostEdit extends Component {
         var result = await axios.get(`http://localhost:8000/index/postitem/${this.props.match.params.id}`);    
         var newState = {...this.state};
         newState.postItem = result.data;        
+        this.setState(newState);
+    }
+
+    postIMG_change = (e) => {
+        var newState = {...this.state};
+        newState.postItem.postIMG = e.target.value
         this.setState(newState);
     }
 
