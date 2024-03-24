@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Croppie } from "croppie";
+var croppie ;
+var croppieOptions;
+var c;
 class Register extends Component {
     state = {
         userImgPreview: "http://localhost:3000/images/head_sticker.png",
@@ -14,25 +18,22 @@ class Register extends Component {
         sex: "0",
         introduction: "",
     }
-
+    img = React.createRef();
     render() {
-        const { userImgPreview } = this.state;
-
         return (
             <div className="main">
-                {/* <input type="file" id="upload" multiple="false"/>
-                <button id="btnCrop">上傳</button>
-                <div id="main-cropper"></div> */}
                 <div className="container">
                     <h2 style={{ textAlign: "center" }}>註冊帳號</h2>
                     <div className="settingEdit">
                         <form id="registerform" onSubmit={this.onSubmit}>
                             <div className="member_img">
-                                <img id="imagePreview" src={userImgPreview} alt="" />
+                                <img ref={this.img} src={this.state.userImgPreview} alt="cropped image" />
                             </div>
+                            <div id="main-cropper"></div>
                             <div className="settingItem row">
                                 <label className="settingItemTitle row"><h3>上</h3><h3>傳</h3><h3>頭</h3><h3>貼:</h3></label>
-                                <input type="file" id="headShot" accept=".png,.jpg,.jpeg" onChange={this.handleImageChange} multiple={false} required />
+                                <input type="file" id="upload" multiple={false}  accept=".png,.jpg,.jpeg" onChange={this.OnFileUpload} required/>
+                                <button id="btnCrop" type='button' className='btn' onClick={this.onResult}>上傳</button>
                             </div>
                             <div className="settingItem row">
                                 <label htmlFor="userName" className="settingItemTitle row"><h3>會</h3><h3>員</h3><h3>名</h3><h3>稱:</h3></label>
@@ -89,22 +90,57 @@ class Register extends Component {
             </div>
         );
     }   //end of render
-    handleImageChange = (e) => {
-        const reader = new FileReader();
-        const file = e.target.files[0];
-        reader.onloadend = () => {
-            var newState = {...this.state};
-            newState.headShot = e.target.files[0];
-            newState.userImgPreview = reader.result;
-            this.setState(newState);
+   componentDidMount = () => {
+    croppie = document.getElementById("main-cropper");
+    croppieOptions = {
+        showZoomer: true,
+        enableOrientation: true,
+        mouseWheelZoom: "ctrl",
+        viewport: {
+            width: 100, height: 100, type: "circle"
+        },
+        boundary: {
+            width: 400, height: 300
         }
-        reader.readAsDataURL(file);
+    };
+    c = new Croppie(croppie, croppieOptions);
+   }
+    OnFileUpload = (e) => {
+		const reader = new FileReader();
+        const file = e.target.files[0];
+		reader.readAsDataURL(file);
+		reader.onload = () => {
+			c.bind({ url: reader.result });
+		};
+    }
+    onResult = (e) => {
+        c.result("base64").then(base64 => {
+            this.img.current.src = base64
+          });
+        c.result("blob").then(blob => {
+        var newState = {...this.state};
+        newState.headShot = blob;
+        this.setState(newState);
+        });  
         
     }
+    // handleImageChange = (e) => {
+    //     const reader = new FileReader();
+    //     const file = e.target.files[0];
+    //     reader.onloadend = () => {
+    //         var newState = {...this.state};
+    //         newState.headShot = e.target.files[0];
+    //         newState.userImgPreview = reader.result;
+    //         this.setState(newState);
+    //     }
+    //     reader.readAsDataURL(file);
+        
+    // }
     userNameChange = (e) => {
         var newState = {...this.state};
         newState.userName = e.target.value;
         this.setState(newState);
+        console.log(this.state)
     }
     userEmailChange = (e) => {
         var newState = {...this.state};
@@ -153,32 +189,37 @@ class Register extends Component {
     };
     onSubmit = async (e) => {
         e.preventDefault();
-        if(this.state.passWord === this.state.passWord2) {
-            var formData = new FormData();
-            var config = {headers: {'Content-Type': 'multipart/form-data'}};
-            formData.append('headShot',  this.state.headShot);
-            formData.append('userEmail', this.state.userEmail);
-            formData.append('passWord', this.state.passWord);
-            formData.append('userName', this.state.userName);
-            formData.append('birth',  this.state.birth);
-            formData.append('birthBoolean', this.state.birthBoolean);
-            formData.append('sex', this.state.sex);
-            formData.append('introduction', this.state.introduction);
-            var result = await axios.post(
-                'http://localhost:8000/member/register',
-                formData,
-                config
-            );
-            console.log(result.data)
-            if(result.data['success']) {
-                alert("註冊成功");
-                window.location.href = "/"
-            }else {
-                alert("註冊失敗");
+        if(this.state.headShot){
+            if(this.state.passWord === this.state.passWord2) {
+                var formData = new FormData();
+                var config = {headers: {'Content-Type': 'multipart/form-data'}};
+                console.log(this.state.headShot)
+                formData.append('headShot',  this.state.headShot);
+                formData.append('userEmail', this.state.userEmail);
+                formData.append('passWord', this.state.passWord);
+                formData.append('userName', this.state.userName);
+                formData.append('birth',  this.state.birth);
+                formData.append('birthBoolean', this.state.birthBoolean);
+                formData.append('sex', this.state.sex);
+                formData.append('introduction', this.state.introduction);
+                var result = await axios.post(
+                    'http://localhost:8000/member/register',
+                    formData,
+                    config
+                );
+                if(result.data['success']) {
+                    alert("註冊成功");
+                    window.location.href = "/"
+                }else {
+                    alert("註冊失敗");
+                }
+            } else {
+                alert("密碼不相同")
             }
-        } else {
-            alert("密碼不相同")
+        }else {
+            alert("請點擊上傳頭貼")
         }
+        
         
     }
 }

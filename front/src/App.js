@@ -20,7 +20,6 @@ class App extends Component {
   render() {
     return (      
        <BrowserRouter>
-        <div>
             <Switch>
              <Route path="/" component={JoingIndex} exact/>
              <Route path="/Joing/index/:id" component={JoingIndex}/>
@@ -35,7 +34,6 @@ class App extends Component {
              <Route path="/Joing/members/:id" component={Members}/>
              <Route component={Error}/> 
            </Switch>
-        </div>
       </BrowserRouter>
     );
   }
