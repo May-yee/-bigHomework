@@ -3,3 +3,4 @@ front/node_modules/
 back-end/uploads/
 front/public/headshots/
 front/src/components/copy.jsx
+front/public/index.html
