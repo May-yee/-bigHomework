@@ -6,7 +6,8 @@ import cookie from 'react-cookies'
 class JoingIndex extends Component {
     state = { 
         onLogin: "",
-        postList: []
+        postList: [],
+        
         // memberId : 2,
         // path : "/Joing/memeberjoinrecord"
     }
@@ -55,9 +56,10 @@ class JoingIndex extends Component {
                             </div>
                             <div class="filter_area">
                                 <label htmlFor="date">日期</label>
-                                <input type="date"/>
+                                <input type="date" onChange={this.select_date} value={this.state.selectedDate}/>
                                 <label htmlFor="search">搜尋</label>
-                                <input type="text"/>
+                                <input type="text" onChange={this.handleInputChange} value={this.state.keyword} placeholder="搜尋"/>
+                                <button onClick={this.handleSearchClick}>確認</button>
                             </div>
                             <div className="post_area">
                                 {this.state.postList.map(post => 
@@ -151,12 +153,38 @@ class JoingIndex extends Component {
         newState.postList = result.data;
         this.setState(newState);
     }
-    select_other = async () => {
+    select_other = async (event) => {
         var result =  await axios.get("http://localhost:8000/index/post/other")
         var newState = {...this.state};
         newState.postList = result.data;
+        newState.selectedDate = event.target.value;
         this.setState(newState);
     }
+
+    select_date = async (event) => {
+        var selectedDate = event.target.value; // 獲取選擇的日期       
+          const result = await axios.get(`http://localhost:8000/index/post/date?value=${selectedDate}`);
+          const newState = { ...this.state };
+          newState.postList = result.data;
+          this.setState(newState);
+          selectedDate = event.target.value;
+      }
+
+
+      handleInputChange = (event) => {
+        this.setState({ keyword: event.target.value });
+    }
+
+
+      handleSearchClick = async () => {
+        const { keyword } = this.state;
+        const result = await axios.get(`http://localhost:8000/index/post/search?keyword=${keyword}`);
+        const newState = { ...this.state };
+        newState.postList = result.data;
+        this.setState(newState);
+    }
+
+
 }  
     
     

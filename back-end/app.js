@@ -83,6 +83,32 @@ app.get("/index/post/other", function (req, res) {
     res.send(JSON.stringify(rows));
   });
 });
+// 日期篩選
+app.get("/index/post/date", function (req, res) {
+  const activityDate = req.query.value; // 從 URL 參數中獲取日期
+  conn.query("SELECT * FROM post WHERE activityDate = ?", [activityDate], function (err, rows) {
+    if (err) {
+      console.error('Error querying posts by date:', err);
+      res.status(500).send('Internal Server Error');
+      return;
+    }
+    res.send(JSON.stringify(rows));
+  });
+});
+
+// 搜尋篩選
+app.get("/index/post/search", function (req, res) {
+  const keyword = req.query.keyword;
+  conn.query("SELECT * FROM post WHERE title LIKE ? OR location LIKE ?", [`%${keyword}%`, `%${keyword}%`], function (err, rows) {
+    if (err) {
+      console.error('Error querying database:', err);
+      res.status(500).send('Internal Server Error');
+      return;
+    }
+    res.send(JSON.stringify(rows));
+  });
+});
+
 
 // 活動貼文
 app.get("/index/postitem/:id", function (req, res) {
