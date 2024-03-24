@@ -25,23 +25,6 @@ class JoingIndex extends Component {
                         </div>
                     </a>
                     <div className="jumbotron ">
-                        <div className="mask"></div>
-                        <div className="jumbotron_content">
-                            <h1>揪團ING讓你不再孤單</h1>
-                            <h3>像候鳥一樣飛向溫暖</h3>
-                            <div className="jumbotron_p">
-                                <p>
-                                    渴望與志同道合的人一起度過精彩時光？快來加入我們的揪團網站吧！
-                                    <br />
-                                    無論你是喜歡戶外活動、藝術文化、美食探險還是尋找新的興趣愛好，我們的揪團網站都能滿足你的需求。
-                                    <br />
-                                    在這裡，你可以輕鬆地尋找到各種各樣的活動，並與來自台灣各地的新朋友一起共享難忘的體驗。
-                                    <br />
-                                    參加我們的揪團活動，不僅可以擴展你的社交圈子，還可以豐富你的生活，打造屬於自己的精彩回憶。現在就加入我們，開始你的飛翔之旅吧！
-                                </p>
-                            </div>
-
-                        </div>
                     </div>
                     <div className="container ">
                         <div className="post">
@@ -59,7 +42,7 @@ class JoingIndex extends Component {
                                 <input type="date" onChange={this.select_date} value={this.state.selectedDate}/>
                                 <label htmlFor="search">搜尋</label>
                                 <input type="text" onChange={this.handleInputChange} value={this.state.keyword} placeholder="搜尋"/>
-                                <button onClick={this.handleSearchClick}>確認</button>
+                                <button className='btn btn_orange' onClick={this.handleSearchClick}>確認</button>
                             </div>
                             <div className="post_area">
                                 {this.state.postList.map(post => 
@@ -69,12 +52,25 @@ class JoingIndex extends Component {
                                                 <img src={post.postIMG} alt="" />
                                             </div>
                                             <div className="post_content">
-                                                <h3>標題:{post.title}</h3>
-                                                <p>地點:{post.location}</p>
+                                                <h3>{post.title}</h3>
+                                                <p className='content_box box_blue'>地點:{post.location}</p>
                                                 <p className='content_box'>活動時間:{post.activityDate}  {post.activityTime}</p>
-                                                <p>最低人數:{post.minPeople}</p>
-                                                <p>最高人數{post.maxPeople}</p>
-                                                <p>準備金額:{post.price} /人</p>
+                                                <div className='row'>
+                                                    <div className='row'>
+                                                        <img src={process.env.PUBLIC_URL + '/images/min.png'} alt="" />
+                                                        <p>最低人數<br />{post.minPeople}</p>    
+                                                    </div>
+                                                    <div className='row'>
+                                                        <img src={process.env.PUBLIC_URL + '/images/max.png'} alt="" />
+                                                        <p>最高人數 <br />{post.maxPeople}</p>   
+                                                    </div>
+                                                    <div className='row'>
+                                                        <img src={process.env.PUBLIC_URL + '/images/PRICE.png'} alt="" />
+                                                        <p>每人金額<br />{post.price} /人</p>   
+                                                    </div>
+                                                </div>
+                                                
+                                                
                                             </div>
                                         </div>
                                 </a>

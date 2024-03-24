@@ -50,7 +50,7 @@ class Post extends Component {
                                 <p>{this.state.postItem.maxPeople}</p>
                             </div>
                             <div className="col-3">
-                                <p>每人價錢</p>
+                                <p>每人金額</p>
                                 <img src="http://localhost:3000/images/PRICE.png" alt=""/>
                                 <p>{this.state.postItem.price}</p>
                             </div>                       

@@ -144,13 +144,13 @@ const upload = multer({ storage: storage });
 
 //新增貼文
 app.post("/post/create", upload.single("postIMG"), function (req, res) {
-  const img = "http://localhost:8000/uploads/" + req.file.filename;
+  let Img = "http://localhost:8000/uploads/" + req.file.filename;
   // console.log(img);
   console.log(req.body);
   conn.query(
     "insert into post (postIMG,type,userID,title, registeredDate, registeredTime, activityDate, activityTime, minPeople, maxPeople, location, price, content) values(?,?,?,?,?,?,?,?,?,?,?,?,?)",
     [
-      img,
+      Img,
       req.body.type,
       req.body.userID,
       req.body.title,
@@ -176,32 +176,53 @@ app.post("/post/create", upload.single("postIMG"), function (req, res) {
   );
 });
 //修改貼文
-app.put("/index/postitem", function (req, res) {
-  conn.query(
-    "update post set type=? ,title= ?, registeredDate= ?, registeredTime= ?, activityDate= ?, activityTime= ?, minPeople= ?, maxPeople= ?, location= ?, price= ?, content= ? where postID= ?",
-    [
-      req.body.postItem.type,
-      req.body.postItem.title,
-      req.body.postItem.registeredDate,
-      req.body.postItem.registeredTime,
-      req.body.postItem.activityDate,
-      req.body.postItem.activityTime,
-      req.body.postItem.minPeople,
-      req.body.postItem.maxPeople,
-      req.body.postItem.location,
-      req.body.postItem.price,
-      req.body.postItem.content,
-      req.body.postItem.postID,
-    ],
-    function (err, rows) {
+app.post("/index/postitem",upload.single("postIMG"), function (req, res) {
+  let img = "";
+  if (!req.file) {
+    conn.query("SELECT postIMG FROM post WHERE postID = ?", [req.body.postID], function (err, rows) {
       if (err) {
-        console.error("Error updating post:", err);
+        console.error("Error fetching post image:", err);
         res.status(500).send("Error updating post");
         return;
       }
-      res.send(JSON.stringify(req.body.postItem));
-    }
-  );
+      img = rows[0].postIMG;
+      console.log(img)
+      updatePost(img); 
+    });
+  } else {
+    img = "http://localhost:8000/uploads/" + req.file.filename;
+    console.log(img)
+    updatePost(img);
+  }
+  function updatePost(img) {
+    conn.query(
+      "update post set postIMG = ?,type=? ,title= ?, registeredDate= ?, registeredTime= ?, activityDate= ?, activityTime= ?, minPeople= ?, maxPeople= ?, location= ?, price= ?, content= ? where postID= ?",
+      [
+        img,
+        req.body.type,
+        req.body.title,
+        req.body.registeredDate,
+        req.body.registeredTime,
+        req.body.activityDate,
+        req.body.activityTime,
+        req.body.minPeople,
+        req.body.maxPeople,
+        req.body.location,
+        req.body.price,
+        req.body.content,
+        req.body.postID
+      ],
+      function (err, rows) {
+        if (err) {
+          console.error("Error updating post:", err);
+          res.status(500).send("Error updating post");
+          return;
+        }
+        res.send(JSON.stringify(req.body));
+      }
+    );
+
+  }
 });
 
 // 刪除貼文
