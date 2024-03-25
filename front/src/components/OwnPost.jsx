@@ -108,7 +108,7 @@ class OwnPost extends Component {
                     <div class="review_join">
                         <div class="join_box_title row">
                             <h2>申請參加</h2>
-                            <div class="num_box"><p>8人</p></div>
+                            <div class="num_box"><p>8</p></div>
                         </div>
                         <div class="join_member">
                             <div class="join_member_box ">
@@ -173,11 +173,9 @@ class OwnPost extends Component {
    
     componentDidMount = async () =>{
         var result = await axios.get(`http://localhost:8000/index/postitem/${this.props.match.params.id}`);
-        var chatResult = await axios.get(`http://localhost:8000/index/chatitem/${this.props.match.params.id}`);
-        var applyResult = await axios.get(`http://localhost:8000/apply/post/${this.props.match.params.id}`);   
+        var chatResult = await axios.get(`http://localhost:8000/index/chatitem/${this.props.match.params.id}`);   
         var newState = {...this.state};
         newState.postItem = result.data;
-        newState.applyMan = applyResult.data;
         newState.chatList = chatResult.data;        
         this.setState(newState);
     }
