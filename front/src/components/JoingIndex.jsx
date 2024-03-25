@@ -29,7 +29,7 @@ class JoingIndex extends Component {
                     <div className="container ">
                         <div className="post">
                             <div className="btn_group">
-                                <button className="btn btn_orange">桌遊</button>
+                                <button className="btn btn_orange" onClick={this.select_all}>全部</button>
                                 <button className="btn btn_orange" onClick={this.select_exercise}>運動</button>
                                 <button className="btn btn_orange" onClick={this.select_handmade}>手作</button>
                                 <button className="btn btn_orange" onClick={this.select_eat}>吃喝</button>
@@ -164,7 +164,15 @@ class JoingIndex extends Component {
           newState.postList = result.data;
           this.setState(newState);
           selectedDate = event.target.value;
+          
       }
+    select_all = async (event) => {
+        var result =  await axios.get("http://localhost:8000/index/post")
+        var newState = {...this.state};
+        newState.postList = result.data;
+        newState.selectedDate = event.target.value;
+        this.setState(newState);
+    }
 
 
     handleInputChange = (event) => {
