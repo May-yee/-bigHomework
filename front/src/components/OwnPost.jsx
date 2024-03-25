@@ -200,9 +200,12 @@ class OwnPost extends Component {
             cmName: this.state.chatList.cmName,
             headShot: this.state.chatList.headShot
         }
-        
-         await axios.post("http://localhost:8000/post/chat",dataToSever);
-         window.location.reload();
+            if(cookie.load("userID")){
+                await axios.post("http://localhost:8000/post/chat",dataToSever);
+            }else {
+                alert('請先登入會員');
+            }
+         
         
     }
 } 
