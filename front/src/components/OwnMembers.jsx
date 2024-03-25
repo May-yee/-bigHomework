@@ -46,7 +46,7 @@ class OwnMembers extends Component {
                         <a href={"/Joing/memberedit/"+this.props.match.params.id} className="btn btn_blue">編輯</a>
                     </div>
                     <div className="member_img">
-                        <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
+                        <img src={this.state.headShot} alt=""/>
                     </div>
                     <div className="settingItem row">
                         <div className="settingItemTitle  row">
