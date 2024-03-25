@@ -21,10 +21,11 @@ class MemberEdit extends Component {
                     <h2 style={{textAlign: "center"}}>帳號編輯 </h2>
                     <div className="settingEdit">
                         <form>
-                            <div className="member_img">
-                                <img ref={this.img} src={this.state.userImgPreview} alt="cropped image" />
+                            <div id="main-cropper">
+                                <div className="member_img">
+                                    <img ref={this.img} src={this.state.userImgPreview} alt="cropped image" />
+                                </div>
                             </div>
-                            <div id="main-cropper"></div>
                             <div className="settingItem row">
                                 <label className="settingItemTitle row"><h3>上</h3><h3>傳</h3><h3>頭</h3><h3>貼:</h3></label>
                                 <input type="file" id="upload" multiple={false}  accept=".png,.jpg,.jpeg" onChange={this.OnFileUpload} required/>

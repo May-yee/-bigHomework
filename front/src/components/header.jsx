@@ -33,8 +33,12 @@ class Header extends Component {
         </div>
         <div className="container" id="logindiv" onClick={this.logindiv}>
             <form className="logoIn" method='post' id="logoInform" onSubmit={this.logoIn}>
+                {(this.state.onLogin) ? "" 
+                : <React.Fragment>
                 <input type="text" name="userEmail" id="userEmail" placeholder='在此輸入信箱' required/>
                 <input type="password" name="passWord" id="passWord" placeholder='在此輸入密碼' required/>
+                </React.Fragment>
+                }
                 {(this.state.onLogin) ? 
                 <input type="button" value="登出" id="logout" onClick={this.onLogout}/> :
                 <input type="submit" value="登入"/>
