@@ -799,6 +799,13 @@ footer{
 }
 
 /* register */
+#main-cropper {
+    position: relative;
+}
+#main-cropper .member_img {
+    position: absolute;
+    top: 30%;
+}
 #passWordPoint {
     position: absolute; 
     left: 380px;
