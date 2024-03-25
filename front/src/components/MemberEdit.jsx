@@ -2,26 +2,33 @@ import React, { Component } from 'react';
 import Header from './header';
 import axios from 'axios';
 import cookie from 'react-cookies'
+import { Croppie } from "croppie";
+var croppie ;
+var croppieOptions;
+var c;
 class MemberEdit extends Component {
     state = {
         // headShot:"",
         // userImgPreview:"",
-     } 
+     }
+    img = React.createRef();  
     render() { 
         return (
             <React.Fragment>
             <Header id={this.props.match.params.id}/>
-            <div className="main">
+            <div className="main" onClick={this.toggleLogoIn}>
                 <div className="container">
                     <h2 style={{textAlign: "center"}}>帳號編輯 </h2>
                     <div className="settingEdit">
                         <form>
                             <div className="member_img">
-                                <img  id="imagePreview" src={this.state.userImgPreview} alt=""/>
+                                <img ref={this.img} src={this.state.userImgPreview} alt="cropped image" />
                             </div>
+                            <div id="main-cropper"></div>
                             <div className="settingItem row">
                                 <label className="settingItemTitle row"><h3>上</h3><h3>傳</h3><h3>頭</h3><h3>貼:</h3></label>
-                                <input type="file" id="imageInput" accept=".png,.jpg,.jpeg" multiple="false" onInput={this.handleImageChange}/>    
+                                <input type="file" id="upload" multiple={false}  accept=".png,.jpg,.jpeg" onChange={this.OnFileUpload} required/>
+                                <button id="btnCrop" type='button' className='btn btn_blue' onClick={this.onResult}>上傳</button>
                             </div>
                             <div className="settingItem row">
                                 <label for="userName" className="settingItemTitle row"><h3>會</h3><h3>員</h3><h3>名</h3><h3>稱:</h3></label>
@@ -66,6 +73,42 @@ class MemberEdit extends Component {
         newState.userName = result.data.userName;
         newState.introduction = result.data.introduction;
         this.setState(newState);
+        croppie = document.getElementById("main-cropper");
+        croppieOptions = {
+            showZoomer: true,
+            enableOrientation: true,
+            mouseWheelZoom: "ctrl",
+            viewport: {
+                width: 100, height: 100, type: "circle"
+            },
+            boundary: {
+                width: 400, height: 300
+            }
+        };
+        c = new Croppie(croppie, croppieOptions);
+    }
+    toggleLogoIn = (e) => {
+        const logoIn = document.querySelector(".logoIn");
+        logoIn.classList.remove("show");
+    }
+    OnFileUpload = (e) => {
+		const reader = new FileReader();
+        const file = e.target.files[0];
+		reader.readAsDataURL(file);
+		reader.onload = () => {
+			c.bind({ url: reader.result });
+		};
+    }
+    onResult = (e) => {
+        c.result("base64").then(base64 => {
+            this.img.current.src = base64
+          });
+        c.result("blob").then(blob => {
+        var newState = {...this.state};
+        newState.headShot = blob;
+        this.setState(newState);
+        });  
+        
     }
     handleImageChange = (e) => {
         const reader = new FileReader();

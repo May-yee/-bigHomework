@@ -29,7 +29,7 @@ class JoingIndex extends Component {
                     <div className="container ">
                         <div className="post">
                             <div className="btn_group">
-                                <button className="btn btn_orange">桌遊</button>
+                                <button className="btn btn_orange" onClick={this.select_all}>全部</button>
                                 <button className="btn btn_orange" onClick={this.select_exercise}>運動</button>
                                 <button className="btn btn_orange" onClick={this.select_handmade}>手作</button>
                                 <button className="btn btn_orange" onClick={this.select_eat}>吃喝</button>
@@ -41,7 +41,7 @@ class JoingIndex extends Component {
                                 <label htmlFor="date">日期</label>
                                 <input type="date" onChange={this.select_date} value={this.state.selectedDate}/>
                                 <label htmlFor="search">搜尋</label>
-                                <input type="text" onChange={this.handleInputChange} value={this.state.keyword} placeholder="搜尋"/>
+                                <input type="text" onChange={this.handleInputChange} value={this.state.keyword} onKeyDown={this.key_enter} placeholder="搜尋"/>
                                 <button className='btn btn_orange' onClick={this.handleSearchClick}>確認</button>
                             </div>
                             <div className="post_area">
@@ -164,22 +164,38 @@ class JoingIndex extends Component {
           newState.postList = result.data;
           this.setState(newState);
           selectedDate = event.target.value;
+          
       }
+    select_all = async (event) => {
+        var result =  await axios.get("http://localhost:8000/index/post")
+        var newState = {...this.state};
+        newState.postList = result.data;
+        newState.selectedDate = event.target.value;
+        this.setState(newState);
+    }
 
 
-      handleInputChange = (event) => {
+    handleInputChange = (event) => {
         this.setState({ keyword: event.target.value });
     }
 
 
-      handleSearchClick = async () => {
+    handleSearchClick = async () => {
         const { keyword } = this.state;
         const result = await axios.get(`http://localhost:8000/index/post/search?keyword=${keyword}`);
         const newState = { ...this.state };
         newState.postList = result.data;
         this.setState(newState);
     }
-
+    key_enter = async (e) => {
+        if(e.key==="Enter"){
+            const { keyword } = this.state;
+            const result = await axios.get(`http://localhost:8000/index/post/search?keyword=${keyword}`);
+            const newState = { ...this.state };
+            newState.postList = result.data;
+            this.setState(newState);
+        }
+    }
 
 }  
     
