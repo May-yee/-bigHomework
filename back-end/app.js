@@ -252,7 +252,7 @@ app.post("/post/chat", function (req, res) {
   );
 });
 
-app.get("/ownmembers/:id", function (req, res) {
+app.get("/members/:id", function (req, res) {
   conn.query(
     "select * from member where userID =?",
     [req.params.id],

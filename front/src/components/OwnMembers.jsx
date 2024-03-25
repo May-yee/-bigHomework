@@ -421,16 +421,17 @@ class OwnMembers extends Component {
     }
     componentDidMount = async () => {
         var onLogin = cookie.load('userID');
-        if(onLogin) {
-            var result = await axios.get("http://localhost:8000/ownmembers/" + this.props.match.params.id);
-            var newState = {...this.state};
-            newState = result.data;
-            this.setState(newState);
-        }else {
+        if (onLogin) {
+            try {
+                var result = await axios.get("http://localhost:8000/ownmembers/" + this.props.match.params.id);
+                this.setState({ ...result.data });
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        } else {
             alert("請先登入會員");
             window.location.href = "/";
         }
-        
     }
     toggleLogoIn = (e) => {
         const logoIn = document.querySelector(".logoIn");
@@ -513,8 +514,7 @@ class OwnMembers extends Component {
             var mainHeader = document.querySelector(".memberMain h2");
             mainHeader.textContent = "已收藏"
         }
-        
-        
+    
     }
         
     
