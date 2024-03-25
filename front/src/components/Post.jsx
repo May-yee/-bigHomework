@@ -75,8 +75,8 @@ class Post extends Component {
                             )}
                         </div>
                         <div className="comment_input">
-                            <input type="text" placeholder="傳送留言...." value={this.state.chatList.message} onChange={this.message_change}/>
-                            <div className="submit"><img src="http://localhost:3000/images/submit.svg" alt="" onClick={this.send_message}/></div>
+                            <input type="text" placeholder="傳送留言...." value={this.state.chatList.message} onChange={this.message_change} onKeyDown={this.key_enter}/>
+                            <div className="submit"><img src="http://localhost:3000/images/submit.svg" alt=""onClick={this.send_message}/></div>
                         </div>
                     </div>
                     <div class="join_box">
@@ -157,7 +157,7 @@ class Post extends Component {
          await axios.post("http://localhost:8000/post/apply",dataToServer);
         alert("ok");
     }
-
+   
     send_message = async () => {
         var dataToSever = {
             com_postID: this.props.match.params.id,
@@ -171,8 +171,12 @@ class Post extends Component {
             }else {
                 alert('請先登入會員');
             }
-         
-        
+            this.setState(newState);
+    }
+    key_enter = async (e) => {
+        if(e.key === "Enter"){
+           await this.send_message()
+        }
     }
 } 
 export default Post;
