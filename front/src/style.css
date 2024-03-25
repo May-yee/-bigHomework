@@ -594,6 +594,11 @@ footer{
     border: none;
     margin-bottom: 0;
 }
+.memberNavBtn.show{
+    background-color: #22668D;
+    border-radius: 4px;
+    color: #fff;
+}
 .memberNavBtn:hover{
     background-color: #22668D;
     border-radius: 4px;

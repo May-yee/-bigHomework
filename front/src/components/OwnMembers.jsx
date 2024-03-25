@@ -17,7 +17,7 @@ class OwnMembers extends Component {
     <div className="main" onClick={this.toggleLogoIn}>
         <div className="container row member">
             <div className="memberNav">
-                <div className="memberNavBtn row" id="settingBtn" onClick={this.btn_setting}>
+                <div className="memberNavBtn row show" id="settingBtn" onClick={this.btn_setting}>
                     <img src="http://localhost:3000/images/setting_icon.png" alt=""/>
                     <h3 className="p_letter">帳號設定</h3>
                 </div>
@@ -188,59 +188,6 @@ class OwnMembers extends Component {
                             </div>
                         </div>
                     </div>   
-                    <div className="memberEvent expired">
-                        <div className="memberEventImg">
-                            <img src="" alt=""/>
-                        </div>
-                        <div className="memberEventContentBlock">
-                            <h3>貼文主標貼文主標貼文主標貼文主標貼文主標貼文主標</h3>
-                            <div className="content_box_group">
-                                <div className="content_box">
-                                    <p>
-                                        <span className="p_letter">活動時間</span>
-                                        2024-03-17 18:00 
-                                    </p>
-                                </div>
-                                <div className="content_box box_blue">
-                                    <p>
-                                        <span className="p_letter">地點:</span>
-                                        <a href=""> 403台中市西區公益路111號1樓</a>
-                                    </p>
-                                </div>
-                                <div className="content_box">
-                                    <p>
-                                        <span className="p_letter">每人費用:</span>
-                                        500 
-                                    </p>
-                                </div>
-                            </div>   
-                        </div>
-                        
-                        <div className="memberEventJoiner">
-                            <div>
-                                <h4>申請人</h4>
-                                <div className="memberEventAvatar">
-                                    <div className="member_img">
-                                        <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <h4>已參加</h4>
-                                <div className="memberEventAvatar">
-                                    <div className="member_img">
-                                        <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                    </div>
-                                    <div className="member_img">
-                                        <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                    </div>
-                                    <div className="member_img">
-                                        <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> 
                 </div>
 
                 {/* joinRecord */}
@@ -490,26 +437,42 @@ class OwnMembers extends Component {
         logoIn.classList.remove("show");
     }
     btn_setting = () => {
+            var memberNavBtn = document.querySelectorAll(".memberNavBtn");
+            memberNavBtn.forEach(function(body) {
+                body.classList.remove("show");
+            });
+            document.querySelector("#settingBtn").classList.add("show");
             var memberMainBodies = document.querySelectorAll(".memberMainBody");
             memberMainBodies.forEach(function(body) {
                 body.classList.remove("show");
             });
-            var settingBody = document.querySelector(".setting");
-            settingBody.classList.add("show")
+            var noteBody = document.querySelector(".setting");
+            noteBody.classList.add("show");
             var mainHeader = document.querySelector(".memberMain h2");
             mainHeader.textContent = "帳號設定"
         }
     btn_note = () => {
+            var memberNavBtn = document.querySelectorAll(".memberNavBtn");
+            memberNavBtn.forEach(function(body) {
+                body.classList.remove("show");
+            });
+            document.querySelector("#noteBtn").classList.add("show");
             var memberMainBodies = document.querySelectorAll(".memberMainBody");
             memberMainBodies.forEach(function(body) {
                 body.classList.remove("show");
             });
+
             var noteBody = document.querySelector(".note");
             noteBody.classList.add("show")
             var mainHeader = document.querySelector(".memberMain h2");
             mainHeader.textContent = "訊息通知"
         }
     btn_record = () => {
+            var memberNavBtn = document.querySelectorAll(".memberNavBtn");
+            memberNavBtn.forEach(function(body) {
+                body.classList.remove("show");
+            });
+            document.querySelector("#recordBtn").classList.add("show");
             var memberMainBodies = document.querySelectorAll(".memberMainBody");
             memberMainBodies.forEach(function(body) {
                 body.classList.remove("show");
@@ -520,6 +483,11 @@ class OwnMembers extends Component {
             mainHeader.textContent = "揪團紀錄"
         }
     btn_joinRecord = () => {
+            var memberNavBtn = document.querySelectorAll(".memberNavBtn");
+            memberNavBtn.forEach(function(body) {
+                body.classList.remove("show");
+            });
+            document.querySelector("#joinRecordBtn").classList.add("show");
             var memberMainBodies = document.querySelectorAll(".memberMainBody");
             memberMainBodies.forEach(function(body) {
                 body.classList.remove("show");
@@ -530,6 +498,12 @@ class OwnMembers extends Component {
             mainHeader.textContent = "參加紀錄"
         }
     btn_like = () => {
+            var memberNavBtn = document.querySelectorAll(".memberNavBtn");
+            memberNavBtn.forEach(function(body) {
+                body.classList.remove("show");
+            });
+            document.querySelector("#likeBtn").classList.add("show");
+            
             var memberMainBodies = document.querySelectorAll(".memberMainBody");
             memberMainBodies.forEach(function(body) {
                 body.classList.remove("show");
