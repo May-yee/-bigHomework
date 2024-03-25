@@ -33,7 +33,7 @@ class Register extends Component {
                             <div className="settingItem row">
                                 <label className="settingItemTitle row"><h3>上</h3><h3>傳</h3><h3>頭</h3><h3>貼:</h3></label>
                                 <input type="file" id="upload" multiple={false}  accept=".png,.jpg,.jpeg" onChange={this.OnFileUpload} required/>
-                                <button id="btnCrop" type='button' className='btn' onClick={this.onResult}>上傳</button>
+                                <button id="btnCrop" type='button' className='btn btn_blue' onClick={this.onResult}>上傳</button>
                             </div>
                             <div className="settingItem row">
                                 <label htmlFor="userName" className="settingItemTitle row"><h3>會</h3><h3>員</h3><h3>名</h3><h3>稱:</h3></label>
