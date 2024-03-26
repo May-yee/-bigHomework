@@ -27,8 +27,10 @@ class Post extends Component {
                         </div>
                         <h2>{this.state.postItem.title}</h2>
                         <div className="btn_group row">
+                            { (this.state.iscollect) ? <div className="btn btn_gray apply-btn">已收藏</div>
+                            : <a><div className="btn btn_orange apply-btn" onClick={this.btn_collect}>收藏活動</div></a>
+                            }
                             <a><div className="btn btn_blue apply-btn" onClick={this.btn_apply}>申請參加</div></a>
-                            
                         </div>
                         <div className="content_box row">
                             <h4>揪團時間:</h4><p>{this.state.postItem.registeredDate} {this.state.postItem.registeredTime}</p>
@@ -124,10 +126,14 @@ class Post extends Component {
    
     componentDidMount = async () =>{
         var result = await axios.get(`http://localhost:8000/index/postitem/${this.props.match.params.id}`);
-        var chatresult = await axios.get(`http://localhost:8000/index/chatitem/${this.props.match.params.id}`);    
+        var chatresult = await axios.get(`http://localhost:8000/index/chatitem/${this.props.match.params.id}`);
+        var collect = await axios.post("http://localhost:8000/collect",
+        {userID: cookie.load('userID')}
+        );    
         var newState = {...this.state};
         newState.postItem = result.data;
-        newState.chatList = chatresult.data;        
+        newState.chatList = chatresult.data;    
+        newState.iscollect = collect.data;    
         this.setState(newState);
     }
     toggleLogoIn = (e) => {
@@ -142,6 +148,10 @@ class Post extends Component {
         newState.chatList.cmName = cookie.load('userName')
         newState.chatList.headShot = cookie.load('headShot')
         this.setState(newState);
+        
+    }
+    btn_collect = async () => {
+        var collect = await axios.post("http://localhost:8000/collected",{userID: cookie.load('userID')}); 
         
     }
 

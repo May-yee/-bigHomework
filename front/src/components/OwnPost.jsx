@@ -110,57 +110,21 @@ class OwnPost extends Component {
                         </div>
                     </div>
                     <div className="review_join">
-                        <div className="join_box_title row">
+                    <div className="join_box_title row">
                             <h2>申請參加</h2>
-                            <div className="num_box"><p>8</p></div>
+                            <div className="num_box"><p>{this.state.applyMan.length}</p></div>
                         </div>
-                        <div className="join_member">
+                        {this.state.applyMan.map(apply =><div className="join_member">
                             <div className="join_member_box ">
-                                <a href="">
-                                    <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                </a>
+                                    <a href="" className='member_img'>
+                                        <img src={apply.headShot} alt=""/>
+                                    </a>
                                 <div className="btn_group row">
                                     <div className="btn btn_blue">參加</div>
-                                    <div className="btn btn_gray">拒絕</div>
+                                    <div className="btn btn_gray" onClick={this.btn_reject}>拒絕</div>
                                 </div>
                             </div>
-                            <div className="join_member_box">
-                                <a href="">
-                                    <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                </a>
-                                <div className="btn_group row">
-                                    <div className="btn btn_blue">參加</div>
-                                    <div className="btn btn_gray">拒絕</div>
-                                </div>
-                            </div>
-                            <div className="join_member_box">
-                                <a href="">
-                                    <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                </a>
-                                <div className="btn_group row">
-                                    <div className="btn btn_blue">參加</div>
-                                    <div className="btn btn_gray">拒絕</div>
-                                </div>
-                            </div>
-                            <div className="join_member_box">
-                                <a href="">
-                                    <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                </a>
-                                <div className="btn_group row">
-                                    <div className="btn btn_blue">參加</div>
-                                    <div className="btn btn_gray">拒絕</div>
-                                </div>
-                            </div>
-                            <div className="join_member_box">
-                                <a href="">
-                                    <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                </a>
-                                <div className="btn_group row">
-                                    <div className="btn btn_blue">參加</div>
-                                    <div className="btn btn_gray">拒絕</div>
-                                </div>
-                            </div>
-                        </div>
+                        </div>)}
                     </div>
                 </div>
             </div>
@@ -177,10 +141,12 @@ class OwnPost extends Component {
    
     componentDidMount = async () =>{
         var result = await axios.get(`http://localhost:8000/index/postitem/${this.props.match.params.id}`);
-        var chatResult = await axios.get(`http://localhost:8000/index/chatitem/${this.props.match.params.id}`);   
+        var chatResult = await axios.get(`http://localhost:8000/index/chatitem/${this.props.match.params.id}`);
+        var applyResult = await axios.get(`http://localhost:8000/apply/post/${this.props.match.params.id}`);   
         var newState = {...this.state};
         newState.postItem = result.data;
-        newState.chatList = chatResult.data;        
+        newState.chatList = chatResult.data;
+        newState.applyMan = applyResult.data;        
         this.setState(newState);
     }
     message_change = (e) => {
@@ -240,5 +206,9 @@ class OwnPost extends Component {
                 }                
             }
         }
+        // btn_reject = async () => {
+        //     await axios.delete("http://localhost:8000/apply/delete/" + this.state.applyMan.memberID);
+        //     alert("OK")
+        // }
 } 
 export default OwnPost;
