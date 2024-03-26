@@ -75,7 +75,7 @@ function PostEdit(){
         reader.onloadend = () => {
             setPostData({
                 ...postData,
-                postIMG: reader.result
+                postIMG: file
             });
             setImgPreview(reader.result);
             
@@ -90,6 +90,7 @@ function PostEdit(){
     
     //------------------
     const editPost=(e) =>{
+        console.log(postData.postIMG)
         e.preventDefault();
         var formData = new FormData();
         formData.append("postID",id);
@@ -124,7 +125,7 @@ function PostEdit(){
                 <div className="create">
                     <form action="" method="" onSubmit={editPost}>
                         <div className="post_img">
-                            {postData.postIMG && <img src={postData.postIMG} alt="Preview" />}
+                            {<img src={ imgPreview || postData.postIMG } alt="Preview" />}
                         </div>
                         <div className="settingItem row">
                             <label className="settingItemTitle row"><h3>上</h3><h3>傳</h3><h3>圖</h3><h3>片:</h3></label>
