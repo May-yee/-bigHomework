@@ -39,7 +39,7 @@ class JoingIndex extends Component {
                             </div>
                             <div class="filter_area">
                                 <label htmlFor="date">日期</label>
-                                <input type="date" onChange={this.select_date} value={this.state.selectedDate}/>
+                                <input type="date" onInput={this.select_date} onChange={this.DateInputChange} value={this.state.selectedDate}/>
                                 <label htmlFor="search">搜尋</label>
                                 <input type="text" onChange={this.handleInputChange} value={this.state.keyword} onKeyDown={this.key_enter} placeholder="搜尋"/>
                                 <button className='btn btn_orange' onClick={this.handleSearchClick}>確認</button>
@@ -123,54 +123,58 @@ class JoingIndex extends Component {
         var result =  await axios.get("http://localhost:8000/index/post/exercise")
         var newState = {...this.state};
         newState.postList = result.data;
+        newState.selectedDate = "";
         this.setState(newState);
     }
     select_handmade = async () => {
         var result =  await axios.get("http://localhost:8000/index/post/handmade")
         var newState = {...this.state};
         newState.postList = result.data;
+        newState.selectedDate = "";
         this.setState(newState);
     }
     select_eat = async () => {
         var result =  await axios.get("http://localhost:8000/index/post/eat")
         var newState = {...this.state};
         newState.postList = result.data;
+        newState.selectedDate = "";
         this.setState(newState);
     }
     select_movie = async () => {
         var result =  await axios.get("http://localhost:8000/index/post/movie")
         var newState = {...this.state};
         newState.postList = result.data;
+        newState.selectedDate = "";
         this.setState(newState);
     }
     select_show = async () => {
         var result =  await axios.get("http://localhost:8000/index/post/show")
         var newState = {...this.state};
         newState.postList = result.data;
+        newState.selectedDate = "";
         this.setState(newState);
     }
-    select_other = async (event) => {
+    select_other = async () => {
         var result =  await axios.get("http://localhost:8000/index/post/other")
         var newState = {...this.state};
         newState.postList = result.data;
-        newState.selectedDate = event.target.value;
+        newState.selectedDate = "";
         this.setState(newState);
+        
     }
-
+    DateInputChange = (event) => {
+        this.setState({ selectedDate: event.target.value });
+    }
     select_date = async (event) => {
-        var selectedDate = event.target.value; // 獲取選擇的日期       
-          const result = await axios.get(`http://localhost:8000/index/post/date?value=${selectedDate}`);
+          const result = await axios.get(`http://localhost:8000/index/post/date?value=${event.target.value}`);
           const newState = { ...this.state };
           newState.postList = result.data;
           this.setState(newState);
-          selectedDate = event.target.value;
-          
       }
     select_all = async (event) => {
         var result =  await axios.get("http://localhost:8000/index/post")
         var newState = {...this.state};
         newState.postList = result.data;
-        newState.selectedDate = event.target.value;
         this.setState(newState);
     }
 
