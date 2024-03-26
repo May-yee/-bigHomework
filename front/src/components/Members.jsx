@@ -8,8 +8,9 @@ import Header from "./header";
 const Members = (props) => {
     const { id } = useParams();
     const [memberData, setMemberData] = useState({});
-    const [recordData, setRecordData] = useState({});
-    const [joinRecordData, setJoinRecordData] = useState({});
+    const [recordData, setRecordData] = useState([]);
+    // const [joinRecordData, setJoinRecordData] = useState({});
+
     //-----------------------
     useEffect(() => {
         const fetchMemberData = async () => {
@@ -19,9 +20,8 @@ const Members = (props) => {
                 
                 const recordResponse = await axios.get(`http://localhost:8000/record/${id}`);
                 setRecordData(recordResponse.data);
-                
-                const joinRecordResponse = await axios.get(`http://localhost:8000/joinRecord/${id}`);
-                setJoinRecordData(joinRecordResponse.data);
+            
+
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -29,7 +29,8 @@ const Members = (props) => {
 
         fetchMemberData();
     }, [id]);
-
+    // console.log(memberData);
+    console.log(recordData);
     //memberNavBtn--------------
     const btn_setting = () => {
         document.querySelectorAll(".memberNavBtn").forEach(function(body) {
@@ -132,59 +133,66 @@ const Members = (props) => {
 
                     {/* record */}
                     <div className="memberMainBody record">
-                        <div className="memberEvent">
-                            <div className="memberEventImg">
-                                <img src="" alt=""/>
-                            </div>
-                            <div className="memberEventContentBlock">
-                                <h3>貼文主標貼文主標貼文主標貼文主標貼文主標貼文主標</h3>
-                                <div className="content_box_group">
-                                    <div className="content_box">
-                                        <p>
-                                            <span className="p_letter">活動時間</span>
-                                            2024-03-17 18:00 
-                                        </p>
+                        {recordData.map((record,index)=>(
+                            <div className="memberEvent">
+                                <div className="memberEventImg">
+                                    <img src={record.postIMG} alt=""/>
+                                </div>
+                                <div className="memberEventContentBlock">
+                                    <h3></h3>
+                                    <div className="content_box_group">
+                                        <div className="content_box">
+                                            <p>
+                                                <span className="p_letter">活動時間</span>
+                                                {record.activityDate} {record.activityTime}
+                                            </p>
+                                        </div>
+                                        <div className="content_box box_blue">
+                                            <p>
+                                                <span className="p_letter">地點:</span>
+                                                {record.location}
+                                            </p>
+                                        </div>
+                                        <div className="content_box">
+                                            <p>
+                                                <span className="p_letter">每人金額:</span>
+                                                {record.price}
+                                            </p>
+                                        </div>
+                                    </div>   
+                                </div>
+                                
+                                <div className="memberEventJoiner">
+                                    <div>
+                                        <h4>申請人</h4>
+                                        <div className="memberEventAvatar">
+
+                                            {record.join.map(m=>
+                                                <div className="member_img">
+                                                    <a href={"/Joing/members/" +m.userID }>
+                                                        <img src={m.headShot} alt=""/>
+                                                    </a>
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
-                                    <div className="content_box box_blue">
-                                        <p>
-                                            <span className="p_letter">地點:</span>
-                                            <a href=""> 403台中市西區公益路111號1樓</a>
-                                        </p>
-                                    </div>
-                                    <div className="content_box">
-                                        <p>
-                                            <span className="p_letter">每人費用:</span>
-                                            500 
-                                        </p>
-                                    </div>
-                                </div>   
-                            </div>
-                            
-                            <div className="memberEventJoiner">
-                                <div>
-                                    <h4>申請人</h4>
-                                    <div className="memberEventAvatar">
-                                        <div className="member_img">
-                                            <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
+                                    <div>
+                                        <h4>已參加</h4>
+                                        <div className="memberEventAvatar">
+                                            <div className="member_img">
+                                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
+                                            </div>
+                                            <div className="member_img">
+                                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
+                                            </div>
+                                            <div className="member_img">
+                                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <h4>已參加</h4>
-                                    <div className="memberEventAvatar">
-                                        <div className="member_img">
-                                            <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                        </div>
-                                        <div className="member_img">
-                                            <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                        </div>
-                                        <div className="member_img">
-                                            <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>   
+                            </div>   
+                        ))}
                     </div>
 
                     {/* joinRecord */}

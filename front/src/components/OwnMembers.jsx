@@ -423,7 +423,7 @@ class OwnMembers extends Component {
         var onLogin = cookie.load('userID');
         if (onLogin) {
             try {
-                var result = await axios.get("http://localhost:8000/ownmembers/" + this.props.match.params.id);
+                var result = await axios.get("http://localhost:8000/members/" + this.props.match.params.id);
                 this.setState({ ...result.data });
             } catch (error) {
                 console.error("Error fetching data:", error);

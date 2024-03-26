@@ -67,7 +67,9 @@ class Post extends Component {
                             {this.state.chatList.map(chat=>
                                 <div className="message">
                                 <div className="member_box">
-                                    <img src={chat.headShot} alt=""/>
+                                    <div className='member_img'>
+                                        <img src={chat.headShot} alt=""/>
+                                    </div>
                                     <p>{chat.cmName}</p>
                                 </div>
                                 <p>{chat.message}</p>

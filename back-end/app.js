@@ -40,6 +40,7 @@ var conn = mysql.createConnection({
 
 //導入註冊
 var register = require("./routers/register");
+const { title } = require("process");
 app.use("/member", register);
 
 app.get("/index/post", function (req, res) {
@@ -252,6 +253,7 @@ app.post("/post/chat", function (req, res) {
   );
 });
 
+//---------------------------------------------------
 app.get("/members/:id", function (req, res) {
   conn.query(
     "select * from member where userID =?",
@@ -267,20 +269,59 @@ app.get("/members/:id", function (req, res) {
   );
 });
 
-app.post("/post/apply", function (req, res) {
-    conn.query(
-      "insert into apply (memberID, postID, headShot) values(?,?,?)",
-      [req.body.memberID, req.body.postID, req.body.headShot],
-      function (err, rows) {
-        if (err) {
-          console.error("Error updating post:", err);
-          res.status(500).send("Error updating post");
-          return;
-        }
-        res.send(JSON.stringify(req.body.applyItem));
+app.get("/record/:id", function (req, res) {
+  conn.query(
+    "SELECT * FROM post WHERE userID = ?",
+    [req.params.id],
+    function (err, postRows) {
+      if (err) {
+        console.error("Error updating profile:", err);
+        res.status(500).send("Error updating post");
+        return;
       }
-    );
-  });
+       ;
+      const test=postRows.map((post,index) => {
+        conn.query(
+          "SELECT member.userID,joinmember.joinL,member.headShot FROM joinmember INNER JOIN member ON joinmember.participants = member.userID WHERE joinmember.postID = ?",
+          [post.postID],
+          function (err, joinRows) {
+            if (err) {
+              console.error("Error updating profile:", err);
+              return;
+            }
+            post.join=(joinRows);
+            console.log(postRows);
+            if (index === postRows.length - 1) {
+              // 在最后一次查詢完成後發送資料
+              res.send(JSON.stringify(postRows));
+            }
+          }    
+          
+          )
+
+      })    
+    }
+  );
+})
+
+
+
+
+
+// app.post("/post/apply", function (req, res) {
+//     conn.query(
+//       "insert into apply (memberID, postID, headShot) values(?,?,?)",
+//       [req.body.memberID, req.body.postID, req.body.headShot],
+//       function (err, rows) {
+//         if (err) {
+//           console.error("Error updating post:", err);
+//           res.status(500).send("Error updating post");
+//           return;
+//         }
+//         res.send(JSON.stringify(req.body.applyItem));
+//       }
+//     );
+//   });
 
 // app.get("/apply/post/:id", function (req, res) {
 //     conn.query("select * from apply where postID = ?", 
