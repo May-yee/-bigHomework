@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2024-03-22 05:00:19
+-- 產生時間： 2024-03-26 09:35:27
 -- 伺服器版本： 10.4.32-MariaDB
 -- PHP 版本： 8.2.12
 
@@ -29,9 +29,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `post` (
   `postID` int(4) UNSIGNED ZEROFILL NOT NULL,
-  `postIMG` varchar(100) NOT NULL,
+  `postIMG` varchar(200) NOT NULL,
   `type` varchar(10) NOT NULL,
-  `userID` int(11) UNSIGNED NOT NULL,
+  `host` int(11) UNSIGNED NOT NULL,
   `postDate` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `title` text NOT NULL,
   `registeredDate` varchar(10) NOT NULL,
@@ -49,11 +49,10 @@ CREATE TABLE `post` (
 -- 傾印資料表的資料 `post`
 --
 
-INSERT INTO `post` (`postID`, `postIMG`, `type`, `userID`, `postDate`, `title`, `registeredDate`, `registeredTime`, `activityDate`, `activityTime`, `minPeople`, `maxPeople`, `location`, `price`, `content`) VALUES
-(0017, 'http://localhost:8000/uploads/1711076813896.jpg', '2', 13, '2024-03-22 03:06:53', '享受咖啡甜點', '2024-03-27', '11:00', '2024-03-25', '03:10', 2, 4, 'dsvdsvdsvsd', 0, 'dvdsvVVDSVsdvdsv'),
-(0021, 'http://localhost:8000/uploads/1711078161904.jpg', '5', 13, '2024-03-22 03:29:21', 'rvrrvvrv', '2024-03-26', '03:33', '2024-03-26', '16:34', 0, 6, 'vrvr4v', 0, '4rvrvr4v'),
-(0025, 'http://localhost:8000/uploads/1711078980344.jpg', '4', 13, '2024-03-22 03:43:00', 'RTGTGT5', '2024-03-28', '01:44', '2024-03-26', '02:45', 2, 8, 'H53HT5H3T', 0, 'THT5H35TH'),
-(0026, 'http://localhost:8000/uploads/1711079076727.png', '1', 13, '2024-03-22 03:44:36', '4v4v4v', '2024-03-27', '02:47', '2024-03-27', '02:47', 2, 8, '4vv4', 0, 'dsvdsvDSV');
+INSERT INTO `post` (`postID`, `postIMG`, `type`, `host`, `postDate`, `title`, `registeredDate`, `registeredTime`, `activityDate`, `activityTime`, `minPeople`, `maxPeople`, `location`, `price`, `content`) VALUES
+(0031, 'http://localhost:8000/uploads/1711353487692.jpg', '0', 14, '2024-03-25 07:58:07', '排球', '2024-03-26', '19:00', '2024-03-26', '21:00', 6, 16, '台中中央公園', 0, 'sadgfhgfhj'),
+(0032, 'http://localhost:8000/uploads/1711353609384.jpeg', '0', 14, '2024-03-25 08:00:09', '爬山', '2024-03-28', '19:00', '2024-03-26', '19:01', 2, 0, '大坑9號登山步道', 0, 'safdgdfngn'),
+(0033, 'http://localhost:8000/uploads/1711355710773.jpg', '3', 15, '2024-03-25 08:35:10', '你的名字', '2024-03-26', '17:26', '2024-03-26', '19:38', 2, 4, '臺中大遠百威秀影城', 0, 'safdfdgnhg');
 
 --
 -- 已傾印資料表的索引
@@ -73,7 +72,7 @@ ALTER TABLE `post`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `post`
 --
 ALTER TABLE `post`
-  MODIFY `postID` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `postID` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

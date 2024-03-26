@@ -271,42 +271,7 @@ app.get("/members/:id", function (req, res) {
 
 app.get("/record/:id", function (req, res) {
   conn.query(
-    "SELECT * FROM post WHERE host = ?",
-    [req.params.id],
-    function (err, postRows) {
-      if (err) {
-        console.error("Error updating profile:", err);
-        res.status(500).send("Error updating post");
-        return;
-      }
-       ;
-      const test=postRows.map((post,index) => {
-        conn.query(
-          "SELECT member.userID,joinmember.joinL,member.headShot FROM joinmember INNER JOIN member ON joinmember.participants = member.userID WHERE joinmember.postID = ?",
-          [post.postID],
-          function (err, joinRows) {
-            if (err) {
-              console.error("Error updating profile:", err);
-              return;
-            }
-            post.join=(joinRows);
-            console.log(postRows);
-            if (index === postRows.length - 1) {
-              // 在最后一次查詢完成後發送資料
-              res.send(JSON.stringify(postRows));
-            }
-          }    
-          
-          )
-
-      })    
-    }
-  );
-})
-
-app.get("/joinrecord/:id", function (req, res) {
-  conn.query(
-    "SELECT post.*,joinmember.*,member.userID,member.headShot FROM post INNER JOIN joinmember ON joinmember.postID = post.host INNER JOIN member ON post.host = member.userID WHERE joinmember.participants = ?;",
+    "SELECT * FROM post WHERE userID = ?",
     [req.params.id],
     function (err, postRows) {
       if (err) {
