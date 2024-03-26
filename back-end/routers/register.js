@@ -75,7 +75,7 @@ router.post("/login", function(req, res) {
 })
 //編輯會員
 router.post("/edit", upload.single('headShot'), function(req, res) {
-    if(req.file.path) {
+    if(req.file) {
         var headShot = (req.file.path.substring(15))
     }else {
         var headShot = req.body.headShot;
