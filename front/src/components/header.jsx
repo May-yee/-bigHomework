@@ -5,7 +5,7 @@ import cookie from 'react-cookies'
 class Header extends Component {
     state = {
         onLogin: "",
-        userName: "會員名稱",
+        userName: "請先登入",
         headShot: "http://localhost:3000/images/head_sticker.png",
         userID: "",
      } 
@@ -51,7 +51,7 @@ class Header extends Component {
     }
     componentDidMount = async () => {
         if(cookie.load('userID')) {
-            var userinfo = await axios.get("http://localhost:8000/member/info/" +  this.props.id);  
+            var userinfo = await axios.get("http://localhost:8000/member/info/" +  cookie.load('userID'));  
             var newState = {...this.state};
             newState.userName = userinfo.data.userName;
             newState.headShot = userinfo.data.headShot;
