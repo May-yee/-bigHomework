@@ -20,8 +20,10 @@ class Post extends Component {
                         </div>
                     <div className="post_item_content">
                         <div className="member_box">
-                            <img src={this.state.postItem.headShot} alt=""/>
-                            <p>會員名稱</p>
+                            <div className='member_img'>
+                                <img src={this.state.postItem.headShot} alt=""/>
+                            </div>
+                            <p>{this.state.postItem.userName}</p>
                         </div>
                         <h2>{this.state.postItem.title}</h2>
                         <div className="btn_group row">
