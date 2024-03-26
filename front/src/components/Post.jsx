@@ -6,7 +6,6 @@ class Post extends Component {
     state = { 
         postItem:{},
         chatList:[],
-        apply:[]
      } 
     render() { 
         return (
@@ -21,7 +20,7 @@ class Post extends Component {
                         </div>
                     <div className="post_item_content">
                         <div className="member_box">
-                            <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
+                            <img src={this.state.postItem.headShot} alt=""/>
                             <p>會員名稱</p>
                         </div>
                         <h2>{this.state.postItem.title}</h2>

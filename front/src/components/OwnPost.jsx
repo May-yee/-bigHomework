@@ -20,7 +20,7 @@ class OwnPost extends Component {
                         </div>
                     <div class="post_item_content">
                         <div class="member_box">
-                            <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
+                            <img src={this.state.postItem.headShot} alt=""/>
                             <p>會員名稱</p>
                         </div>
                         <h2>{this.state.postItem.title}</h2>
