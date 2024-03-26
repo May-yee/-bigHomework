@@ -175,6 +175,7 @@ class JoingIndex extends Component {
         var result =  await axios.get("http://localhost:8000/index/post")
         var newState = {...this.state};
         newState.postList = result.data;
+        newState.selectedDate = "";
         this.setState(newState);
     }
 
