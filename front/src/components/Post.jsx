@@ -6,7 +6,6 @@ class Post extends Component {
     state = { 
         postItem:{},
         chatList:[],
-        apply:[]
      } 
     render() { 
         return (
@@ -21,8 +20,10 @@ class Post extends Component {
                         </div>
                     <div className="post_item_content">
                         <div className="member_box">
-                            <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                            <p>會員名稱</p>
+                            <div className='member_img'>
+                                <img src={this.state.postItem.headShot} alt=""/>
+                            </div>
+                            <p>{this.state.postItem.userName}</p>
                         </div>
                         <h2>{this.state.postItem.title}</h2>
                         <div className="btn_group row">
@@ -36,7 +37,7 @@ class Post extends Component {
                             <h4>活動時間:</h4><p>{this.state.postItem.activityDate} {this.state.postItem.activityTime}</p>
                         </div>
                         <div className="content_box row box_blue">
-                            <h4>地點:</h4><a href="">{this.state.postItem.location}</a>
+                            <h4>地點:</h4><a href={'https://www.google.com/maps/search/?api=1&query=' + this.state.postItem.location} target='_blank'>{this.state.postItem.location}</a>
                         </div>
                         <div className="content_icon row">
                             <div className="col-3">

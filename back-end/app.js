@@ -114,7 +114,7 @@ app.get("/index/post/search", function (req, res) {
 // 活動貼文
 app.get("/index/postitem/:id", function (req, res) {
   conn.query(
-    "select * from post where postID = ?",
+    "SELECT * FROM post INNER JOIN member ON post.userID = member.userID  where postID = ?",
     [req.params.id],
     function (err, rows) {
       res.send(JSON.stringify(rows[0]));

@@ -111,17 +111,6 @@ class MemberEdit extends Component {
         });  
         
     }
-    handleImageChange = (e) => {
-        const reader = new FileReader();
-        const file = e.target.files[0];
-        reader.onloadend = () => {
-            var newState = {...this.state};
-            newState.headShot = file;
-            newState.userImgPreview = reader.result;
-            this.setState(newState);
-        }
-        reader.readAsDataURL(file);
-    }
     onEdit = async (e) => {
         console.log(this.state.headShot)
         var formData = new FormData();

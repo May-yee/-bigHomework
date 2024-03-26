@@ -12,6 +12,10 @@ const Members = (props) => {
     // const [joinRecordData, setJoinRecordData] = useState({});
 
     //-----------------------
+    const toggleLogoIn = (e) => {
+        const logoIn = document.querySelector(".logoIn");
+        logoIn.classList.remove("show");
+    }
     useEffect(() => {
         const fetchMemberData = async () => {
             try {
@@ -72,7 +76,7 @@ const Members = (props) => {
     return (    
         <React.Fragment>
         <Header id={id}/>
-        <div className="main">
+        <div className="main" onClick={toggleLogoIn}>
             <div className="container row member">
                 <div className="memberNav">
                     <div className="memberNavBtn show row" id="settingBtn" onClick={btn_setting}>
