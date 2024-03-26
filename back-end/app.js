@@ -306,7 +306,7 @@ app.get("/record/:id", function (req, res) {
 
 app.get("/joinrecord/:id", function (req, res) {
   conn.query(
-    "SELECT post.*,joinmember.*,member.userID,member.headShot FROM post INNER JOIN joinmember ON joinmember.postID = post.host INNER JOIN member ON post.host = member.userID WHERE joinmember.participants = ?;",
+    "SELECT post.*,joinmember.*,member.userID,member.headShot FROM post INNER JOIN joinmember ON joinmember.postID = post.postID INNER JOIN member ON post.host = member.userID WHERE joinmember.participants = ?;",
     [req.params.id],
     function (err, postRows) {
       if (err) {
