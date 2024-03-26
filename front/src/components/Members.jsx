@@ -9,7 +9,7 @@ const Members = (props) => {
     const { id } = useParams();
     const [memberData, setMemberData] = useState({});
     const [recordData, setRecordData] = useState([]);
-    // const [joinRecordData, setJoinRecordData] = useState({});
+    const [joinRdData, setjoinRdData] = useState([]);
 
     //-----------------------
     const toggleLogoIn = (e) => {
@@ -25,7 +25,8 @@ const Members = (props) => {
                 const recordResponse = await axios.get(`http://localhost:8000/record/${id}`);
                 setRecordData(recordResponse.data);
             
-
+                const joinRdResponse = await axios.get(`http://localhost:8000/joinrecord/${id}`);
+                setjoinRdData(joinRdResponse.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -138,12 +139,12 @@ const Members = (props) => {
                     {/* record */}
                     <div className="memberMainBody record">
                         {recordData.map((record,index)=>(
-                            <div className="memberEvent">
+                            <a href={'/Joing/post/' +record.postID } className="memberEvent">
                                 <div className="memberEventImg">
                                     <img src={record.postIMG} alt=""/>
                                 </div>
                                 <div className="memberEventContentBlock">
-                                    <h3></h3>
+                                    <h3>{record.title}</h3>
                                     <div className="content_box_group">
                                         <div className="content_box">
                                             <p>
@@ -171,142 +172,109 @@ const Members = (props) => {
                                         <h4>申請人</h4>
                                         <div className="memberEventAvatar">
 
-                                            {record.join.map(m=>
-                                                <div className="member_img">
-                                                    <a href={"/Joing/members/" +m.userID }>
-                                                        <img src={m.headShot} alt=""/>
-                                                    </a>
-                                                </div>
-                                            )}
+                                        {record.join.map(m => {
+                                            if (m.joinL === "C") {
+                                                return (
+                                                    <div className="member_img" key={m.userID}>
+                                                        <a href={"/Joing/members/" + m.userID}>
+                                                            <img src={m.headShot} alt="" />
+                                                        </a>
+                                                    </div>
+                                                );
+                                            } else {
+
+                                            }
+                                        })}
                                         </div>
                                     </div>
                                     <div>
                                         <h4>已參加</h4>
                                         <div className="memberEventAvatar">
-                                            <div className="member_img">
-                                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                            </div>
-                                            <div className="member_img">
-                                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                            </div>
-                                            <div className="member_img">
-                                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                            </div>
+                                            {record.join.map(m => {
+                                                if (m.joinL === "Y") {
+                                                    return (
+                                                        <div className="member_img" key={m.userID}>
+                                                            <a href={"/Joing/members/" + m.userID}>
+                                                                <img src={m.headShot} alt="" />
+                                                            </a>
+                                                        </div>
+                                                    );
+                                                } else {
+
+                                                }
+                                            })}
                                         </div>
                                     </div>
                                 </div>
-                            </div>   
+                            </a>   
                         ))}
                     </div>
 
                     {/* joinRecord */}
                     <div className="memberMainBody joinRecord">
-                        <div className="memberEvent">
-                            <div className="memberEventImg">
-                                <img src="" alt=""/>
-                            </div>
-                            <div className="memberEventContentBlock">
-                                <h3>貼文主標貼文主標貼文主標貼文主標貼文主標貼文主標</h3>
-                                <div className="content_box_group">
-                                    <div className="content_box">
-                                        <p>
-                                            <span className="p_letter">活動時間</span>
-                                            2024-03-17 18:00 
-                                        </p>
-                                    </div>
-                                    <div className="content_box box_blue">
-                                        <p>
-                                            <span className="p_letter">地點:</span>
-                                            <a href=""> 403台中市西區公益路111號1樓</a>
-                                        </p>
-                                    </div>
-                                    <div className="content_box">
-                                        <p>
-                                            <span className="p_letter">每人費用:</span>
-                                            500 
-                                        </p>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            <div className="memberEventJoiner">
-                                <div>
-                                    <h4>主揪人</h4>
-                                    <div className="memberEventAvatar">
-                                        <div className="member_img">
-                                            <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
+                        {joinRdData.map((join,index)=>{
+                            if(join.joinL === "Y"){
+                                return(
+                                    <a href={'/Joing/post/' +join.postID } className="memberEvent">
+                                        <div className="memberEventImg">
+                                            <img src={join.postIMG} alt=""/>
                                         </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <h4>已參加</h4>
-                                    <div className="memberEventAvatar">
-                                        <div className="member_img">
-                                            <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
+                                        <div className="memberEventContentBlock">
+                                            <h3>{join.title}</h3>
+                                            <div className="content_box_group">
+                                                <div className="content_box">
+                                                    <p>
+                                                        <span className="p_letter">活動時間</span>
+                                                        {join.activityDate} {join.activityTime}
+                                                    </p>
+                                                </div>
+                                                <div className="content_box box_blue">
+                                                    <p>
+                                                        <span className="p_letter">地點:</span>
+                                                        {join.location}
+                                                    </p>
+                                                </div>
+                                                <div className="content_box">
+                                                    <p>
+                                                        <span className="p_letter">每人費用:</span>
+                                                        500 
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            
                                         </div>
-                                        <div className="member_img">
-                                            <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
+                                        <div className="memberEventJoiner">
+                                            <div>
+                                                <h4>主揪人</h4>
+                                                <div className="memberEventAvatar">
+
+                                                    <a href="" className="member_img">
+                                                        <img src={join.headShot} alt=""/>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <h4>已參加</h4>
+                                                <div className="memberEventAvatar">
+                                                    {join.join.map(m => {
+                                                        if (m.joinL === "Y") {
+                                                            return (
+                                                                <div className="member_img" key={m.userID}>
+                                                                    <a href={"/Joing/members/" + m.userID}>
+                                                                        <img src={m.headShot} alt="" />
+                                                                    </a>
+                                                                </div>
+                                                            );
+                                                        }
+                                                    })}
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className="member_img">
-                                            <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>   
-                        <div className="memberEvent expired">
-                            <div className="memberEventImg">
-                                <img src="" alt=""/>
-                            </div>
-                            <div className="memberEventContentBlock">
-                                <h3>貼文主標貼文主標貼文主標貼文主標貼文主標貼文主標</h3>
-                                <div className="content_box_group">
-                                    <div className="content_box">
-                                        <p>
-                                            <span className="p_letter">活動時間</span>
-                                            2024-03-17 18:00 
-                                        </p>
-                                    </div>
-                                    <div className="content_box box_blue">
-                                        <p>
-                                            <span className="p_letter">地點:</span>
-                                            <a href=""> 403台中市西區公益路111號1樓</a>
-                                        </p>
-                                    </div>
-                                    <div className="content_box">
-                                        <p>
-                                            <span className="p_letter">每人費用:</span>
-                                            500 
-                                        </p>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            <div className="memberEventJoiner">
-                                <div>
-                                    <h4>主揪人</h4>
-                                    <div className="memberEventAvatar">
-                                        <div className="member_img">
-                                            <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <h4>已參加</h4>
-                                    <div className="memberEventAvatar">
-                                        <div className="member_img">
-                                            <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                        </div>
-                                        <div className="member_img">
-                                            <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                        </div>
-                                        <div className="member_img">
-                                            <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>  
+                                    </a>
+                                );
+
+                            } 
+                        })}
                     </div>
 
 
