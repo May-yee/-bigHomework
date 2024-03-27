@@ -84,13 +84,13 @@ class Post extends Component {
                             <div className="submit"><img src="http://localhost:3000/images/submit.svg" alt=""onClick={this.send_message}/></div>
                         </div>
                     </div>
-                    <div class="join_box">
-                    <div class="already_join">
-                        <div class="join_box_title row">
+                    <div className="join_box">
+                    <div className="already_join">
+                        <div className="join_box_title row">
                             <h2>已參加</h2>
-                            <div class="num_box"><p>12</p></div>
+                            <div className="num_box"><p>12</p></div>
                         </div>
-                        <div class="join_member">
+                        <div className="join_member">
                             <a href="">
                                 <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
                             </a>
