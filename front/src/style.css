@@ -318,8 +318,7 @@ footer{
     display: flex;
     /* border: #000 1px solid; */
     flex-wrap: wrap;
-    justify-content: space-between;
-    margin: 50px 0;
+    margin-top: 40px;
 }
 
 .post_box{
@@ -328,7 +327,7 @@ footer{
     background-color: #fff;
     border:4px #FFCC70 solid;
     border-radius: 12px;
-    margin:12px 0;
+    margin:12px 23px;
     overflow: hidden;
     justify-content: space-around;
 }

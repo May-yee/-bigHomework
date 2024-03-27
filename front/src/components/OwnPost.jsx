@@ -162,18 +162,20 @@ class OwnPost extends Component {
             cmName: this.state.chatList.cmName,
             headShot: this.state.chatList.headShot
         }
-        if(cookie.load("userID")){
-            await axios.post("http://localhost:8000/post/chat",dataToSever);
-            var chatResult = await axios.get(`http://localhost:8000/index/chatitem/${this.props.match.params.id}`);
-            var newState = {...this.state};
-            newState.chatList = chatResult.data;        
-            this.setState(newState);
-            newState.chatList.message = "";
-            this.setState(newState);
-            
-        }else {
-            alert('請先登入會員');
-        } 
+        if(dataToSever.message !== ''){
+            if(cookie.load("userID")){
+                await axios.post("http://localhost:8000/post/chat",dataToSever);
+                var chatResult = await axios.get(`http://localhost:8000/index/chatitem/${this.props.match.params.id}`);
+                var newState = {...this.state};
+                newState.chatList = chatResult.data;        
+                this.setState(newState);
+                newState.chatList.message = "";
+                this.setState(newState);
+                
+            }else {
+                alert('請先登入會員');
+            } 
+        }
     }
     key_enter = async (e) => {
         if(e.key === "Enter"){
