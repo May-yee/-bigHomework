@@ -36,7 +36,7 @@ class OwnPost extends Component {
                         <div className="content_box row">
                             <h4>活動時間:</h4><p>{this.state.postItem.activityDate} {this.state.postItem.activityTime}</p>
                         </div>
-                        <div class="content_box row box_blue">
+                        <div className="content_box row box_blue">
                             <h4>地點:</h4><a href={'https://www.google.com/maps/search/?api=1&query=' + this.state.postItem.location} target='_blank'>{this.state.postItem.location}</a>
                         </div>
                         <div className="content_icon row">
@@ -69,8 +69,8 @@ class OwnPost extends Component {
                         </div>
                         <div className="message_area">
                             {this.state.chatList.map(chat=>
-                                <div class="message">
-                                <div class="member_box">
+                                <div className="message">
+                                <div className="member_box">
                                     <div className='member_img'>
                                         <img src={chat.headShot} alt=""/>
                                     </div>
