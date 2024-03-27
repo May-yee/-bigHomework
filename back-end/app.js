@@ -325,7 +325,7 @@ app.get("/joinrecord/:id", function (req, res) {
               return;
             }
             post.join=(joinRows);
-            console.log(postRows);
+            // console.log(postRows);
             if (index === postRows.length - 1) {
               // 在最后一次查詢完成後發送資料
               res.send(JSON.stringify(postRows));
@@ -338,8 +338,31 @@ app.get("/joinrecord/:id", function (req, res) {
   );
 })
 
+app.post("/collect", function(req, res) {
+  conn.query("select * from collect WHERE userID = ? AND postID = ?",
+    [req.body.userID, req.body.postID],
+    function(err, rows) {
+      if(!rows[0]) {
+        res.send(null)
+      }else {
+        res.send(true)
+      }
+    }
+  )
+})
 
-
+app.post("/collected", function(req, res) {
+  conn.query("insert into collect (postID, userID, iscollect) value(?,?,?)",
+    [req.body.postID, req.body.userID, req.body.iscollect],
+    function(err, rows) {
+      if(!err){
+        res.send({success: true})
+      }else{
+        res.send({success: false})
+      }
+    }
+  )
+})
 
 // app.post("/post/apply", function (req, res) {
 //     conn.query(
@@ -356,11 +379,10 @@ app.get("/joinrecord/:id", function (req, res) {
 //     );
 //   });
 
-// 參加人員資料
-app.get("/post/accept/:id", function (req, res) {
-  conn.query("SELECT * FROM joinmember inner join member on joinmember.participants = member.userID where postID = ? and joinL =  'Y'", 
-  [req.params.id], 
-  function (err, rows) {
-    res.send(JSON.stringify(rows));
-  });
-});
+// app.get("/apply/post/:id", function (req, res) {
+//     conn.query("select * from apply where postID = ?", 
+//     [req.params.id], 
+//     function (err, rows) {
+//       res.send(JSON.stringify(rows));
+//     });
+//   });

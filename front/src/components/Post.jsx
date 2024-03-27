@@ -6,8 +6,6 @@ class Post extends Component {
     state = { 
         postItem:{},
         chatList:[],
-        joinmember:{},
-        joinMan:[]
      } 
     render() { 
         return (
@@ -22,15 +20,17 @@ class Post extends Component {
                         </div>
                     <div className="post_item_content">
                         <div className="member_box">
-                            <div className='member_img'>
+                            <a href={'/Joing/members/' + this.state.postItem.userID} className='member_img'>
                                 <img src={this.state.postItem.headShot} alt=""/>
-                            </div>
-                            <p>會員名稱</p>
+                            </a>
+                            <p>{this.state.postItem.userName}</p>
                         </div>
                         <h2>{this.state.postItem.title}</h2>
                         <div className="btn_group row">
+                            { (this.state.iscollect) ? <div className="btn btn_gray apply-btn">已收藏</div>
+                            : <a><div className="btn btn_orange apply-btn" onClick={this.btn_collect}>收藏活動</div></a>
+                            }
                             <a><div className="btn btn_blue apply-btn" onClick={this.btn_apply}>申請參加</div></a>
-                            
                         </div>
                         <div className="content_box row">
                             <h4>揪團時間:</h4><p>{this.state.postItem.registeredDate} {this.state.postItem.registeredTime}</p>
@@ -39,7 +39,7 @@ class Post extends Component {
                             <h4>活動時間:</h4><p>{this.state.postItem.activityDate} {this.state.postItem.activityTime}</p>
                         </div>
                         <div className="content_box row box_blue">
-                            <h4>地點:</h4><a href="">{this.state.postItem.location}</a>
+                            <h4>地點:</h4><a href={'https://www.google.com/maps/search/?api=1&query=' + this.state.postItem.location} target='_blank'>{this.state.postItem.location}</a>
                         </div>
                         <div className="content_icon row">
                             <div className="col-3">
@@ -88,9 +88,9 @@ class Post extends Component {
                     <div className="already_join">
                         <div className="join_box_title row">
                             <h2>已參加</h2>
-                            <div class="num_box"><p>12</p></div>
+                            <div className="num_box"><p>12</p></div>
                         </div>
-                        <div class="join_member">
+                        <div className="join_member">
                             <a href="">
                                 <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
                             </a>
@@ -130,11 +130,10 @@ class Post extends Component {
         var collect = await axios.post("http://localhost:8000/collect",
         {userID: cookie.load('userID'), postID: this.props.match.params.id}
         );    
-        var joinResult = await axios.get(`http://localhost:8000/post/accept/${this.props.match.params.id}`);    
         var newState = {...this.state};
         newState.postItem = result.data;
-        newState.chatList = chatresult.data;
-        newState.joinMan = joinResult.data;        
+        newState.chatList = chatresult.data;    
+        newState.iscollect = collect.data;    
         this.setState(newState);
     }
     toggleLogoIn = (e) => {
@@ -152,22 +151,32 @@ class Post extends Component {
         
     }
     btn_collect = async () => {
-        var collect = await axios.post("http://localhost:8000/collected",{userID: cookie.load('userID')}); 
-        
+        var dataToServer = {
+            postID: this.props.match.params.id,
+            userID: cookie.load('userID'),
+            iscollect: true
+        }
+        var collected = await axios.post("http://localhost:8000/collected",dataToServer); 
+        if(collected.data['success']){
+            var newState = {...this.state};  
+            newState.iscollect = collected.data['success'];    
+            this.setState(newState);
+        }
     }
 
     btn_apply = async () => {
         var newState = {...this.state};
-        newState.joinmember.postID = this.props.match.params.id;
-        newState.joinmember.participants = cookie.load("userID");
-        newState.joinmember.joinL = "C";
+        newState.apply.postID = this.props.match.params.id;
+        newState.apply.memberID = cookie.load("userID");
+        newState.apply.headShot = cookie.load('headShot');
         this.setState(newState);
         var dataToServer = {
-            postID: this.state.joinmember.postID,
-            participants: this.state.joinmember.participants,
-            joinL: this.state.joinmember.joinL
+            postID: this.state.apply.postID,
+            memberID: this.state.apply.memberID,
+            headShot: this.state.apply.headShot
         }
-        await axios.post("http://localhost:8000/post/apply",dataToServer);
+        console.log(dataToServer);
+         await axios.post("http://localhost:8000/post/apply",dataToServer);
         alert("ok");
     }
    
