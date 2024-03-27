@@ -21,21 +21,38 @@ const Members = (props) => {
             try {
                 const memberResponse = await axios.get(`http://localhost:8000/members/${id}`);
                 setMemberData(memberResponse.data);
-                
-                const recordResponse = await axios.get(`http://localhost:8000/record/${id}`);
-                setRecordData(recordResponse.data);
-            
-                const joinRdResponse = await axios.get(`http://localhost:8000/joinrecord/${id}`);
-                setjoinRdData(joinRdResponse.data);
-
-                const collectResponse = await axios.get(`http://localhost:8000/collect/${id}`);
-                setcollectData(collectResponse.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         };
-
+        const fetchrecordData = async()=>{
+            try{
+                const recordResponse = await axios.get(`http://localhost:8000/record/${id}`);
+                setRecordData(recordResponse.data);
+            }catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+        const fetchjoinRdData = async()=>{
+            try{
+                const joinRdResponse = await axios.get(`http://localhost:8000/joinrecord/${id}`);
+                setjoinRdData(joinRdResponse.data);
+            }catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+        const fetchlikeData = async()=>{
+            try{
+                const collectResponse = await axios.get(`http://localhost:8000/collect/${id}`);
+                setcollectData(collectResponse.data);
+            }catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+        fetchrecordData();
+        fetchjoinRdData();
         fetchMemberData();
+        fetchlikeData();
     }, [id]);
     console.log(collectData);
     //memberNavBtn--------------
