@@ -325,7 +325,7 @@ app.get("/joinrecord/:id", function (req, res) {
               return;
             }
             post.join=(joinRows);
-            console.log(postRows);
+            // console.log(postRows);
             if (index === postRows.length - 1) {
               // 在最后一次查詢完成後發送資料
               res.send(JSON.stringify(postRows));

@@ -54,46 +54,6 @@ const Members = (props) => {
     const btn_record = () => toggleMemberMainBody("recordBtn", "record", "揪團紀錄");
     const btn_joinRecord = () => toggleMemberMainBody("joinRecordBtn", "joinRecord", "參加紀錄");
 
-
-
-
-    // const btn_setting = () => {
-    //     document.querySelectorAll(".memberNavBtn").forEach(function(body) {
-    //         body.classList.remove("show");
-    //     });
-    //     document.querySelector("#settingBtn").classList.add("show");
-
-    //     document.querySelectorAll(".memberMainBody").forEach(function(body) {
-    //         body.classList.remove("show");
-    //     });
-    //     document.querySelector(".setting").classList.add("show")
-    //     document.querySelector(".memberMain h2").textContent = "帳號設定"
-    // }
-    // const btn_record = () => {
-    //     document.querySelectorAll(".memberNavBtn").forEach(function(body) {
-    //         body.classList.remove("show");
-    //     });
-    //     document.querySelector("#recordBtn").classList.add("show");
-
-    //     document.querySelectorAll(".memberMainBody").forEach(function(body) {
-    //         body.classList.remove("show");
-    //     });
-    //     document.querySelector(".record").classList.add("show")
-    //     document.querySelector(".memberMain h2").textContent = "揪團紀錄"
-    // }
-    // const btn_joinRecord = () => {
-    //     document.querySelectorAll(".memberNavBtn").forEach(function(body) {
-    //         body.classList.remove("show");
-    //     });
-    //     document.querySelector("#joinRecordBtn").classList.add("show");
-
-    //     document.querySelectorAll(".memberMainBody").forEach(function(body) {
-    //         body.classList.remove("show");
-    //     });
-    //     document.querySelector(".joinRecord").classList.add("show")
-    //     document.querySelector(".memberMain h2").textContent = "參加紀錄"
-    // }
-
     return (    
         <React.Fragment>
         <Header id={id}/>
