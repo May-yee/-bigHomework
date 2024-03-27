@@ -99,24 +99,4 @@ router.get("/info/:id", function(req, res) {
         )
     }
 })
-app.post("/collect", function(req, res) {
-    conn.query("select * from collect WHERE userID = ?",
-      [req.body.userID],
-      function(err, rows) {
-        console.log(rows[0])
-        if(!rows[0]) {
-          res.send(null)
-        }
-      }
-    )
-  })
-  
-  app.post("/collected", function(req, res) {
-    conn.query("inser into collect (postID, userID, iscollect) value(?,?,?)",
-      [req.body.postID, req.body.userID, req.body.iscollect],
-      function(err, rows) {
-        
-      }
-    )
-  })
 module.exports = router;

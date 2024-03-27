@@ -128,7 +128,7 @@ class Post extends Component {
         var result = await axios.get(`http://localhost:8000/index/postitem/${this.props.match.params.id}`);
         var chatresult = await axios.get(`http://localhost:8000/index/chatitem/${this.props.match.params.id}`);
         var collect = await axios.post("http://localhost:8000/collect",
-        {userID: cookie.load('userID')}
+        {userID: cookie.load('userID'), postID: this.props.match.params.id}
         );    
         var newState = {...this.state};
         newState.postItem = result.data;
@@ -151,8 +151,17 @@ class Post extends Component {
         
     }
     btn_collect = async () => {
-        var collect = await axios.post("http://localhost:8000/collected",{userID: cookie.load('userID')}); 
-        
+        var dataToServer = {
+            postID: this.props.match.params.id,
+            userID: cookie.load('userID'),
+            iscollect: true
+        }
+        var collected = await axios.post("http://localhost:8000/collected",dataToServer); 
+        if(collected.data['success']){
+            var newState = {...this.state};  
+            newState.iscollect = collected.data['success'];    
+            this.setState(newState);
+        }
     }
 
     btn_apply = async () => {
