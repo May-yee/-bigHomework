@@ -215,7 +215,7 @@ app.post("/index/postitem",upload.single("postIMG"), function (req, res) {
           console.error("Error updating post:", err);
           res.status(500).send("Error updating post");
           return;
-        }
+        }delete
         res.send(JSON.stringify(req.body));
       }
     );
@@ -379,12 +379,14 @@ app.get("/collect/:id", function (req, res) {
     "SELECT post.*,collect.*,member.userID,member.headShot FROM post INNER JOIN collect ON collect.postID = post.postID INNER JOIN member ON post.host = member.userID WHERE collect.userID = ? AND collect.iscollect=1;",
     [req.params.id],
     function (err, postRows) {
+      if(!postRows[0]){
+        res.send("")
+      }
       if (err) {
         console.error("Error updating profile:", err);
         res.status(500).send("Error updating post");
         return;
       }
-       ;
       postRows.map((post,index) => {
         conn.query(
           "SELECT member.userID,joinmember.joinL,member.headShot FROM joinmember INNER JOIN member ON joinmember.participants = member.userID WHERE joinmember.postID = ? and joinmember.joinL= 'Y' ;",
@@ -429,6 +431,19 @@ app.post("/collect", function(req, res) {
 app.post("/collected", function(req, res) {
   conn.query("insert into collect (postID, userID, iscollect) value(?,?,?)",
     [req.body.postID, req.body.userID, req.body.iscollect],
+    function(err, rows) {
+      if(!err){
+        res.send({success: true})
+      }else{
+        res.send({success: false})
+      }
+    }
+  )
+})
+
+app.delete("/collect/delete/:id/:postID", function(req, res) {
+  conn.query("delete from collect where userID = ? and postID = ?",
+    [req.params.id, req.params.postID],
     function(err, rows) {
       if(!err){
         res.send({success: true})

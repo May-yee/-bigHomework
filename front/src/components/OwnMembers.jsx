@@ -16,9 +16,26 @@ const Members = (props) => {
         const logoIn = document.querySelector(".logoIn");
         logoIn.classList.remove("show");
     }
-    const deleteCollect = (e) => {
-        e.preventDefault()
-        alert("delete")
+    const fetchlikeData = async() => {
+        try{
+            const collectResponse = await axios.get(`http://localhost:8000/collect/${id}`);
+            console.log(collectResponse)
+            if (collectResponse.data) {
+                setcollectData(collectResponse.data);
+            } else {
+                console.log("No data returned");
+                setcollectData([]);
+            }
+        }catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+    const deleteCollect = async (event ,postID) => {
+        event.preventDefault();
+        var result = await axios.delete(`http://localhost:8000/collect/delete/${id}/${postID}`);
+        if(result.data['success']){
+            fetchlikeData();
+        }
     }
     useEffect(() => {
         const fetchMemberData = async () => {
@@ -45,20 +62,11 @@ const Members = (props) => {
                 console.error('Error fetching data:', error);
             }
         }
-        const fetchlikeData = async()=>{
-            try{
-                const collectResponse = await axios.get(`http://localhost:8000/collect/${id}`);
-                setcollectData(collectResponse.data);
-            }catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        }
         fetchrecordData();
         fetchjoinRdData();
         fetchMemberData();
         fetchlikeData();
-    }, [id]);
-    console.log(collectData);
+    }, [id,]);
     //memberNavBtn--------------
     const toggleMemberMainBody = (btnId, mainBodyClass, titleText) => {
         document.querySelectorAll(".memberNavBtn").forEach(body => {
@@ -337,8 +345,8 @@ const Members = (props) => {
                     <div className="memberMainBody like">
                         {collectData.map((collect,index)=>{
                             return(
-                                <a href={'/Joing/post/' +collect.postID } className="memberEvent">
-                                    <button className="delet" onClick={deleteCollect}><img src="http://localhost:3000/images/trash_icon.png" alt=""/></button>
+                                <a href={'/Joing/post/' + collect.postID } className="memberEvent">
+                                    <button className="delet"  onClick={ (event) => {deleteCollect(event, collect.postID)}}><img src="http://localhost:3000/images/trash_icon.png" alt=""/></button>
                                     <div className="memberEventImg">
                                         <img src={collect.postIMG} alt=""/>
                                     </div>
