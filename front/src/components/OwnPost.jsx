@@ -112,7 +112,7 @@ class OwnPost extends Component {
                                 </a>
                                 <div className="btn_group row">
                                 <div className="btn btn_blue" onClick={() => this.btn_accept(index)}>參加</div>
-                            <div className="btn btn_gray" onClick={this.btn_reject}>拒絕</div>
+                            <div className="btn btn_gray" onClick={() => this.btn_reject(index)}>拒絕</div>
                             </div>
                         </div>
                      </div>
@@ -219,9 +219,10 @@ class OwnPost extends Component {
             window.location.reload();
         }
         }
-        // btn_reject = async () => {
-        //     await axios.delete("http://localhost:8000/apply/delete/" + this.state.applyMan.memberID);
-        //     alert("OK")
-        // }
+        btn_reject = async (index) => {
+            await axios.delete("http://localhost:8000/apply/delete/" + this.state.applyMan[index].participants);
+            // console.log(this.state.applyMan[index].participants)
+            window.location.reload();
+        }
 } 
 export default OwnPost;

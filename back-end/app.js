@@ -411,3 +411,13 @@ app.get("/post/accept/:id", function (req, res) {
     res.send(JSON.stringify(rows));
   });
 });
+// 拒絕申請
+app.delete("/apply/delete/:id", function (req, res) {
+  conn.query(
+    "delete from joinmember where participants = ?",
+    [req.params.id],
+    function (err, rows) {
+      res.send("#" + req.params.id + " deleted");
+    }
+  );
+});
