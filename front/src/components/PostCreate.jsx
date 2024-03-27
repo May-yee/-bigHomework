@@ -17,7 +17,7 @@ function JoingPostCreate(){
     const [price,setPrice] = useState(0);
     const [content,setContent] = useState("");
     const [imgPreview, setImgPreview] = useState('');
-    const userID = cookie.load('userID')
+    const host = cookie.load('userID')
     const [searchBox, setSearchBox] = useState(null);
 
     //Google map------------------
@@ -72,7 +72,7 @@ function JoingPostCreate(){
                 formData.append("location", location);
                 formData.append("price", price);
                 formData.append("content", content);
-                formData.append("userID", userID);
+                formData.append("host", host);
     
                 console.log(formData);
                 

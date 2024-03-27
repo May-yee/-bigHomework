@@ -84,19 +84,31 @@ class Post extends Component {
                             <div className="submit"><img src="http://localhost:3000/images/submit.svg" alt=""onClick={this.send_message}/></div>
                         </div>
                     </div>
-                    <div class="join_box">
-                    <div class="already_join">
-                        <div class="join_box_title row">
+                    <div className="join_box">
+                    <div className="already_join">
+                        <div className="join_box_title row">
                             <h2>已參加</h2>
-                            <div class="num_box"><p>{this.state.joinMan.length}</p></div>
+                            <div class="num_box"><p>12</p></div>
                         </div>
                         <div class="join_member">
-                        <div className="num_box"><p></p></div>
-                        </div>
-                        <div className="join_member">
-                            {this.state.joinMan.map(join =><a href="" className='member_img'>
-                                <img src={join.headShot} alt=""/>
-                            </a>)}
+                            <a href="">
+                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
+                            </a>
+                            <a href="">
+                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
+                            </a>
+                            <a href="">
+                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
+                            </a>
+                            <a href="">
+                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
+                            </a>
+                            <a href="">
+                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
+                            </a>
+                            <a href="">
+                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -115,6 +127,9 @@ class Post extends Component {
     componentDidMount = async () =>{
         var result = await axios.get(`http://localhost:8000/index/postitem/${this.props.match.params.id}`);
         var chatresult = await axios.get(`http://localhost:8000/index/chatitem/${this.props.match.params.id}`);
+        var collect = await axios.post("http://localhost:8000/collect",
+        {userID: cookie.load('userID'), postID: this.props.match.params.id}
+        );    
         var joinResult = await axios.get(`http://localhost:8000/post/accept/${this.props.match.params.id}`);    
         var newState = {...this.state};
         newState.postItem = result.data;
@@ -134,6 +149,10 @@ class Post extends Component {
         newState.chatList.cmName = cookie.load('userName')
         newState.chatList.headShot = cookie.load('headShot')
         this.setState(newState);
+        
+    }
+    btn_collect = async () => {
+        var collect = await axios.post("http://localhost:8000/collected",{userID: cookie.load('userID')}); 
         
     }
 

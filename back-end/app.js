@@ -153,7 +153,7 @@ app.post("/post/create", upload.single("postIMG"), function (req, res) {
     [
       Img,
       req.body.type,
-      req.body.userID,
+      req.body.host,
       req.body.title,
       req.body.registeredDate,
       req.body.registeredTime,
@@ -271,7 +271,42 @@ app.get("/members/:id", function (req, res) {
 
 app.get("/record/:id", function (req, res) {
   conn.query(
-    "SELECT * FROM post WHERE userID = ?",
+    "SELECT * FROM post WHERE host = ?",
+    [req.params.id],
+    function (err, postRows) {
+      if (err) {
+        console.error("Error updating profile:", err);
+        res.status(500).send("Error updating post");
+        return;
+      }
+       ;
+      const test=postRows.map((post,index) => {
+        conn.query(
+          "SELECT member.userID,joinmember.joinL,member.headShot FROM joinmember INNER JOIN member ON joinmember.participants = member.userID WHERE joinmember.postID = ?",
+          [post.postID],
+          function (err, joinRows) {
+            if (err) {
+              console.error("Error updating profile:", err);
+              return;
+            }
+            post.join=(joinRows);
+            // console.log(postRows);
+            if (index === postRows.length - 1) {
+              // 在最后一次查詢完成後發送資料
+              res.send(JSON.stringify(postRows));
+            }
+          }    
+          
+          )
+
+      })    
+    }
+  );
+})
+
+app.get("/joinrecord/:id", function (req, res) {
+  conn.query(
+    "SELECT post.*,joinmember.*,member.userID,member.headShot FROM post INNER JOIN joinmember ON joinmember.postID = post.postID INNER JOIN member ON post.host = member.userID WHERE joinmember.participants = ?;",
     [req.params.id],
     function (err, postRows) {
       if (err) {
@@ -298,7 +333,6 @@ app.get("/record/:id", function (req, res) {
           }    
           
           )
-
       })    
     }
   );
@@ -306,44 +340,21 @@ app.get("/record/:id", function (req, res) {
 
 
 
-// 申請參加請求
-app.post("/post/apply", function (req, res) {
-  conn.query(
-    "insert into joinmember (participants, postID, joinL) values(?,?,?)",
-    [req.body.participants, req.body.postID, req.body.joinL],
-    function (err, rows) {
-      if (err) {
-        console.error("Error updating post:", err);
-        res.status(500).send("Error updating post");
-        return;
-      }
-      res.send(JSON.stringify(req.body.applyItem));
-    }
-  );
-});
-// 申請參加人員資料
-app.get("/post/apply/:id", function (req, res) {
-  conn.query("SELECT * FROM joinmember inner join member on joinmember.participants = member.userID where postID = ? and joinL =  'C'", 
-  [req.params.id], 
-  function (err, rows) {
-    res.send(JSON.stringify(rows));
-  });
-});
-// 接受參加
-app.post("/post/accept", function (req, res) {
-  conn.query(
-    "update joinmember set joinL = ? where participants = ? And  postID= ?",
-    [ req.body.joinL, req.body.participants ,req.body.postID],
-    function (err, rows) {
-      if (err) {
-        console.error("Error updating post:", err);
-        res.status(500).send("Error updating post");
-        return;
-      }
-      res.send(JSON.stringify(req.body.applyItem));
-    }
-  );
-});
+
+// app.post("/post/apply", function (req, res) {
+//     conn.query(
+//       "insert into apply (memberID, postID, headShot) values(?,?,?)",
+//       [req.body.memberID, req.body.postID, req.body.headShot],
+//       function (err, rows) {
+//         if (err) {
+//           console.error("Error updating post:", err);
+//           res.status(500).send("Error updating post");
+//           return;
+//         }
+//         res.send(JSON.stringify(req.body.applyItem));
+//       }
+//     );
+//   });
 
 // 參加人員資料
 app.get("/post/accept/:id", function (req, res) {
