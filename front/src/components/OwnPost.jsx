@@ -111,7 +111,7 @@ class OwnPost extends Component {
                                      <img src={apply.headShot} alt=""/>
                                 </a>
                                 <div className="btn_group row">
-                                <div className="btn btn_blue" onClick={() => this.btn_accept(index)}>參加</div>
+                                <div className="btn btn_blue" onClick={() => this.btn_accept(index)}>接受</div>
                             <div className="btn btn_gray" onClick={() => this.btn_reject(index)}>拒絕</div>
                             </div>
                         </div>
