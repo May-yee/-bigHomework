@@ -104,17 +104,19 @@ class OwnPost extends Component {
                             <h2>申請參加</h2>
                             <div className="num_box"><p>{this.state.applyMan.length}</p></div>
                         </div>
-                        {this.state.applyMan.map(apply =><div className="join_member">
-                            <div className="join_member_box ">
-                                    <a href="" className='member_img'>
-                                        <img src={apply.headShot} alt=""/>
-                                    </a>
+                        {this.state.applyMan.map((apply, index) => (
+                    <       div className="join_member" key={index}>
+                            <div className="join_member_box">
+                                <a href="" className='member_img'>
+                                     <img src={apply.headShot} alt=""/>
+                                </a>
                                 <div className="btn_group row">
-                                    <div className="btn btn_blue" onClick={this.btn_accept}>參加</div>
-                                    <div className="btn btn_gray" onClick={this.btn_reject}>拒絕</div>
-                                </div>
+                                <div className="btn btn_blue" onClick={() => this.btn_accept(index)}>參加</div>
+                            <div className="btn btn_gray" onClick={this.btn_reject}>拒絕</div>
                             </div>
-                        </div>)}
+                        </div>
+                     </div>
+                        ))}
                     </div>
                 </div>
             </div>
@@ -198,10 +200,11 @@ class OwnPost extends Component {
                 }                
             }
         }
-        btn_accept = async () => {
+        btn_accept = async (index) => {
             var newState = {...this.state};
             newState.joinmember.postID = this.props.match.params.id;
-            newState.joinmember.participants = this.applyman.participants;
+            if (index >= 0 && index < newState.applyMan.length) {
+                newState.joinmember.participants = newState.applyMan[index].participants;
             newState.joinmember.joinL = "Y";
             this.setState(newState);
             var dataToServer = {
@@ -210,10 +213,11 @@ class OwnPost extends Component {
                 joinL: this.state.joinmember.joinL
             }
             await axios.post("http://localhost:8000/post/accept", dataToServer);
-            console.log(dataToServer);
-            alert("ok");
+            // console.log(dataToServer);
+            // alert("ok");
             // this.setState(newState);
-            // window.location.reload();
+            window.location.reload();
+        }
         }
         // btn_reject = async () => {
         //     await axios.delete("http://localhost:8000/apply/delete/" + this.state.applyMan.memberID);
