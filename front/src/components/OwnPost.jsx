@@ -6,7 +6,9 @@ class OwnPost extends Component {
     state = { 
         postItem:{},
         chatList:[],
-        applyMan:[]
+        joinmember:{},
+        applyMan:[],
+        joinMan:[]
      } 
     render() { 
         return (
@@ -89,24 +91,12 @@ class OwnPost extends Component {
                     <div className="already_join">
                         <div className="join_box_title row">
                             <h2>已參加</h2>
-                            <div className="num_box"><p>12</p></div>
+                            <div className="num_box"><p>{this.state.joinMan.length}</p></div>
                         </div>
                         <div className="join_member">
-                            <a href="">
-                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                            </a>
-                            <a href="">
-                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                            </a>
-                            <a href="">
-                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                            </a>
-                            <a href="">
-                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                            </a>
-                            <a href="">
-                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                            </a>
+                            {this.state.joinMan.map(join =><a href="" className='member_img'>
+                                <img src={join.headShot} alt=""/>
+                            </a>)}
                         </div>
                     </div>
                     <div className="review_join">
@@ -120,7 +110,7 @@ class OwnPost extends Component {
                                         <img src={apply.headShot} alt=""/>
                                     </a>
                                 <div className="btn_group row">
-                                    <div className="btn btn_blue">參加</div>
+                                    <div className="btn btn_blue" onClick={this.btn_accept}>參加</div>
                                     <div className="btn btn_gray" onClick={this.btn_reject}>拒絕</div>
                                 </div>
                             </div>
@@ -142,11 +132,13 @@ class OwnPost extends Component {
     componentDidMount = async () =>{
         var result = await axios.get(`http://localhost:8000/index/postitem/${this.props.match.params.id}`);
         var chatResult = await axios.get(`http://localhost:8000/index/chatitem/${this.props.match.params.id}`);
-        var applyResult = await axios.get(`http://localhost:8000/apply/post/${this.props.match.params.id}`);   
+        var applyResult = await axios.get(`http://localhost:8000/post/apply/${this.props.match.params.id}`);
+        var joinResult = await axios.get(`http://localhost:8000/post/accept/${this.props.match.params.id}`);      
         var newState = {...this.state};
         newState.postItem = result.data;
         newState.chatList = chatResult.data;
-        newState.applyMan = applyResult.data;        
+        newState.applyMan = applyResult.data;
+        newState.joinMan = joinResult.data;        
         this.setState(newState);
     }
     message_change = (e) => {
@@ -205,6 +197,23 @@ class OwnPost extends Component {
                     alert('請先登入會員');
                 }                
             }
+        }
+        btn_accept = async () => {
+            var newState = {...this.state};
+            newState.joinmember.postID = this.props.match.params.id;
+            newState.joinmember.participants = this.applyman.participants;
+            newState.joinmember.joinL = "Y";
+            this.setState(newState);
+            var dataToServer = {
+                postID : this.props.match.params.id,
+                participants: this.state.joinmember.participants,
+                joinL: this.state.joinmember.joinL
+            }
+            await axios.post("http://localhost:8000/post/accept", dataToServer);
+            console.log(dataToServer);
+            alert("ok");
+            // this.setState(newState);
+            // window.location.reload();
         }
         // btn_reject = async () => {
         //     await axios.delete("http://localhost:8000/apply/delete/" + this.state.applyMan.memberID);
