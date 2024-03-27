@@ -29,8 +29,6 @@ app.use(express.json());
 
 //連接資料庫(npm i mysql)
 var mysql = require("mysql");
-const { findSourceMap } = require("module");
-const router = require("./routers/register");
 var conn = mysql.createConnection({
   user: "root",
   password: "",
@@ -40,7 +38,6 @@ var conn = mysql.createConnection({
 
 //導入註冊
 var register = require("./routers/register");
-const { title } = require("process");
 app.use("/member", register);
 
 app.get("/index/post", function (req, res) {
@@ -253,7 +250,9 @@ app.post("/post/chat", function (req, res) {
   );
 });
 
-//---------------------------------------------------
+//--------------
+// 會員頁
+//--------------
 app.get("/members/:id", function (req, res) {
   conn.query(
     "select * from member where userID =?",
@@ -269,6 +268,43 @@ app.get("/members/:id", function (req, res) {
   );
 });
 
+//通知
+app.get("/note/:id", function (req, res) {
+  conn.query(
+    "SELECT * FROM post WHERE host = ?",
+    [req.params.id],
+    function (err, postRows) {
+      if (err) {
+        console.error("Error updating profile:", err);
+        res.status(500).send("Error updating post");
+        return;
+      }
+       ;
+      postRows.map((post,index) => {
+        conn.query(
+          "SELECT member.userID,joinmember.joinL,member.headShot FROM joinmember INNER JOIN member ON joinmember.participants = member.userID WHERE joinmember.postID = ?",
+          [post.postID],
+          function (err, joinRows) {
+            if (err) {
+              console.error("Error updating profile:", err);
+              return;
+            }
+            post.join=(joinRows);
+            // console.log(postRows);
+            if (index === postRows.length - 1) {
+              // 在最后一次查詢完成後發送資料
+              res.send(JSON.stringify(postRows));
+            }
+          }    
+          
+          )
+
+      })    
+    }
+  );
+})
+
+// 揪團紀錄
 app.get("/record/:id", function (req, res) {
   conn.query(
     "SELECT * FROM post WHERE host = ?",
@@ -306,7 +342,7 @@ app.get("/record/:id", function (req, res) {
 
 app.get("/joinrecord/:id", function (req, res) {
   conn.query(
-    "SELECT post.*,joinmember.*,member.userID,member.headShot FROM post INNER JOIN joinmember ON joinmember.postID = post.postID INNER JOIN member ON post.host = member.userID WHERE joinmember.participants = ?;",
+    "SELECT post.*,joinmember.*,member.userID,member.headShot FROM post INNER JOIN joinmember ON joinmember.postID = post.postID INNER JOIN member ON post.host = member.userID WHERE joinmember.joinL='Y' AND joinmember.participants = ?;",
     [req.params.id],
     function (err, postRows) {
       if (err) {
@@ -315,9 +351,9 @@ app.get("/joinrecord/:id", function (req, res) {
         return;
       }
        ;
-      const test=postRows.map((post,index) => {
+      postRows.map((post,index) => {
         conn.query(
-          "SELECT member.userID,joinmember.joinL,member.headShot FROM joinmember INNER JOIN member ON joinmember.participants = member.userID WHERE joinmember.postID = ?",
+          "SELECT member.userID,joinmember.joinL,member.headShot FROM joinmember INNER JOIN member ON joinmember.participants = member.userID WHERE joinmember.postID = ? AND joinmember.joinL='Y' ",
           [post.postID],
           function (err, joinRows) {
             if (err) {
@@ -338,6 +374,45 @@ app.get("/joinrecord/:id", function (req, res) {
   );
 })
 
+app.get("/collect/:id", function (req, res) {
+  conn.query(
+    "SELECT post.*,collect.*,member.userID,member.headShot FROM post INNER JOIN collect ON collect.postID = post.postID INNER JOIN member ON post.host = member.userID WHERE collect.userID = ? AND collect.iscollect=1;",
+    [req.params.id],
+    function (err, postRows) {
+      if (err) {
+        console.error("Error updating profile:", err);
+        res.status(500).send("Error updating post");
+        return;
+      }
+       ;
+      postRows.map((post,index) => {
+        conn.query(
+          "SELECT member.userID,joinmember.joinL,member.headShot FROM joinmember INNER JOIN member ON joinmember.participants = member.userID WHERE joinmember.postID = ? and joinmember.joinL= 'Y' ;",
+          [post.postID],
+          function (err, joinRows) {
+            if (err) {
+              console.error("Error updating profile:", err);
+              return;
+            }
+            post.join=(joinRows);
+            // console.log(postRows);
+            if (index === postRows.length - 1) {
+              // 在最后一次查詢完成後發送資料
+              res.send(JSON.stringify(postRows));
+            }
+          }    
+          
+          )
+      })    
+    }
+  );
+})
+
+
+
+
+
+//-----------收藏功能
 app.post("/collect", function(req, res) {
   conn.query("select * from collect WHERE userID = ? AND postID = ?",
     [req.body.userID, req.body.postID],
@@ -421,3 +496,7 @@ app.delete("/apply/delete/:id", function (req, res) {
     }
   );
 });
+
+
+
+
