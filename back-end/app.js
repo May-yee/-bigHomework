@@ -338,6 +338,31 @@ app.get("/joinrecord/:id", function (req, res) {
   );
 })
 
+app.post("/collect", function(req, res) {
+  conn.query("select * from collect WHERE userID = ? AND postID = ?",
+    [req.body.userID, req.body.postID],
+    function(err, rows) {
+      if(!rows[0]) {
+        res.send(null)
+      }else {
+        res.send(true)
+      }
+    }
+  )
+})
+
+app.post("/collected", function(req, res) {
+  conn.query("insert into collect (postID, userID, iscollect) value(?,?,?)",
+    [req.body.postID, req.body.userID, req.body.iscollect],
+    function(err, rows) {
+      if(!err){
+        res.send({success: true})
+      }else{
+        res.send({success: false})
+      }
+    }
+  )
+})
 
 // app.post("/post/apply", function (req, res) {
 //     conn.query(
