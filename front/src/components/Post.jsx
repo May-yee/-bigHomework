@@ -6,6 +6,8 @@ class Post extends Component {
     state = { 
         postItem:{},
         chatList:[],
+        joinmember:{},
+        joinMan:[]
      } 
     render() { 
         return (
@@ -23,14 +25,12 @@ class Post extends Component {
                             <div className='member_img'>
                                 <img src={this.state.postItem.headShot} alt=""/>
                             </div>
-                            <p>{this.state.postItem.userName}</p>
+                            <p>會員名稱</p>
                         </div>
                         <h2>{this.state.postItem.title}</h2>
                         <div className="btn_group row">
-                            { (this.state.iscollect) ? <div className="btn btn_gray apply-btn">已收藏</div>
-                            : <a><div className="btn btn_orange apply-btn" onClick={this.btn_collect}>收藏活動</div></a>
-                            }
                             <a><div className="btn btn_blue apply-btn" onClick={this.btn_apply}>申請參加</div></a>
+                            
                         </div>
                         <div className="content_box row">
                             <h4>揪團時間:</h4><p>{this.state.postItem.registeredDate} {this.state.postItem.registeredTime}</p>
@@ -39,7 +39,7 @@ class Post extends Component {
                             <h4>活動時間:</h4><p>{this.state.postItem.activityDate} {this.state.postItem.activityTime}</p>
                         </div>
                         <div className="content_box row box_blue">
-                            <h4>地點:</h4><a href={'https://www.google.com/maps/search/?api=1&query=' + this.state.postItem.location} target='_blank'>{this.state.postItem.location}</a>
+                            <h4>地點:</h4><a href="">{this.state.postItem.location}</a>
                         </div>
                         <div className="content_icon row">
                             <div className="col-3">
@@ -88,27 +88,15 @@ class Post extends Component {
                     <div class="already_join">
                         <div class="join_box_title row">
                             <h2>已參加</h2>
-                            <div class="num_box"><p>12</p></div>
+                            <div class="num_box"><p>{this.state.joinMan.length}</p></div>
                         </div>
                         <div class="join_member">
-                            <a href="">
-                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                            </a>
-                            <a href="">
-                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                            </a>
-                            <a href="">
-                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                            </a>
-                            <a href="">
-                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                            </a>
-                            <a href="">
-                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                            </a>
-                            <a href="">
-                                <img src="http://localhost:3000/images/head_sticker.png" alt=""/>
-                            </a>
+                        <div className="num_box"><p></p></div>
+                        </div>
+                        <div className="join_member">
+                            {this.state.joinMan.map(join =><a href="" className='member_img'>
+                                <img src={join.headShot} alt=""/>
+                            </a>)}
                         </div>
                     </div>
                 </div>
@@ -127,13 +115,11 @@ class Post extends Component {
     componentDidMount = async () =>{
         var result = await axios.get(`http://localhost:8000/index/postitem/${this.props.match.params.id}`);
         var chatresult = await axios.get(`http://localhost:8000/index/chatitem/${this.props.match.params.id}`);
-        var collect = await axios.post("http://localhost:8000/collect",
-        {userID: cookie.load('userID')}
-        );    
+        var joinResult = await axios.get(`http://localhost:8000/post/accept/${this.props.match.params.id}`);    
         var newState = {...this.state};
         newState.postItem = result.data;
-        newState.chatList = chatresult.data;    
-        newState.iscollect = collect.data;    
+        newState.chatList = chatresult.data;
+        newState.joinMan = joinResult.data;        
         this.setState(newState);
     }
     toggleLogoIn = (e) => {
@@ -150,24 +136,19 @@ class Post extends Component {
         this.setState(newState);
         
     }
-    btn_collect = async () => {
-        var collect = await axios.post("http://localhost:8000/collected",{userID: cookie.load('userID')}); 
-        
-    }
 
     btn_apply = async () => {
         var newState = {...this.state};
-        newState.apply.postID = this.props.match.params.id;
-        newState.apply.memberID = cookie.load("userID");
-        newState.apply.headShot = cookie.load('headShot');
+        newState.joinmember.postID = this.props.match.params.id;
+        newState.joinmember.participants = cookie.load("userID");
+        newState.joinmember.joinL = "C";
         this.setState(newState);
         var dataToServer = {
-            postID: this.state.apply.postID,
-            memberID: this.state.apply.memberID,
-            headShot: this.state.apply.headShot
+            postID: this.state.joinmember.postID,
+            participants: this.state.joinmember.participants,
+            joinL: this.state.joinmember.joinL
         }
-        console.log(dataToServer);
-         await axios.post("http://localhost:8000/post/apply",dataToServer);
+        await axios.post("http://localhost:8000/post/apply",dataToServer);
         alert("ok");
     }
    

@@ -306,26 +306,50 @@ app.get("/record/:id", function (req, res) {
 
 
 
+// 申請參加請求
+app.post("/post/apply", function (req, res) {
+  conn.query(
+    "insert into joinmember (participants, postID, joinL) values(?,?,?)",
+    [req.body.participants, req.body.postID, req.body.joinL],
+    function (err, rows) {
+      if (err) {
+        console.error("Error updating post:", err);
+        res.status(500).send("Error updating post");
+        return;
+      }
+      res.send(JSON.stringify(req.body.applyItem));
+    }
+  );
+});
+// 申請參加人員資料
+app.get("/post/apply/:id", function (req, res) {
+  conn.query("SELECT * FROM joinmember inner join member on joinmember.participants = member.userID where postID = ? and joinL =  'C'", 
+  [req.params.id], 
+  function (err, rows) {
+    res.send(JSON.stringify(rows));
+  });
+});
+// 接受參加
+app.post("/post/accept", function (req, res) {
+  conn.query(
+    "update joinmember set joinL = ? where participants = ? And  postID= ?",
+    [ req.body.joinL, req.body.participants ,req.body.postID],
+    function (err, rows) {
+      if (err) {
+        console.error("Error updating post:", err);
+        res.status(500).send("Error updating post");
+        return;
+      }
+      res.send(JSON.stringify(req.body.applyItem));
+    }
+  );
+});
 
-// app.post("/post/apply", function (req, res) {
-//     conn.query(
-//       "insert into apply (memberID, postID, headShot) values(?,?,?)",
-//       [req.body.memberID, req.body.postID, req.body.headShot],
-//       function (err, rows) {
-//         if (err) {
-//           console.error("Error updating post:", err);
-//           res.status(500).send("Error updating post");
-//           return;
-//         }
-//         res.send(JSON.stringify(req.body.applyItem));
-//       }
-//     );
-//   });
-
-// app.get("/apply/post/:id", function (req, res) {
-//     conn.query("select * from apply where postID = ?", 
-//     [req.params.id], 
-//     function (err, rows) {
-//       res.send(JSON.stringify(rows));
-//     });
-//   });
+// 參加人員資料
+app.get("/post/accept/:id", function (req, res) {
+  conn.query("SELECT * FROM joinmember inner join member on joinmember.participants = member.userID where postID = ? and joinL =  'Y'", 
+  [req.params.id], 
+  function (err, rows) {
+    res.send(JSON.stringify(rows));
+  });
+});

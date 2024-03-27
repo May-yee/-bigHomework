@@ -46,7 +46,7 @@ class JoingIndex extends Component {
                             </div>
                             <div className="post_area">
                                 {this.state.postList.map(post => 
-                                <a href={cookie.load("userID")==post.userID ?`/Joing/ownpost/${post.postID}`:`/Joing/post/${post.postID}`} key={post.postID}>
+                                <a href={cookie.load("userID")==post.host ?`/Joing/ownpost/${post.postID}`:`/Joing/post/${post.postID}`} key={post.postID}>
                                         <div className="post_box">
                                             <div className="post_img">
                                                 <img src={post.postIMG} alt="" />
