@@ -687,6 +687,7 @@ footer{
 .delet{
     background: none;
     cursor: pointer;
+    z-index: 5;
 }
 .delet img{
     width: 20px;

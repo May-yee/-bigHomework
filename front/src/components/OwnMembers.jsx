@@ -16,6 +16,10 @@ const Members = (props) => {
         const logoIn = document.querySelector(".logoIn");
         logoIn.classList.remove("show");
     }
+    const deleteCollect = (e) => {
+        e.preventDefault()
+        alert("delete")
+    }
     useEffect(() => {
         const fetchMemberData = async () => {
             try {
@@ -334,7 +338,7 @@ const Members = (props) => {
                         {collectData.map((collect,index)=>{
                             return(
                                 <a href={'/Joing/post/' +collect.postID } className="memberEvent">
-                                    <button className="delet"><img src="http://localhost:3000/images/trash_icon.png" alt=""/></button>
+                                    <button className="delet" onClick={deleteCollect}><img src="http://localhost:3000/images/trash_icon.png" alt=""/></button>
                                     <div className="memberEventImg">
                                         <img src={collect.postIMG} alt=""/>
                                     </div>
