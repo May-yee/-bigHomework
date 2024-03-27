@@ -497,6 +497,24 @@ app.delete("/apply/delete/:id", function (req, res) {
   );
 });
 
+app.get("/post/isjoined/:id", function (req, res) {
+  const participants = req.query.participants;
 
+  conn.query("SELECT joinL FROM joinmember WHERE postID = ? AND participants = ?", 
+  [req.params.id, participants], 
+  function (err, rows) {
+    if (err) {
+      console.error("Error querying joinmember:", err);
+      res.status(500).json({ error: "Internal Server Error" });
+      return;
+    }
+
+    if (rows.length > 0) {
+      res.send(rows[0].joinL); // 回傳 joinL 值
+    } else {
+      res.send(""); // 如果查無資料，回傳預設值
+    }
+  });
+});
 
 
