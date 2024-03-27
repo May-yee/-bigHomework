@@ -333,7 +333,7 @@ const Members = (props) => {
                     <div className="memberMainBody like">
                         {collectData.map((collect,index)=>{
                             return(
-                                <div className="memberEvent">
+                                <a href={'/Joing/post/' +collect.postID } className="memberEvent">
                                     <button className="delet"><img src="http://localhost:3000/images/trash_icon.png" alt=""/></button>
                                     <div className="memberEventImg">
                                         <img src={collect.postIMG} alt=""/>
@@ -384,7 +384,7 @@ const Members = (props) => {
                                             </div>
                                         </div>
                                     </div>
-                                </div>   
+                                </a>   
 
                             )
                         })}
