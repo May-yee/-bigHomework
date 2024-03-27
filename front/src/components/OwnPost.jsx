@@ -94,7 +94,7 @@ class OwnPost extends Component {
                             <div className="num_box"><p>{this.state.joinMan.length}</p></div>
                         </div>
                         <div className="join_member">
-                            {this.state.joinMan.map(join =><a href="" className='member_img'>
+                            {this.state.joinMan.map(join =><a href={`/Joing/members/${join.userID}`} className='member_img'>
                                 <img src={join.headShot} alt=""/>
                             </a>)}
                         </div>
@@ -107,7 +107,7 @@ class OwnPost extends Component {
                         {this.state.applyMan.map((apply, index) => (
                     <       div className="join_member" key={index}>
                             <div className="join_member_box">
-                                <a href="" className='member_img'>
+                                <a href={`/Joing/members/${apply.userID}`} className='member_img'>
                                      <img src={apply.headShot} alt=""/>
                                 </a>
                                 <div className="btn_group row">

@@ -99,7 +99,7 @@ class Post extends Component {
                         <div className="num_box"><p></p></div>
                         </div>
                         <div className="join_member">
-                            {this.state.joinMan.map(join =><a href="" className='member_img'>
+                            {this.state.joinMan.map(join =><a href={`/Joing/members/${join.userID}`} className='member_img'>
                                 <img src={join.headShot} alt=""/>
                             </a>)}
                         </div>
