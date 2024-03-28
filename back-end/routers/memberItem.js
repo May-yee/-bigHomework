@@ -120,8 +120,8 @@ router.get("/ownApplied/:id", function (req, res) {
 //申請參加通知
 router.get("/joinApply/:id", function (req, res) {
   conn.query(
-    "SELECT post.title ,joinmember.*,member.userName FROM post"+ 
-    "INNER JOIN joinmember ON joinmember.postID = post.postID" +
+    "SELECT post.title ,joinmember.*,member.userName FROM post "+ 
+    "INNER JOIN joinmember ON joinmember.postID = post.postID " +
     "INNER JOIN member ON post.host = member.userID WHERE joinmember.participants = ?;",
     [req.params.id],
     function (err, rows) {
@@ -139,39 +139,7 @@ router.get("/joinApply/:id", function (req, res) {
 })
   
   
-router.get("/collect/:id", function (req, res) {
-    conn.query(
-      "SELECT post.*,collect.*,member.userID,member.headShot FROM post INNER JOIN collect ON collect.postID = post.postID INNER JOIN member ON post.host = member.userID WHERE collect.userID = ? AND collect.iscollect=1;",
-      [req.params.id],
-      function (err, postRows) {
-        if (err) {
-          console.error("Error updating profile:", err);
-          res.status(500).send("Error updating post");
-          return;
-        }
-         ;
-        postRows.map((post,index) => {
-          conn.query(
-            "SELECT member.userID,joinmember.joinL,member.headShot FROM joinmember INNER JOIN member ON joinmember.participants = member.userID WHERE joinmember.postID = ? and joinmember.joinL= 'Y' ;",
-            [post.postID],
-            function (err, joinRows) {
-              if (err) {
-                console.error("Error updating profile:", err);
-                return;
-              }
-              post.join=(joinRows);
-              // console.log(postRows);
-              if (index === postRows.length - 1) {
-                // 在最后一次查詢完成後發送資料
-                res.send(JSON.stringify(postRows));
-              }
-            }    
-            
-            )
-        })    
-      }
-    );
-})
+
   
 
 module.exports = router;
