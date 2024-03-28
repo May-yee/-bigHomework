@@ -32,14 +32,16 @@ class OwnPost extends Component {
                             <a href={`/Joing/postedit/${this.props.match.params.id}`}><div className="btn btn_blue">編輯</div></a>
                             <div className="btn btn_gray" onClick={this.onDelete}>刪除</div>
                         </div>
-                        <div className="content_box row">
-                            <h4>揪團時間:</h4><p>{this.state.postItem.registeredDate} {this.state.postItem.registeredTime}</p>
-                        </div>
-                        <div className="content_box row">
-                            <h4>活動時間:</h4><p>{this.state.postItem.activityDate} {this.state.postItem.activityTime}</p>
-                        </div>
-                        <div className="content_box row box_blue">
-                            <h4>地點:</h4><a href={'https://www.google.com/maps/search/?api=1&query=' + this.state.postItem.location} target='_blank'>{this.state.postItem.location}</a>
+                        <div className='content_box_group'>
+                            <p className="content_box row">
+                                <span className='p_letter'>揪團時間:</span>{this.state.postItem.registeredDate} {this.state.postItem.registeredTime}
+                            </p>
+                            <p className="content_box row">
+                                <span className='p_letter'>活動時間:</span>{this.state.postItem.activityDate} {this.state.postItem.activityTime}
+                            </p>
+                            <a href={'https://www.google.com/maps/search/?api=1&query=' + this.state.postItem.location} target='_blank' className="content_box row box_blue">
+                                <span className='p_letter'>地點:</span>{this.state.postItem.location}
+                            </a>
                         </div>
                         <div className="content_icon row">
                             <div className="col-3">

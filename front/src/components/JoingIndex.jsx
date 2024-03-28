@@ -25,6 +25,7 @@ class JoingIndex extends Component {
                         </div>
                     </a>
                     <div className="jumbotron ">
+                        <img src="http://localhost:3000/images/jum.png" alt="" />
                     </div>
                     <div className="container ">
                         <div className="post">

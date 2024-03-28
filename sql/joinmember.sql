@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2024-03-26 08:07:30
+-- 產生時間： 2024-03-28 16:33:01
 -- 伺服器版本： 10.4.32-MariaDB
 -- PHP 版本： 8.2.12
 
@@ -30,17 +30,22 @@ SET time_zone = "+00:00";
 CREATE TABLE `joinmember` (
   `postID` int(11) NOT NULL,
   `participants` int(11) NOT NULL,
-  `joinL` varchar(10) NOT NULL
+  `joinL` varchar(10) NOT NULL,
+  `upTime` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- 傾印資料表的資料 `joinmember`
 --
 
-INSERT INTO `joinmember` (`postID`, `participants`, `joinL`) VALUES
-(31, 15, 'C'),
-(31, 16, 'C'),
-(32, 15, 'Y');
+INSERT INTO `joinmember` (`postID`, `participants`, `joinL`, `upTime`) VALUES
+(31, 15, 'Y', '2024-03-28 07:26:29'),
+(32, 15, 'N', '2024-03-28 07:25:44'),
+(33, 14, 'C', '2024-03-28 07:24:29'),
+(33, 16, 'C', '2024-03-28 08:07:03'),
+(35, 14, 'Y', '2024-03-28 07:24:29'),
+(36, 14, 'C', '2024-03-28 08:08:47'),
+(36, 16, 'C', '2024-03-28 08:08:47');
 
 --
 -- 已傾印資料表的索引

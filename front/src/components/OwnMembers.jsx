@@ -11,7 +11,7 @@ const Members = (props) => {
     const [joinRdData, setJoinRdData] = useState([]);
     const [collectData, setCollectData] = useState([]);
     const [noteAppliedData,setNoteAppliedData] = useState([]);
-
+    const [joinApplyData,setjoinApplyData] = useState([]);
     let today = new Date();
     //-----------------------
     const toggleLogoIn = (e) => {
@@ -42,7 +42,7 @@ const Members = (props) => {
     useEffect(() => {
         const fetchMemberData = async () => {
             try {
-                const memberResponse = await axios.get(`http://localhost:8000/members/${id}`);
+                const memberResponse = await axios.get(`http://localhost:8000/memberItem/members/${id}`);
                 setMemberData(memberResponse.data);
             } catch (error) {
                 console.error('Can not get members:', error);
@@ -50,7 +50,7 @@ const Members = (props) => {
         };
         const fetchrecordData = async()=>{
             try{
-                const recordResponse = await axios.get(`http://localhost:8000/record/${id}`);
+                const recordResponse = await axios.get(`http://localhost:8000/memberItem/record/${id}`);
                 setRecordData(recordResponse.data);
             }catch (error) {
                 console.error('Can not get record:', error);
@@ -58,7 +58,7 @@ const Members = (props) => {
         }
         const fetchjoinRdData = async()=>{
             try{
-                const joinRdResponse = await axios.get(`http://localhost:8000/joinrecord/${id}`);
+                const joinRdResponse = await axios.get(`http://localhost:8000/memberItem/joinrecord/${id}`);
                 setJoinRdData(joinRdResponse.data);
             }catch (error) {
                 console.error('Can not get joinrecord:', error);
@@ -67,10 +67,18 @@ const Members = (props) => {
 
         const fetchOwnAppliedData = async()=>{
             try{
-                const noteAppliedResponse = await axios.get(`http://localhost:8000/ownApplied/${id}`);
+                const noteAppliedResponse = await axios.get(`http://localhost:8000/memberItem/ownApplied/${id}`);
                 setNoteAppliedData(noteAppliedResponse.data);
             }catch (error) {
                 console.error('Can not get ownAppliedData:', error);
+            }
+        }
+        const fetchjoinApplyData = async()=>{
+            try{
+                const noteAppliedResponse = await axios.get(`http://localhost:8000/memberItem/joinApply/${id}`);
+                setjoinApplyData(noteAppliedResponse.data);
+            }catch (error) {
+                console.error('Can not get joinApplyData:', error);
             }
         }
         fetchrecordData();
@@ -78,6 +86,7 @@ const Members = (props) => {
         fetchMemberData();
         fetchlikeData();
         fetchOwnAppliedData();
+        fetchjoinApplyData();
     }, [id,]);
     //memberNavBtn--------------
     const toggleMemberMainBody = (btnId, mainBodyClass, titleText) => {
@@ -188,36 +197,41 @@ const Members = (props) => {
                             </div>
                             
                         )}
-                        <div className="noteBox">
-                            <div className="noteBoxTop row">
-                                <div className="time">
-                                    <p>2024/04/03</p>
-                                    <p>18:00</p>
-                                </div>
-                                <div className="subject">
-                                    <h3>您的參加申請已通過</h3>
-                                </div>
-                                <button className="delet"><img src="http://localhost:3000/images/trash_icon.png" alt=""/></button>
-                            </div>
-                            <div className="noteBoxTContent">
-                                <p>會員名稱 已通過您的申請:  礁溪泡溫泉</p>
-                            </div>
-                        </div>
-                        <div className="noteBox">
-                            <div className="noteBoxTop row">
-                                <div className="time">
-                                    <p>2024/04/03</p>
-                                    <p>18:00</p>
-                                </div>
-                                <div className="subject">
-                                    <h3>您的參加申請已被婉拒</h3>
-                                </div>
-                                <button className="delet"><img src="http://localhost:3000/images/trash_icon.png" alt=""/></button>
-                            </div>
-                            <div className="noteBoxTContent">
-                                <p>會員名稱 已婉拒您的申請:  台南喝牛肉湯</p>
-                            </div>
-                        </div>
+                        {joinApplyData.map(joinApply=>{
+                            if (joinApply.joinL === 'Y'){
+                                return(
+                                    <div className="noteBox">
+                                        <div className="noteBoxTop row">
+                                            <div className="time">
+                                                <p>{joinApply.upTime}</p>
+                                            </div>
+                                            <div className="subject">
+                                                <h3>您的參加申請已通過</h3>
+                                            </div>
+                                        </div>
+                                        <div className="noteBoxTContent">
+                                            <p>{joinApply.userName} 已通過您的申請:{joinApply.title}</p>
+                                        </div>
+                                    </div>
+                                )
+                            }else if(joinApply.joinL === 'N'){
+                                return(
+                                    <div className="noteBox">
+                                        <div className="noteBoxTop row">
+                                            <div className="time">
+                                            <p>{joinApply.upTime}</p>
+                                            </div>
+                                            <div className="subject">
+                                                <h3>您的參加申請已被婉拒</h3>
+                                            </div>
+                                        </div>
+                                        <div className="noteBoxTContent">
+                                            <p>{joinApply.userName}  已婉拒您的申請: {joinApply.title}</p>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                        })}
                     </div>
 
                     {/* record */}
