@@ -7,7 +7,7 @@ class JoingIndex extends Component {
     state = { 
         onLogin: "",
         postList: [],
-        
+        today: new Date().toISOString().split('T')[0]
         // memberId : 2,
         // path : "/Joing/memeberjoinrecord"
     }
@@ -39,7 +39,7 @@ class JoingIndex extends Component {
                             </div>
                             <div class="filter_area">
                                 <label htmlFor="date">日期</label>
-                                <input type="date" onInput={this.select_date} onChange={this.DateInputChange} value={this.state.selectedDate}/>
+                                <input type="date" onInput={this.select_date} onChange={this.DateInputChange} value={this.state.selectedDate} min={this.state.today}/>
                                 <label htmlFor="search">搜尋</label>
                                 <input type="text" onChange={this.handleInputChange} value={this.state.keyword} onKeyDown={this.key_enter} placeholder="搜尋"/>
                                 <button className='btn btn_orange' onClick={this.handleSearchClick}>確認</button>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import axios from 'axios';
 import cookie from 'react-cookies'
-import { useParams } from 'react-router-dom';
 import Header from "./header";
 
 
@@ -9,8 +8,11 @@ const Members = (props) => {
     const id = cookie.load('userID');
     const [memberData, setMemberData] = useState({});
     const [recordData, setRecordData] = useState([]);
-    const [joinRdData, setjoinRdData] = useState([]);
-    const [collectData, setcollectData] = useState([]);
+    const [joinRdData, setJoinRdData] = useState([]);
+    const [collectData, setCollectData] = useState([]);
+    const [noteAppliedData,setNoteAppliedData] = useState([]);
+
+    let today = new Date();
     //-----------------------
     const toggleLogoIn = (e) => {
         const logoIn = document.querySelector(".logoIn");
@@ -19,12 +21,12 @@ const Members = (props) => {
     const fetchlikeData = async() => {
         try{
             const collectResponse = await axios.get(`http://localhost:8000/collect/${id}`);
-            console.log(collectResponse)
+            // console.log(collectResponse)
             if (collectResponse.data) {
-                setcollectData(collectResponse.data);
+                setCollectData(collectResponse.data);
             } else {
                 console.log("No data returned");
-                setcollectData([]);
+                setCollectData([]);
             }
         }catch (error) {
             console.error('Error fetching data:', error);
@@ -43,7 +45,7 @@ const Members = (props) => {
                 const memberResponse = await axios.get(`http://localhost:8000/members/${id}`);
                 setMemberData(memberResponse.data);
             } catch (error) {
-                console.error('Error fetching data:', error);
+                console.error('Can not get members:', error);
             }
         };
         const fetchrecordData = async()=>{
@@ -51,21 +53,31 @@ const Members = (props) => {
                 const recordResponse = await axios.get(`http://localhost:8000/record/${id}`);
                 setRecordData(recordResponse.data);
             }catch (error) {
-                console.error('Error fetching data:', error);
+                console.error('Can not get record:', error);
             }
         }
         const fetchjoinRdData = async()=>{
             try{
                 const joinRdResponse = await axios.get(`http://localhost:8000/joinrecord/${id}`);
-                setjoinRdData(joinRdResponse.data);
+                setJoinRdData(joinRdResponse.data);
             }catch (error) {
-                console.error('Error fetching data:', error);
+                console.error('Can not get joinrecord:', error);
+            }
+        }
+
+        const fetchOwnAppliedData = async()=>{
+            try{
+                const noteAppliedResponse = await axios.get(`http://localhost:8000/ownApplied/${id}`);
+                setNoteAppliedData(noteAppliedResponse.data);
+            }catch (error) {
+                console.error('Can not get ownAppliedData:', error);
             }
         }
         fetchrecordData();
         fetchjoinRdData();
         fetchMemberData();
         fetchlikeData();
+        fetchOwnAppliedData();
     }, [id,]);
     //memberNavBtn--------------
     const toggleMemberMainBody = (btnId, mainBodyClass, titleText) => {
@@ -160,21 +172,22 @@ const Members = (props) => {
 
                     {/* note */}
                     <div className="memberMainBody note">
-                        <div className="noteBox">
-                            <div className="noteBoxTop row">
-                                <div className="time">
-                                    <p>2024/04/03</p>
-                                    <p>18:00</p>
+                        {noteAppliedData.map (noteApplied=>
+                            <div className="noteBox">
+                                <div className="noteBoxTop row">
+                                    <div className="time">
+                                        <p>{noteApplied.upTime}</p>
+                                    </div>
+                                    <div className="subject">
+                                        <h3>您的揪團已有人申請</h3>
+                                    </div>
                                 </div>
-                                <div className="subject">
-                                    <h3>您的揪團已有人申請</h3>
+                                <div className="noteBoxTContent">
+                                    <p>{noteApplied.userName} 已申請參加您的揪團:  {noteApplied.title}</p>
                                 </div>
-                                <button className="delet"><img src="http://localhost:3000/images/trash_icon.png" alt=""/></button>
                             </div>
-                            <div className="noteBoxTContent">
-                                <p>會員名稱 已申請參加您的揪團:  台中玩桌遊</p>
-                            </div>
-                        </div>
+                            
+                        )}
                         <div className="noteBox">
                             <div className="noteBoxTop row">
                                 <div className="time">
@@ -209,83 +222,90 @@ const Members = (props) => {
 
                     {/* record */}
                     <div className="memberMainBody record">
-                        {recordData.map((record,index)=>(
-                            <a href={'/Joing/ownpost/' +record.postID } className="memberEvent">
-                                <div className="memberEventImg">
-                                    <img src={record.postIMG} alt=""/>
-                                </div>
-                                <div className="memberEventContentBlock">
-                                    <h3>{record.title}</h3>
-                                    <div className="content_box_group">
-                                        <div className="content_box">
-                                            <p>
-                                                <span className="p_letter">活動時間</span>
-                                                {record.activityDate} {record.activityTime}
-                                            </p>
-                                        </div>
-                                        <div className="content_box box_blue">
-                                            <p>
-                                                <span className="p_letter">地點:</span>
-                                                {record.location}
-                                            </p>
-                                        </div>
-                                        <div className="content_box">
-                                            <p>
-                                                <span className="p_letter">每人金額:</span>
-                                                {record.price}
-                                            </p>
-                                        </div>
-                                    </div>   
-                                </div>
-                                
-                                <div className="memberEventJoiner">
-                                    <div>
-                                        <h4>申請人</h4>
-                                        <div className="memberEventAvatar">
-
-                                        {record.join.map(m => {
-                                            if (m.joinL === "C") {
-                                                return (
-                                                    <div className="member_img" key={m.userID}>
-                                                        <a href={"/Joing/members/" + m.userID}>
-                                                            <img src={m.headShot} alt="" />
-                                                        </a>
-                                                    </div>
-                                                );
-                                            } else {
-
-                                            }
-                                        })}
-                                        </div>
+                        {recordData.map((record,index)=>{
+                            let dateTimeString = record.activityDate + ' ' + record.activityTime;
+                            let aD = new Date(dateTimeString);
+                            let isExpired = aD < today;
+                            const className = "memberEvent" + (isExpired ? " expired" : "");
+                    
+                            return(
+                                <a href={'/Joing/ownpost/' +record.postID } className={className}>
+                                    <div className="memberEventImg">
+                                        <img src={record.postIMG} alt=""/>
                                     </div>
-                                    <div>
-                                        <h4>已參加</h4>
-                                        <div className="memberEventAvatar">
+                                    <div className="memberEventContentBlock">
+                                        <h3>{record.title}</h3>
+                                        <div className="content_box_group">
+                                            <div className="content_box">
+                                                <p>
+                                                    <span className="p_letter">活動時間</span>
+                                                    {record.activityDate} {record.activityTime}
+                                                </p>
+                                            </div>
+                                            <div className="content_box box_blue">
+                                                <p>
+                                                    <span className="p_letter">地點:</span>
+                                                    {record.location}
+                                                </p>
+                                            </div>
+                                            <div className="content_box">
+                                                <p>
+                                                    <span className="p_letter">每人金額:</span>
+                                                    {record.price}
+                                                </p>
+                                            </div>
+                                        </div>   
+                                    </div>
+                                    
+                                    <div className="memberEventJoiner">
+                                        <div>
+                                            <h4>申請人</h4>
+                                            <div className="memberEventAvatar">
+
                                             {record.join.map(m => {
-                                                if (m.joinL === "Y") {
+                                                if (m.joinL === "C") {
                                                     return (
                                                         <div className="member_img" key={m.userID}>
-                                                            <a href={"/Joing/members/" + m.userID}>
-                                                                <img src={m.headShot} alt="" />
-                                                            </a>
+                                                            <img src={m.headShot} alt="" />
                                                         </div>
                                                     );
                                                 } else {
-
+                                                    return null;
                                                 }
                                             })}
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h4>已參加</h4>
+                                            <div className="memberEventAvatar">
+                                                {record.join.map(m => {
+                                                    if (m.joinL === "Y") {
+                                                        return (
+                                                            <div className="member_img" key={m.userID}>
+                                                                    <img src={m.headShot} alt="" />
+                                                            </div>
+                                                        );
+                                                    } else {
+                                                        return null;
+                                                    }
+                                                })}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </a>   
-                        ))}
+                                </a>   
+                            )
+                    })}
                     </div>
 
                     {/* joinRecord */}
                     <div className="memberMainBody joinRecord">
                         {joinRdData.map((join,index)=>{
+                            let dateTimeString = join.activityDate + ' ' + join.activityTime;
+                            let aD = new Date(dateTimeString);
+                            let isExpired = aD < today;
+                            const className = "memberEvent" + (isExpired ? " expired" : "");
                             return(
-                                <a href={'/Joing/post/' +join.postID } className="memberEvent">
+                                <a href={'/Joing/post/' +join.postID } className={className}>
                                     <div className="memberEventImg">
                                         <img src={join.postIMG} alt=""/>
                                     </div>
@@ -344,8 +364,12 @@ const Members = (props) => {
                     {/* like */}
                     <div className="memberMainBody like">
                         {collectData.map((collect,index)=>{
+                            let dateTimeString = collect.activityDate + ' ' + collect.activityTime;
+                            let aD = new Date(dateTimeString);
+                            let isExpired = aD < today;
+                            const className = "memberEvent" + (isExpired ? " expired" : "");
                             return(
-                                <a href={'/Joing/post/' + collect.postID } className="memberEvent">
+                                <a href={'/Joing/post/' + collect.postID } className={className}>
                                     <button className="delet"  onClick={ (event) => {deleteCollect(event, collect.postID)}}><img src="http://localhost:3000/images/trash_icon.png" alt=""/></button>
                                     <div className="memberEventImg">
                                         <img src={collect.postIMG} alt=""/>
@@ -397,7 +421,6 @@ const Members = (props) => {
                                         </div>
                                     </div>
                                 </a>   
-
                             )
                         })}
                     </div>
