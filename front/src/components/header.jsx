@@ -40,7 +40,7 @@ class Header extends Component {
                 </React.Fragment>
                 }
                 {(this.state.onLogin) ? 
-                <input type="button" value="登出" id="logout" onClick={this.onLogout}/> :
+                <input type="button" value="登出" className='logout' id="logout" onClick={this.onLogout}/> :
                 <input type="submit" value="登入"/>
                 }
                 <a className='btnrigster' href="/Joing/register">註冊帳號</a>
