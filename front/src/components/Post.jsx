@@ -15,7 +15,6 @@ class Post extends Component {
         <React.Fragment>
         <Header id={cookie.load('userID')}/>     
         <div className="main" onClick={this.toggleLogoIn}>  
-
             <div className="container post_page">
                 <div className="post_item">                
                         <div className="images">
@@ -30,9 +29,10 @@ class Post extends Component {
                         </div>
                         <h2>{this.state.postItem.title}</h2>
                         <div className="btn_group row">
-                            { (this.state.iscollect) ? <div className="btn btn_gray apply-btn">已收藏</div>
-                            : <a><div className="btn btn_orange apply-btn" onClick={this.btn_collect}>收藏活動</div></a>
-                            }
+                            {(cookie.load('userID')) ? (this.state.iscollect) 
+                            ? <div className="btn btn_gray apply-btn">已收藏</div>
+                            : <a><div className="btn btn_orange apply-btn" onClick={this.btn_collect}>收藏活動</div></a> 
+                            : ""}
                             { this.state.isjoined === "Y" ? <div className="btn btn_gray apply-btn">已參加</div> :
                                 this.state.isjoined === "C" ? <div className="btn btn_gray apply-btn">申請中</div> :
                                 <a><div className="btn btn_blue apply-btn" onClick={this.btn_apply}>申請參加</div></a>}
