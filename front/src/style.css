@@ -127,6 +127,13 @@ input[type="checkbox"]:checked +div{
 .member_box{
     display: flex;
     align-items: center;
+    cursor: pointer;
+}
+.member_box p {
+    font-size: 18px;
+    color: #22668D;
+    letter-spacing: 2px;
+    font-weight: bold;
 }
 .member_img{
     height: 50px;
@@ -211,15 +218,27 @@ header ul li{
 .logoIn input[type="submit"]:hover{
     background-color: #FFCC70;
 }
-
-
 .logoIn.show{
     display: flex;
 }
 #logout {
     cursor: pointer;
 }
-
+.btnrigster {
+    display: inline-block;
+    background-color: #fff;
+    width: 80px;
+    cursor: pointer;
+    border: none;
+    padding: 4px 8px;
+    outline: #FFCC70 3px solid;
+    border-radius: 4px;
+    font-size: 16px;
+    text-align: center;
+}
+.btnrigster:hover {
+    background-color: #FFCC70;
+}
 /* ---------- *\
 	Footer
 \* ---------- */

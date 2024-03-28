@@ -5,7 +5,7 @@ import cookie from 'react-cookies'
 class Header extends Component {
     state = {
         onLogin: "",
-        userName: "請先登入",
+        userName: "登入/註冊",
         headShot: "http://localhost:3000/images/head_sticker.png",
         userID: "",
      } 
@@ -43,7 +43,7 @@ class Header extends Component {
                 <input type="button" value="登出" id="logout" onClick={this.onLogout}/> :
                 <input type="submit" value="登入"/>
                 }
-                <a href="/Joing/register">註冊帳號</a>
+                <a className='btnrigster' href="/Joing/register">註冊帳號</a>
             </form>
         </div>
     </header>
