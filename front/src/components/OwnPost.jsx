@@ -30,7 +30,7 @@ class OwnPost extends Component {
                         <h2>{this.state.postItem.title}</h2>
                         <div className="btn_group row">
                             <a href={`/Joing/postedit/${this.props.match.params.id}`}><div className="btn btn_blue">編輯</div></a>
-                            <a href={`/Joing/postdelete/${this.props.match.params.id}`}><div className="btn btn_gray">刪除</div></a>
+                            <div className="btn btn_gray" onClick={this.onDelete}>刪除</div>
                         </div>
                         <div className="content_box row">
                             <h4>揪團時間:</h4><p>{this.state.postItem.registeredDate} {this.state.postItem.registeredTime}</p>
@@ -143,6 +143,14 @@ class OwnPost extends Component {
         newState.joinMan = joinResult.data;        
         this.setState(newState);
     }
+    onDelete = (e) => {
+        var isDelete = window.confirm('確認是否刪除');
+        if(isDelete) {
+            axios.delete(`http://localhost:8000/post/delete/${this.props.match.params.id}`);
+            window.location.href = "/Joing/index/" + cookie.load('userID')
+        }
+    }
+
     message_change = (e) => {
         var newState = {...this.state};
         newState.chatList.message = e.target.value;
@@ -153,8 +161,6 @@ class OwnPost extends Component {
         this.setState(newState);
         
     }
-
-
 
     send_message = async () => {
         var dataToSever = {
@@ -206,41 +212,30 @@ class OwnPost extends Component {
                     }                
                 }
             }
+    }
+    btn_accept = async (index) => {
+        var newState = {...this.state};
+        newState.joinmember.postID = this.props.match.params.id;
+        if (index >= 0 && index < newState.applyMan.length) {
+            newState.joinmember.participants = newState.applyMan[index].participants;
+        newState.joinmember.joinL = "Y";
+        this.setState(newState);
+        var dataToServer = {
+            postID : this.props.match.params.id,
+            participants: this.state.joinmember.participants,
+            joinL: this.state.joinmember.joinL
         }
-        btn_accept = async (index) => {
-            var newState = {...this.state};
-            newState.joinmember.postID = this.props.match.params.id;
-            if (index >= 0 && index < newState.applyMan.length) {
-                newState.joinmember.participants = newState.applyMan[index].participants;
-                newState.joinmember.joinL = "Y";
-                this.setState(newState);
-                var dataToServer = {
-                    postID : this.props.match.params.id,
-                    participants: this.state.joinmember.participants,
-                    joinL: this.state.joinmember.joinL
-                }
-            await axios.post("http://localhost:8000/post/accept", dataToServer);
-            // console.log(dataToServer);
-            // alert("ok");
-            // this.setState(newState);
-            window.location.reload();
-            }
+        await axios.post("http://localhost:8000/post/accept", dataToServer);
+        // console.log(dataToServer);
+        // alert("ok");
+        // this.setState(newState);
+        window.location.reload();
         }
-        btn_reject = async (index) => {
-            var newState = {...this.state};
-            newState.joinmember.postID = this.props.match.params.id;
-            if (index >= 0 && index < newState.applyMan.length) {
-                newState.joinmember.participants = newState.applyMan[index].participants;
-                newState.joinmember.joinL = "N";
-                this.setState(newState);
-                var dataToServer = {
-                    postID : this.props.match.params.id,
-                    participants: this.state.joinmember.participants,
-                    joinL: this.state.joinmember.joinL
-                }
-            await axios.post("http://localhost:8000/post/delete", dataToServer);
-            window.location.reload();
-            }
-        }
+    }
+    btn_reject = async (index) => {
+        await axios.delete("http://localhost:8000/apply/delete/" + this.state.applyMan[index].participants);
+        // console.log(this.state.applyMan[index].participants)
+        window.location.reload();
+    }
 } 
 export default OwnPost;

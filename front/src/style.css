@@ -127,6 +127,13 @@ input[type="checkbox"]:checked +div{
 .member_box{
     display: flex;
     align-items: center;
+    cursor: pointer;
+}
+.member_box p {
+    font-size: 18px;
+    color: #22668D;
+    letter-spacing: 2px;
+    font-weight: bold;
 }
 .member_img{
     height: 50px;
@@ -211,15 +218,46 @@ header ul li{
 .logoIn input[type="submit"]:hover{
     background-color: #FFCC70;
 }
-
-
 .logoIn.show{
     display: flex;
 }
 #logout {
     cursor: pointer;
 }
-
+.logout {
+    display: inline-block;
+    background-color: #fff;
+    width: 80px;
+    cursor: pointer;
+    border: none;
+    padding: 4px 8px;
+    outline: #22668D 3px solid;
+    border-radius: 4px;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+}
+.logout:hover {
+    background-color: #22668D;
+    color: white;
+}
+.btnrigster {
+    display: inline-block;
+    background-color: #fff;
+    width: 80px;
+    cursor: pointer;
+    border: none;
+    margin: 12px 0;
+    padding: 4px 8px;
+    outline: #FFCC70 3px solid;
+    border-radius: 4px;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+}
+.btnrigster:hover {
+    background-color: #FFCC70;
+}
 /* ---------- *\
 	Footer
 \* ---------- */
@@ -589,6 +627,7 @@ footer{
     margin-bottom: 12px;
     padding: 8px 4px ;
     border-bottom: #22668D 2px solid;
+    cursor: pointer;
 }
 .memberNavBtn:last-child{
     border: none;
