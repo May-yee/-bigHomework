@@ -238,6 +238,7 @@ header ul li{
     padding: 4px 8px;
     width: 80px;
     cursor: pointer;
+    font-weight: bold;
 }
 .logoIn input[type="submit"]:hover{
     background-color: #FFCC70;
