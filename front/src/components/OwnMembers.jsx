@@ -187,6 +187,7 @@ const Members = (props) => {
                     </div>
 
                     {/* note */}
+                    
                     <div className="memberMainBody note">
                         
                         {joinRdData.map(activity=>{
@@ -214,6 +215,7 @@ const Members = (props) => {
                             }
                         })}
                         {noteAppliedData.map (noteApplied=>
+                        <a href={`/Joing/post/${noteApplied.postID}`}>
                             <div className="noteBox">
                                 <div className="noteBoxTop row">
                                     <div className="time">
@@ -227,11 +229,12 @@ const Members = (props) => {
                                     <p><span className='point'>{noteApplied.userName}</span> 已申請參加您的揪團: <span className='point'>{noteApplied.title}</span></p>
                                 </div>
                             </div>
-                            
+                          </a>  
                         )}
                         {joinApplyData.map(joinApply=>{
                             if (joinApply.joinL === 'Y'){
                                 return(
+                                    <a href={`/Joing/post/${joinApply.postID}`}>
                                     <div className="noteBox">
                                         <div className="noteBoxTop row">
                                             <div className="time">
@@ -245,9 +248,11 @@ const Members = (props) => {
                                             <p><span className='point'>{joinApply.userName}</span> 已通過您的申請:<span className='point'>{joinApply.title}</span></p>
                                         </div>
                                     </div>
+                                    </a>
                                 )
                             }else if(joinApply.joinL === 'N'){
                                 return(
+                                    <a href={`/Joing/post/${joinApply.postID}`}>
                                     <div className="noteBox">
                                         <div className="noteBoxTop row">
                                             <div className="time">
@@ -261,6 +266,7 @@ const Members = (props) => {
                                             <p><span className='point'>{joinApply.userName}</span>  已婉拒您的申請: <span className='point'>{joinApply.title}</span></p>
                                         </div>
                                     </div>
+                                    </a>
                                 )
                             }
                         })}

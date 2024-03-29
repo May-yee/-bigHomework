@@ -238,9 +238,20 @@ class OwnPost extends Component {
         }
     }
     btn_reject = async (index) => {
-        await axios.delete("http://localhost:8000/apply/delete/" + this.state.applyMan[index].participants);
-        // console.log(this.state.applyMan[index].participants)
-        window.location.reload();
+        var newState = {...this.state};
+        newState.joinmember.postID = this.props.match.params.id;
+        if (index >= 0 && index < newState.applyMan.length) {
+            newState.joinmember.participants = newState.applyMan[index].participants;
+        newState.joinmember.joinL = "N";
+        this.setState(newState);
+        var dataToServer = {
+            postID : this.props.match.params.id,
+            participants: this.state.joinmember.participants,
+            joinL: this.state.joinmember.joinL
+        }
+        await axios.post("http://localhost:8000/post/reject", dataToServer);
+        alert("OK");
+        }
     }
 } 
 export default OwnPost;

@@ -111,7 +111,7 @@ function PostEdit(){
         axios.post("http://localhost:8000/index/postitem",formData)
         .then(response => {
             console.log("Post created successfully:", response);
-            window.location = (cookie.load('userID')) ? "/Joing/index/" + cookie.load('userID') : "/";
+            window.location = `/Joing/ownpost/${id}`
         })
         .catch(error => {
             console.error("Error creating post:", error);
@@ -184,7 +184,7 @@ function PostEdit(){
                         </div>
                         <div className="btn_group">
                             <button className="btn btn_orange" type='submit'>確定</button>
-                            <a href="/" className="btn btn_gray">取消</a>
+                            <a href={`/Joing/ownpost/${id}`} className="btn btn_gray">取消</a>
                         </div>
                     </form>
                 </div>
