@@ -180,8 +180,10 @@ const Members = (props) => {
                     </div>
 
                     {/* note */}
+                    
                     <div className="memberMainBody note">
                         {noteAppliedData.map (noteApplied=>
+                        <a href={`/Joing/post/${noteApplied.postID}`}>
                             <div className="noteBox">
                                 <div className="noteBoxTop row">
                                     <div className="time">
@@ -195,11 +197,12 @@ const Members = (props) => {
                                     <p>{noteApplied.userName} 已申請參加您的揪團:  {noteApplied.title}</p>
                                 </div>
                             </div>
-                            
+                          </a>  
                         )}
                         {joinApplyData.map(joinApply=>{
                             if (joinApply.joinL === 'Y'){
                                 return(
+                                    <a href={`/Joing/post/${joinApply.postID}`}>
                                     <div className="noteBox">
                                         <div className="noteBoxTop row">
                                             <div className="time">
@@ -213,9 +216,11 @@ const Members = (props) => {
                                             <p>{joinApply.userName} 已通過您的申請:{joinApply.title}</p>
                                         </div>
                                     </div>
+                                    </a>
                                 )
                             }else if(joinApply.joinL === 'N'){
                                 return(
+                                    <a href={`/Joing/post/${joinApply.postID}`}>
                                     <div className="noteBox">
                                         <div className="noteBoxTop row">
                                             <div className="time">
@@ -229,6 +234,7 @@ const Members = (props) => {
                                             <p>{joinApply.userName}  已婉拒您的申請: {joinApply.title}</p>
                                         </div>
                                     </div>
+                                    </a>
                                 )
                             }
                         })}
