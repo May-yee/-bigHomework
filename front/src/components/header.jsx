@@ -37,13 +37,14 @@ class Header extends Component {
                 : <React.Fragment>
                 <input type="text" name="userEmail" id="userEmail" placeholder='在此輸入信箱' required/>
                 <input type="password" name="passWord" id="passWord" placeholder='在此輸入密碼' required/>
+                <a className='btnrigster' href="/Joing/register">註冊帳號</a>
                 </React.Fragment>
                 }
                 {(this.state.onLogin) ? 
                 <input type="button" value="登出" className='logout' id="logout" onClick={this.onLogout}/> :
                 <input type="submit" value="登入"/>
                 }
-                <a className='btnrigster' href="/Joing/register">註冊帳號</a>
+                
             </form>
         </div>
     </header>
