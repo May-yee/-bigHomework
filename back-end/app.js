@@ -357,6 +357,21 @@ app.post("/post/accept", function (req, res) {
     }
   );
 });
+// 拒絕參加
+app.post("/post/reject", function (req, res) {
+  conn.query(
+    "update joinmember set joinL = ? where participants = ? And  postID= ?",
+    [ req.body.joinL, req.body.participants ,req.body.postID],
+    function (err, rows) {
+      if (err) {
+        console.error("Error updating post:", err);
+        res.status(500).send("Error updating post");
+        return;
+      }
+      res.send(JSON.stringify(req.body.applyItem));
+    }
+  );
+});
 
 // 參加人員資料
 app.get("/post/accept/:id", function (req, res) {
