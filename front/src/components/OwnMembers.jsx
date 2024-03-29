@@ -20,7 +20,7 @@ const Members = (props) => {
     }
     const fetchlikeData = async() => {
         try{
-            const collectResponse = await axios.get(`http://localhost:8000/collect/${id}`);
+            const collectResponse = await axios.get(`http://localhost:8000/memberItem/collect/${id}`);
             // console.log(collectResponse)
             if (collectResponse.data) {
                 setCollectData(collectResponse.data);
@@ -34,7 +34,7 @@ const Members = (props) => {
     }
     const deleteCollect = async (event ,postID) => {
         event.preventDefault();
-        var result = await axios.delete(`http://localhost:8000/collect/delete/${id}/${postID}`);
+        var result = await axios.delete(`http://localhost:8000/memberItem/collect/delete/${id}/${postID}`);
         if(result.data['success']){
             fetchlikeData();
         }
