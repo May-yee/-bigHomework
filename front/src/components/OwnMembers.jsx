@@ -13,6 +13,13 @@ const Members = (props) => {
     const [noteAppliedData,setNoteAppliedData] = useState([]);
     const [joinApplyData,setjoinApplyData] = useState([]);
     let today = new Date();
+    //----------------------------------
+    let year = today.getFullYear();
+    let month = today.getMonth() + 1;
+    let date = today.getDate();
+    let hours = today.getHours();
+    let minutes = today.getMinutes();
+    let todayD = (year + '-' + month + '-' + date + ' ' + hours + ':' + minutes);
     //-----------------------
     const toggleLogoIn = (e) => {
         const logoIn = document.querySelector(".logoIn");
@@ -181,6 +188,31 @@ const Members = (props) => {
 
                     {/* note */}
                     <div className="memberMainBody note">
+                        
+                        {joinRdData.map(activity=>{
+                            let dateTimeString = activity.activityDate + ' ' + activity.activityTime;
+                            let aD = new Date(dateTimeString);
+                            var timeDifference = today.getTime() - aD.getTime();
+                            var hoursDifference = Math.abs(timeDifference / (1000 * 3600));
+
+                            if (hoursDifference <= 3){
+                                return(
+                                    <div className="noteBox">
+                                        <div className="noteBoxTop row">
+                                            <div className="time">
+                                                <p>{todayD}</p>
+                                            </div>
+                                            <div className="subject">
+                                                <h3>提醒您!參加的活動快要到囉!</h3>
+                                            </div>
+                                        </div>
+                                        <div className="noteBoxTContent">
+                                            <p><span className='point'>{activity.title}</span> 活動快要到囉，請準時參加! 活動時間為 <span className='point'>{dateTimeString}</span></p>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                        })}
                         {noteAppliedData.map (noteApplied=>
                             <div className="noteBox">
                                 <div className="noteBoxTop row">
@@ -192,7 +224,7 @@ const Members = (props) => {
                                     </div>
                                 </div>
                                 <div className="noteBoxTContent">
-                                    <p>{noteApplied.userName} 已申請參加您的揪團:  {noteApplied.title}</p>
+                                    <p><span className='point'>{noteApplied.userName}</span> 已申請參加您的揪團: <span className='point'>{noteApplied.title}</span></p>
                                 </div>
                             </div>
                             
@@ -210,7 +242,7 @@ const Members = (props) => {
                                             </div>
                                         </div>
                                         <div className="noteBoxTContent">
-                                            <p>{joinApply.userName} 已通過您的申請:{joinApply.title}</p>
+                                            <p><span className='point'>{joinApply.userName}</span> 已通過您的申請:<span className='point'>{joinApply.title}</span></p>
                                         </div>
                                     </div>
                                 )
@@ -226,12 +258,14 @@ const Members = (props) => {
                                             </div>
                                         </div>
                                         <div className="noteBoxTContent">
-                                            <p>{joinApply.userName}  已婉拒您的申請: {joinApply.title}</p>
+                                            <p><span className='point'>{joinApply.userName}</span>  已婉拒您的申請: <span className='point'>{joinApply.title}</span></p>
                                         </div>
                                     </div>
                                 )
                             }
                         })}
+
+
                     </div>
 
                     {/* record */}

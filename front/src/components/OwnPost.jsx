@@ -8,7 +8,7 @@ class OwnPost extends Component {
         chatList:[],
         joinmember:{},
         applyMan:[],
-        joinMan:[]
+        joinMan:[],
      } 
     render() { 
         return (
@@ -29,8 +29,8 @@ class OwnPost extends Component {
                         </div>
                         <h2>{this.state.postItem.title}</h2>
                         <div className="btn_group row">
-                            <a href={`/Joing/postedit/${this.props.match.params.id}`}><div className="btn btn_blue">編輯</div></a>
-                            <div className="btn btn_gray" onClick={this.onDelete}>刪除</div>
+                            {new Date(this.state.postItem.activityDate)<new Date()?<div className="btn btn_gray">已過期</div>:<a href={`/Joing/postedit/${this.props.match.params.id}`}><div className="btn btn_blue">編輯</div></a>}       
+                            <div className="btn btn_orange" onClick={this.onDelete}>刪除</div>
                         </div>
                         <div className='content_box_group'>
                             <p className="content_box row">
@@ -71,7 +71,7 @@ class OwnPost extends Component {
                         <div className="comment_title">
                             <h2>揪團討論ING</h2>
                         </div>
-                        <div className="message_area">
+                        <div className='message_area'>
                             {this.state.chatList.map(chat=>
                                 <div className="message">
                                 <div className="member_box">
@@ -96,29 +96,32 @@ class OwnPost extends Component {
                             <div className="num_box"><p>{this.state.joinMan.length}</p></div>
                         </div>
                         <div className="join_member">
-                            {this.state.joinMan.map(join =><a href={`/Joing/members/${join.userID}`} className='member_img'>
-                                <img src={join.headShot} alt=""/>
-                            </a>)}
+                            {this.state.joinMan.map(join =>
+                                <a href={`/Joing/members/${join.userID}`} className='member_img'>
+                                    <img src={join.headShot} alt=""/>
+                                </a>
+                            )}
+                            
                         </div>
                     </div>
                     <div className="review_join">
-                    <div className="join_box_title row">
+                        <div className="join_box_title row">
                             <h2>申請參加</h2>
                             <div className="num_box"><p>{this.state.applyMan.length}</p></div>
                         </div>
-                        {this.state.applyMan.map((apply, index) => (
-                    <       div className="join_member" key={index}>
-                            <div className="join_member_box">
-                                <a href={`/Joing/members/${apply.userID}`} className='member_img'>
-                                     <img src={apply.headShot} alt=""/>
-                                </a>
-                                <div className="btn_group row">
-                                <div className="btn btn_blue" onClick={() => this.btn_accept(index)}>接受</div>
-                            <div className="btn btn_gray" onClick={() => this.btn_reject(index)}>拒絕</div>
-                            </div>
+                        <div className="join_member">
+                            {this.state.applyMan.map((apply, index) => (
+                                <div className="join_member_box">
+                                    <a href={`/Joing/members/${apply.userID}`} className='member_img'>
+                                        <img src={apply.headShot} alt=""/>
+                                    </a>
+                                    <div className="btn_group row">
+                                        <div className="btn btn_blue" onClick={() => this.btn_accept(index)}>接受</div>
+                                        <div className="btn btn_gray" onClick={() => this.btn_reject(index)}>拒絕</div>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
-                     </div>
-                        ))}
                     </div>
                 </div>
             </div>

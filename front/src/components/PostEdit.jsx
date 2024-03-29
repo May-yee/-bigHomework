@@ -180,7 +180,7 @@ function PostEdit(){
                         </div>
                         <div className="settingItem">
                             <label htmlFor="introduction" className="settingItemTitle row"><h3>內</h3><h3>文:</h3></label>
-                            <textarea name="introduction" id="" cols="30" rows="10" onChange={handleInputChange}  value={postData.content} required></textarea>
+                            <textarea name="content" id="" cols="30" rows="10" onChange={handleInputChange}  value={postData.content} required></textarea>
                         </div>
                         <div className="btn_group">
                             <button className="btn btn_orange" type='submit'>確定</button>

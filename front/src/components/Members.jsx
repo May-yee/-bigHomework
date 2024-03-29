@@ -19,20 +19,32 @@ const Members = (props) => {
     useEffect(() => {
         const fetchMemberData = async () => {
             try {
-                const memberResponse = await axios.get(`http://localhost:8000/members/${id}`);
+                const memberResponse = await axios.get(`http://localhost:8000/memberItem/members/${id}`);
                 setMemberData(memberResponse.data);
-                
-                const recordResponse = await axios.get(`http://localhost:8000/record/${id}`);
-                setRecordData(recordResponse.data);
-            
-                const joinRdResponse = await axios.get(`http://localhost:8000/joinrecord/${id}`);
-                setjoinRdData(joinRdResponse.data);
             } catch (error) {
-                console.error('Error fetching data:', error);
+                console.error('Can not get members:', error);
             }
         };
+        const fetchrecordData = async()=>{
+            try{
+                const recordResponse = await axios.get(`http://localhost:8000/memberItem/record/${id}`);
+                setRecordData(recordResponse.data);
+            }catch (error) {
+                console.error('Can not get record:', error);
+            }
+        }
+        const fetchjoinRdData = async()=>{
+            try{
+                const joinRdResponse = await axios.get(`http://localhost:8000/memberItem/joinrecord/${id}`);
+                setjoinRdData(joinRdResponse.data);
+            }catch (error) {
+                console.error('Can not get joinrecord:', error);
+            }
+        }
 
         fetchMemberData();
+        fetchrecordData();
+        fetchjoinRdData();
     }, [id]);
     // console.log(memberData);
     console.log(recordData);

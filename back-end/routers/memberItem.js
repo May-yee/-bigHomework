@@ -32,7 +32,7 @@ router.get("/members/:id", function (req, res) {
   // 揪團紀錄
 router.get("/record/:id", function (req, res) {
     conn.query(
-      "SELECT * FROM post WHERE host = ?",
+      "SELECT * FROM post WHERE host = ? ORDER BY post.postID DESC",
       [req.params.id],
       function (err, postRows) {
         if (err) {
@@ -68,7 +68,7 @@ router.get("/record/:id", function (req, res) {
   
 router.get("/joinrecord/:id", function (req, res) {
     conn.query(
-      "SELECT post.*,joinmember.*,member.userID,member.headShot FROM post INNER JOIN joinmember ON joinmember.postID = post.postID INNER JOIN member ON post.host = member.userID WHERE joinmember.joinL='Y' AND joinmember.participants = ?;",
+      "SELECT post.*,joinmember.*,member.userID,member.headShot FROM post INNER JOIN joinmember ON joinmember.postID = post.postID INNER JOIN member ON post.host = member.userID WHERE joinmember.joinL='Y' AND joinmember.participants = ? ORDER BY post.postID DESC;",
       [req.params.id],
       function (err, postRows) {
         if (err) {
