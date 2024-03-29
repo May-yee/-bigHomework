@@ -250,7 +250,7 @@ class OwnPost extends Component {
             joinL: this.state.joinmember.joinL
         }
         await axios.post("http://localhost:8000/post/reject", dataToServer);
-        alert("OK");
+        window.location.reload();
         }
     }
 } 
