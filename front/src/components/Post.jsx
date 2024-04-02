@@ -48,10 +48,10 @@ class Post extends Component {
                                 <span className='p_letter'>活動時間:</span>{this.state.postItem.activityDate} {this.state.postItem.activityTime}
                             </p>
                             <div className='row'>
-                                <p className="content_box row">
+                                <p className="content_box row box_blue">
                                     <span className='p_letter'>地點:</span>{this.state.postItem.location}
                                 </p>
-                                <a href={'https://www.google.com/maps/search/?api=1&query=' + this.state.postItem.location} target='_blank' className="content_box box_blue">
+                                <a href={'https://www.google.com/maps/search/?api=1&query=' + this.state.postItem.location} target='_blank' className="content_box box_border">
                                     查看地點
                                 </a> 
                             </div>

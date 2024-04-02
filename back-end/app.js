@@ -47,43 +47,43 @@ var memberItem = require("./routers/memberItem");
 app.use("/memberItem", memberItem);
 
 app.get("/index/post", function (req, res) {
-  conn.query("SELECT * FROM post WHERE CONCAT(registeredDate, ' ', registeredTime) > NOW();", [], function (err, rows) {
+  conn.query("SELECT * FROM post WHERE CONCAT(registeredDate, ' ', registeredTime) > NOW() ORDER BY post.postID DESC;", [], function (err, rows) {
     res.send(JSON.stringify(rows));
   });
 });
 // 篩選活動功能
 app.get("/index/post/exercise", function (req, res) {
-  conn.query("select * from post where type = 0 AND CONCAT(registeredDate, ' ', registeredTime) > NOW()", [], function (err, rows) {
+  conn.query("select * from post where type = 0 AND CONCAT(registeredDate, ' ', registeredTime) > NOW() ORDER BY post.postID DESC", [], function (err, rows) {
     res.send(JSON.stringify(rows));
   });
 });
 
 app.get("/index/post/handmade", function (req, res) {
-  conn.query("select * from post where type = 1 AND CONCAT(registeredDate, ' ', registeredTime) > NOW()", [], function (err, rows) {
+  conn.query("select * from post where type = 1 AND CONCAT(registeredDate, ' ', registeredTime) > NOW() ORDER BY post.postID DESC", [], function (err, rows) {
     res.send(JSON.stringify(rows));
   });
 });
 
 app.get("/index/post/eat", function (req, res) {
-  conn.query("select * from post where type = 2 AND CONCAT(registeredDate, ' ', registeredTime) > NOW()", [], function (err, rows) {
+  conn.query("select * from post where type = 2 AND CONCAT(registeredDate, ' ', registeredTime) > NOW() ORDER BY post.postID DESC", [], function (err, rows) {
     res.send(JSON.stringify(rows));
   });
 });
 
 app.get("/index/post/movie", function (req, res) {
-  conn.query("select * from post where type = 3 AND CONCAT(registeredDate, ' ', registeredTime) > NOW()", [], function (err, rows) {
+  conn.query("select * from post where type = 3 AND CONCAT(registeredDate, ' ', registeredTime) > NOW() ORDER BY post.postID DESC", [], function (err, rows) {
     res.send(JSON.stringify(rows));
   });
 });
 
 app.get("/index/post/show", function (req, res) {
-  conn.query("select * from post where type = 4 AND CONCAT(registeredDate, ' ', registeredTime) > NOW()", [], function (err, rows) {
+  conn.query("select * from post where type = 4 AND CONCAT(registeredDate, ' ', registeredTime) > NOW() ORDER BY post.postID DESC", [], function (err, rows) {
     res.send(JSON.stringify(rows));
   });
 });
 
 app.get("/index/post/other", function (req, res) {
-  conn.query("select * from post where type = 5 AND CONCAT(registeredDate, ' ', registeredTime) > NOW()", [], function (err, rows) {
+  conn.query("select * from post where type = 5 AND CONCAT(registeredDate, ' ', registeredTime) > NOW() ORDER BY post.postID DESC", [], function (err, rows) {
     res.send(JSON.stringify(rows));
   });
 });
@@ -117,7 +117,7 @@ app.get("/index/post/search", function (req, res) {
 // 活動貼文
 app.get("/index/postitem/:id", function (req, res) {
   conn.query(
-    "SELECT * FROM post INNER JOIN member ON post.host = member.userID  where postID = ?",
+    "SELECT * FROM post INNER JOIN member ON post.host = member.userID  where postID = ? ",
     [req.params.id],
     function (err, rows) {
       res.send(JSON.stringify(rows[0]));

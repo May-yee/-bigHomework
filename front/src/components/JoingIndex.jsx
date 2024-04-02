@@ -54,8 +54,8 @@ class JoingIndex extends Component {
                                             </div>
                                             <div className="post_content">
                                                 <h3>{post.title}</h3>
-                                                <p className='content_box box_blue'>地點:{post.location}</p>
                                                 <p className='content_box'>活動時間:{post.activityDate}  {post.activityTime}</p>
+                                                <p className='content_box box_blue'>地點:{post.location}</p>
                                                 <div className='row'>
                                                     <div className='row'>
                                                         <img src={process.env.PUBLIC_URL + '/images/min.png'} alt="" />

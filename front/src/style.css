@@ -170,6 +170,10 @@ input[type="checkbox"]:checked +div{
 .content_box.box_blue{
     background-color: #8ECDDD;
 }
+.box_border{
+    border: #22668D 2px solid;
+    background-color: #fff;
+}
 .p_letter{
     letter-spacing: 4px;
 }
