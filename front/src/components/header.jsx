@@ -43,7 +43,10 @@ class Header extends Component {
                 <input type="button" value="登出" className='logout' id="logout" onClick={this.onLogout}/> :
                 <input type="submit" value="登入"/>
                 }
-                <a className='btnrigster' href="/Joing/register">註冊帳號</a>
+                {(this.state.onLogin) ? "" 
+                : <a className='btnrigster' href="/Joing/register">註冊帳號</a>
+                }
+                
             </form>
         </div>
     </header>

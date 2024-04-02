@@ -167,9 +167,9 @@ const Members = (props) => {
                             <div className="settingItemTitle  row">
                                 <h3>性</h3><h3>別:</h3>
                             </div>
-                            <p>{memberData.sex==0?"男":
-                                memberData.sex==1?"女":
-                                memberData.sex==2?"其他":"不公開"}</p>
+                            <p>{memberData.sex==1?"男":
+                                memberData.sex==2?"女":
+                                memberData.sex==3?"其他":"不公開"}</p>
                         </div>
                         <div className="settingItem row">
                             <div className="settingItemTitle  row">

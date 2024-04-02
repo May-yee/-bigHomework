@@ -36,6 +36,7 @@ class Post extends Component {
                             {(cookie.load('userID')) ?  
                                 this.state.isjoined === "Y" ? <div className="btn btn_gray apply-btn">已參加</div> :
                                 this.state.isjoined === "C" ? <div className="btn btn_gray apply-btn">申請中</div> :
+                                this.state.isjoined === "N" ? <div className="btn btn_gray apply-btn">已申請</div> :
                                 <a><div className="btn btn_blue apply-btn" onClick={this.btn_apply}>申請參加</div></a>
                             : ""}
                         </div>
