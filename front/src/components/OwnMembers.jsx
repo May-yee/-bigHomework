@@ -215,7 +215,7 @@ const Members = (props) => {
                             }
                         })}
                         {noteAppliedData.map (noteApplied=>
-                        <a href={`/Joing/post/${noteApplied.postID}`}>
+                        <a href={`/Joing/ownpost/${noteApplied.postID}`}>
                             <div className="noteBox">
                                 <div className="noteBoxTop row">
                                     <div className="time">

@@ -14,7 +14,7 @@ class OwnPost extends Component {
         return (
         <React.Fragment>
         <Header id={cookie.load('userID')}/>     
-            <div className="main">            
+        <div className="main">            
             <div className="container post_page">
                     <div className="post_item">                
                     <div className="images">
@@ -131,8 +131,15 @@ class OwnPost extends Component {
                 </div>
             </div>
 
-        </div>
-    </div>        
+            </div>
+            <div className='delete_box'>
+                <img src="http://localhost:3000/images/delete.png" />
+                <div className='btn_group'>
+                    <div className='btn btn_orange' onClick={this.delete}>確認</div>
+                    <div className='btn btn_gray' onClick={this.onCancel}>取消</div>
+                </div>
+            </div>
+        </div>        
             
         
     </React.Fragment>
@@ -154,13 +161,16 @@ class OwnPost extends Component {
         this.setState(newState);
     }
     onDelete = (e) => {
-        var isDelete = window.confirm('確認是否刪除');
-        if(isDelete) {
-            axios.delete(`http://localhost:8000/post/delete/${this.props.match.params.id}`);
-            window.location.href = "/Joing/index/" + cookie.load('userID')
-        }
+        document.querySelector(".delete_box").classList.add("show");
     }
-
+    onCancel = (e) => {
+        document.querySelector(".delete_box").classList.remove("show");
+    }
+    delete = (e) => {
+        axios.delete(`http://localhost:8000/post/delete/${this.props.match.params.id}`);
+        window.location.href = "/Joing/index/" + cookie.load('userID')
+    }
+    
     message_change = (e) => {
         var newState = {...this.state};
         newState.chatList.message = e.target.value;
