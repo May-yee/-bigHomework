@@ -48,20 +48,7 @@ p{
     font-size: 16px;
 }
 
-.main::-webkit-scrollbar{
-        width: 8px; 
-        height: 8px;
-}
-.main::-webkit-scrollbar-track{
-        background-color: #fff;
-}
-.main::-webkit-scrollbar-track{
-        background-color: #fff;
-}
-.main::-webkit-scrollbar-thumb{
-        background-color: #8ECDDD;
-        border-radius: 4px;
-}
+
 
 input,select{
     border: none;
@@ -512,6 +499,23 @@ footer{
     height: 380px;
     overflow-y: auto;
 }
+
+.message_area::-webkit-scrollbar{
+    width: 8px; 
+    height: 8px;
+}
+.message_area::-webkit-scrollbar-track{
+    background-color: #fff;
+}
+.message_area::-webkit-scrollbar-track{
+    background-color: #fff;
+}
+.message_area::-webkit-scrollbar-thumb{
+    background-color: #8ECDDD;
+    border-radius: 4px;
+}
+
+
 .message{
     border-bottom: #22668D 2px solid;
     margin-bottom: 8px;
@@ -686,6 +690,21 @@ footer{
     padding: 12px;
     overflow-y: auto;
 }
+.memberMainBody::-webkit-scrollbar{
+    width: 8px; 
+    height: 8px;
+}
+.memberMainBody::-webkit-scrollbar-track{
+    background-color: #fff;
+}
+.memberMainBody::-webkit-scrollbar-track{
+    background-color: #fff;
+}
+.memberMainBody::-webkit-scrollbar-thumb{
+    background-color: #8ECDDD;
+    border-radius: 4px;
+}
+
 .memberMainBody {
     display: none;
 }
