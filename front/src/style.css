@@ -1043,7 +1043,21 @@ header ul li{
 .memberEvent.expired{
     border: none;
     background-color: #969696;
-    opacity: 0.8;
+    opacity: 0.7;
+    position: relative;
+    overflow:hidden;
+}
+.memberEvent.expired::after {
+    content: '已過期';
+    position: absolute;
+    top: 25px;
+    right:-50px;
+    width: 180px;
+    padding: 8px;
+    text-align: center;
+    color: #f0f0f0;
+    background-color: red;
+    transform: rotate(45deg);
 }
 .memberEventImg {
     width: 240px;
