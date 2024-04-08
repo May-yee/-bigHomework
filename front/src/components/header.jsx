@@ -19,7 +19,7 @@ class Header extends Component {
                     <p>揪ing</p>
                 </div>
             </a>
-            <ul className="row">
+            <ul className="menu row">
                 <a href='/' onClick={this.gomember}><li>會員專區</li></a>
                 <a href=""><li>新手上路</li></a>
                 <a href=""><li>聯絡我們</li></a>
@@ -48,6 +48,20 @@ class Header extends Component {
                 }
                 
             </form>
+        </div>
+        <div className='navbar_phone row'>
+            <div className='navbar_phone_title' onClick={this.onMenu}>
+                <p>M</p>
+                <p>E</p>
+                <p>N</p>
+                <p>U</p>
+            </div>
+            <ul className='row'>
+                <li><a href="/" onClick={this.gomember}>會員專區</a></li>
+                <li><a href="/Joing/postcreate">發起揪團</a></li>
+                <li><a href="">新手上路</a></li>
+                <li><a href="">聯絡我們</a></li>
+            </ul>
         </div>
     </header>
         );
@@ -119,6 +133,10 @@ class Header extends Component {
         newState.onLogin = cookie.load('userID');
         this.setState(newState);
         window.location.href = "/"
+    }
+
+    onMenu = (e)=>{
+        document.querySelector(".navbar_phone ul").classList.toggle("show");
     }
 
 }

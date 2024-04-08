@@ -172,16 +172,16 @@ const Members = (props) => {
                                 memberData.sex==3?"其他":"不公開"}</p>
                         </div>
                         <div className="settingItem row">
-                            <div className="settingItemTitle  row">
+                            <div className="settingItemTitle row">
                                 <h3>生</h3><h3>日:</h3>
                             </div>
                             <p>{memberData.birth}</p>
                         </div>
                         <div className="settingItem">
-                            <div className="settingItemTitle  row">
+                            <div className="settingItemTitle row">
                                 <h3>自</h3><h3>我</h3><h3>介</h3><h3>紹:</h3>
                             </div>
-                            <p>{memberData.introduction} </p>
+                            <pre>{memberData.introduction} </pre>
                         </div>
 
                     </div>
@@ -348,7 +348,7 @@ const Members = (props) => {
                                     </div>
                                 </a>   
                             )
-                    })}
+                        })}
                     </div>
 
                     {/* joinRecord */}

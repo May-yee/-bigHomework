@@ -16,11 +16,15 @@ class OwnPost extends Component {
         <Header id={cookie.load('userID')}/>     
         <div className="main">            
             <div className="container post_page">
-                    <div className="post_item">                
+                <div className="post_item">                
                     <div className="images">
                             <img src={this.state.postItem.postIMG} alt="" />
-                        </div>
+                    </div>
                     <div className="post_item_content">
+                        <div className="btn_group row">
+                            {new Date(this.state.postItem.activityDate)<new Date()?<div className="btn btn_gray">已過期</div>:<a href={`/Joing/postedit/${this.props.match.params.id}`}><div className="btn btn_blue">編輯</div></a>}       
+                            <div className="btn btn_orange" onClick={this.onDelete}>刪除</div>
+                        </div>
                         <div className="member_box">
                             <div className='member_img'>
                                 <img src={this.state.postItem.headShot} alt=""/>
@@ -28,19 +32,15 @@ class OwnPost extends Component {
                             <p>{this.state.postItem.userName}</p>
                         </div>
                         <h2>{this.state.postItem.title}</h2>
-                        <div className="btn_group row">
-                            {new Date(this.state.postItem.activityDate)<new Date()?<div className="btn btn_gray">已過期</div>:<a href={`/Joing/postedit/${this.props.match.params.id}`}><div className="btn btn_blue">編輯</div></a>}       
-                            <div className="btn btn_orange" onClick={this.onDelete}>刪除</div>
-                        </div>
                         <div className='content_box_group'>
-                            <p className="content_box row">
+                            <p className="content_box">
                                 <span className='p_letter'>揪團時間:</span>{this.state.postItem.registeredDate} {this.state.postItem.registeredTime}
                             </p>
-                            <p className="content_box row">
+                            <p className="content_box">
                                 <span className='p_letter'>活動時間:</span>{this.state.postItem.activityDate} {this.state.postItem.activityTime}
                             </p>
                             <div className='row'>
-                                <p className="content_box row box_blue">
+                                <p className="content_box box_blue">
                                     <span className='p_letter'>地點:</span>{this.state.postItem.location}
                                 </p>
                                 <a href={'https://www.google.com/maps/search/?api=1&query=' + this.state.postItem.location} target='_blank' className="content_box box_border">
@@ -65,73 +65,72 @@ class OwnPost extends Component {
                                 <p>{this.state.postItem.price}</p>
                             </div>                       
                         </div>
-                        <p>{this.state.postItem.content}</p>
+                        <pre>{this.state.postItem.content}</pre>
                     </div>                                
-            </div>
+                </div>
             
-            
-
-            <div className="post_right">
-                <div className="comment">
-                        <div className="comment_title">
-                            <h2>揪團討論ING</h2>
-                        </div>
-                        <div className='message_area'>
-                            {this.state.chatList.map(chat=>
-                                <div className="message">
-                                <div className="member_box">
-                                    <div className='member_img'>
-                                        <img src={chat.headShot} alt=""/>
-                                    </div>
-                                    <p>{chat.cmName}</p>
-                                </div>
-                                <p>{chat.message}</p>
+                <div className="post_right">
+                    <div className="comment">
+                            <div className="comment_title">
+                                <h2>揪團討論ING</h2>
                             </div>
-                            )}
-                        </div>
-                        <div className="comment_input">
-                            <input type="text" placeholder="傳送留言...." value={this.state.chatList.message} onChange={this.message_change} onKeyDown={this.key_enter}/>
-                            <div className="submit"><img src="http://localhost:3000/images/submit.svg" alt="" onClick={this.send_message}/></div>
-                        </div>
-                </div>
-                <div className="join_box">
-                    <div className="already_join">
-                        <div className="join_box_title row">
-                            <h2>已參加</h2>
-                            <div className="num_box"><p>{this.state.joinMan.length}</p></div>
-                        </div>
-                        <div className="join_member">
-                            {this.state.joinMan.map(join =>
-                                <a href={`/Joing/members/${join.userID}`} className='member_img'>
-                                    <img src={join.headShot} alt=""/>
-                                </a>
-                            )}
-                            
-                        </div>
-                    </div>
-                    <div className="review_join">
-                        <div className="join_box_title row">
-                            <h2>申請參加</h2>
-                            <div className="num_box"><p>{this.state.applyMan.length}</p></div>
-                        </div>
-                        <div className="join_member">
-                            {this.state.applyMan.map((apply, index) => (
-                                <div className="join_member_box">
-                                    <a href={`/Joing/members/${apply.userID}`} className='member_img'>
-                                        <img src={apply.headShot} alt=""/>
-                                    </a>
-                                    <div className="btn_group row">
-                                        <div className="btn btn_blue" onClick={() => this.btn_accept(index)}>接受</div>
-                                        <div className="btn btn_gray" onClick={() => this.btn_reject(index)}>拒絕</div>
+                            <div className='message_area'>
+                                {this.state.chatList.map(chat=>
+                                    <div className="message">
+                                    <div className="member_box">
+                                        <div className='member_img'>
+                                            <img src={chat.headShot} alt=""/>
+                                        </div>
+                                        <p>{chat.cmName}</p>
                                     </div>
+                                    <p>{chat.message}</p>
                                 </div>
-                            ))}
+                                )}
+                            </div>
+                            <div className="comment_input">
+                                <input type="text" placeholder="傳送留言...." value={this.state.chatList.message} onChange={this.message_change} onKeyDown={this.key_enter}/>
+                                <div className="submit"><img src="http://localhost:3000/images/submit.svg" alt="" onClick={this.send_message}/></div>
+                            </div>
+                    </div>
+                    <div className="join_box">
+                        <div className="already_join">
+                            <div className="join_box_title row">
+                                <h2>已參加</h2>
+                                <div className="num_box"><p>{this.state.joinMan.length}</p></div>
+                            </div>
+                            <div className="join_member">
+                                {this.state.joinMan.map(join =>
+                                    <a href={`/Joing/members/${join.userID}`} className='member_img'>
+                                        <img src={join.headShot} alt=""/>
+                                    </a>
+                                )}
+                                
+                            </div>
+                        </div>
+                        <div className="review_join">
+                            <div className="join_box_title row">
+                                <h2>申請參加</h2>
+                                <div className="num_box"><p>{this.state.applyMan.length}</p></div>
+                            </div>
+                            <div className="join_member">
+                                {this.state.applyMan.map((apply, index) => (
+                                    <div className="join_member_box">
+                                        <a href={`/Joing/members/${apply.userID}`} className='member_img'>
+                                            <img src={apply.headShot} alt=""/>
+                                        </a>
+                                        <div className="btn_group row">
+                                            <div className="btn btn_blue" onClick={() => this.btn_accept(index)}>接受</div>
+                                            <div className="btn btn_gray" onClick={() => this.btn_reject(index)}>拒絕</div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
             </div>
+
             <div className='delete_box'>
                 <img src="http://localhost:3000/images/delete.png" />
                 <div className='btn_group'>

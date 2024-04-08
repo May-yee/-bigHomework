@@ -39,41 +39,41 @@ class JoingIndex extends Component {
                                 <button className="btn btn_orange"onClick={this.select_other}>其他</button>
                             </div>
                             <div class="filter_area">
-                                <label htmlFor="date">日期</label>
-                                <input type="date" onInput={this.select_date} onChange={this.DateInputChange} value={this.state.selectedDate} min={this.state.today}/>
-                                <label htmlFor="search">搜尋</label>
-                                <input type="text" onChange={this.handleInputChange} value={this.state.keyword} onKeyDown={this.key_enter} placeholder="搜尋"/>
-                                <button className='btn btn_orange' onClick={this.handleSearchClick}>確認</button>
+                                <label htmlFor="date">日期
+                                    <input type="date" onInput={this.select_date} onChange={this.DateInputChange} value={this.state.selectedDate} min={this.state.today}/>
+                                </label>
+                                <label htmlFor="search">搜尋
+                                    <input type="text" onChange={this.handleInputChange} value={this.state.keyword} onKeyDown={this.key_enter} placeholder="搜尋"/>
+                                    <button className='btn btn_orange' onClick={this.handleSearchClick}>確認</button>
+                                </label>
                             </div>
                             <div className="post_area">
                                 {this.state.postList.map(post => 
-                                <a href={cookie.load("userID")==post.host ?`/Joing/ownpost/${post.postID}`:`/Joing/post/${post.postID}`} key={post.postID}>
-                                        <div className="post_box">
-                                            <div className="post_img">
-                                                <img src={post.postIMG} alt="" />
+                                <a  className="post_box" href={cookie.load("userID")==post.host ?`/Joing/ownpost/${post.postID}`:`/Joing/post/${post.postID}`} key={post.postID}>
+                                    <div className="post_img">
+                                        <img src={post.postIMG} alt="" />
+                                    </div>
+                                    <div className="post_content">
+                                        <h3>{post.title}</h3>
+                                        <p className='content_box'>活動時間:{post.activityDate}  {post.activityTime}</p>
+                                        <p className='content_box box_blue'>地點:{post.location}</p>
+                                        <div className='row'>
+                                            <div className='row'>
+                                                <img src={process.env.PUBLIC_URL + '/images/min.png'} alt="" />
+                                                <p>最低人數<br />{post.minPeople}</p>    
                                             </div>
-                                            <div className="post_content">
-                                                <h3>{post.title}</h3>
-                                                <p className='content_box'>活動時間:{post.activityDate}  {post.activityTime}</p>
-                                                <p className='content_box box_blue'>地點:{post.location}</p>
-                                                <div className='row'>
-                                                    <div className='row'>
-                                                        <img src={process.env.PUBLIC_URL + '/images/min.png'} alt="" />
-                                                        <p>最低人數<br />{post.minPeople}</p>    
-                                                    </div>
-                                                    <div className='row'>
-                                                        <img src={process.env.PUBLIC_URL + '/images/max.png'} alt="" />
-                                                        <p>最高人數 <br />{post.maxPeople}</p>   
-                                                    </div>
-                                                    <div className='row'>
-                                                        <img src={process.env.PUBLIC_URL + '/images/PRICE.png'} alt="" />
-                                                        <p>每人金額<br />{post.price} /人</p>   
-                                                    </div>
-                                                </div>
-                                                
-                                                
+                                            <div className='row'>
+                                                <img src={process.env.PUBLIC_URL + '/images/max.png'} alt="" />
+                                                <p>最高人數 <br />{post.maxPeople}</p>   
+                                            </div>
+                                            <div className='row'>
+                                                <img src={process.env.PUBLIC_URL + '/images/PRICE.png'} alt="" />
+                                                <p>每人金額<br />{post.price} /人</p>   
                                             </div>
                                         </div>
+                                        
+                                        
+                                    </div>
                                 </a>
                                     )}
                                     

@@ -21,13 +21,6 @@ class Post extends Component {
                             <img src={this.state.postItem.postIMG} alt="" />
                         </div>
                     <div className="post_item_content">
-                        <div className="member_box">
-                            <a href={'/Joing/members/' + this.state.postItem.userID} className='member_img'>
-                                <img src={this.state.postItem.headShot} alt=""/>
-                            </a>
-                            <p>{this.state.postItem.userName}</p>
-                        </div>
-                        <h2>{this.state.postItem.title}</h2>
                         <div className="btn_group row">
                             {(cookie.load('userID')) ?
                                 (this.state.iscollect) ? <div className="btn btn_gray apply-btn">已收藏</div>: 
@@ -40,11 +33,18 @@ class Post extends Component {
                                 <a><div className="btn btn_blue apply-btn" onClick={this.btn_apply}>申請參加</div></a>
                             : ""}
                         </div>
+                        <div className="member_box">
+                            <a href={'/Joing/members/' + this.state.postItem.userID} className='member_img'>
+                                <img src={this.state.postItem.headShot} alt=""/>
+                            </a>
+                            <p>{this.state.postItem.userName}</p>
+                        </div>
+                        <h2>{this.state.postItem.title}</h2>
                         <div className='content_box_group'>
-                            <p className="content_box row">
+                            <p className="content_box">
                                 <span className='p_letter'>揪團時間:</span>{this.state.postItem.registeredDate} {this.state.postItem.registeredTime}
                             </p>
-                            <p className="content_box row">
+                            <p className="content_box">
                                 <span className='p_letter'>活動時間:</span>{this.state.postItem.activityDate} {this.state.postItem.activityTime}
                             </p>
                             <div className='row'>
@@ -73,7 +73,7 @@ class Post extends Component {
                                 <p>{this.state.postItem.price}</p>
                             </div>                       
                         </div>
-                        <p>{this.state.postItem.content}</p>
+                        <pre>{this.state.postItem.content}</pre>
                     </div>
                 </div>                                    
                 <div className="post_right">
@@ -100,21 +100,18 @@ class Post extends Component {
                         </div>
                     </div>
                     <div className="join_box">
-                    <div class="already_join">
-                        <div class="join_box_title row">
-                            <h2>已參加</h2>
-                            <div class="num_box"><p>{this.state.joinMan.length}</p></div>
-                        </div>
-                        <div class="join_member">
-                        <div className="num_box"><p></p></div>
-                        </div>
-                        <div className="join_member">
-                            {this.state.joinMan.map(join =><a href={`/Joing/members/${join.userID}`} className='member_img'>
-                                <img src={join.headShot} alt=""/>
-                            </a>)}
+                        <div className="already_join">
+                            <div class="join_box_title row">
+                                <h2>已參加</h2>
+                                <div class="num_box"><p>{this.state.joinMan.length}</p></div>
+                            </div>
+                            <div className="join_member">
+                                {this.state.joinMan.map(join =><a href={`/Joing/members/${join.userID}`} className='member_img'>
+                                    <img src={join.headShot} alt=""/>
+                                </a>)}
+                            </div>
                         </div>
                     </div>
-                </div>
                 </div>
             </div>
             
