@@ -50,6 +50,8 @@ p{
 pre{
     font-size: 16px;
     line-height: 24px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 
@@ -72,6 +74,11 @@ input[type="checkbox"]{
 }
 input[type="checkbox"]:checked +div{
     background-color: #FFCC70;
+}
+@media screen and (max-width: 740px) {
+    input{
+        font-size: 14px;
+    }
 }
 .checkbox{
     width: 16px;
@@ -128,12 +135,7 @@ input[type="checkbox"]:checked +div{
     text-align: center;
     margin-bottom: 12px;
 }
-.point{
-    font-weight: bold;
-    color: #22668D;
-    font-size: 20px;
-    border-bottom:  #22668D solid 2px ;
-}
+
 /* member */
 .member_box{
     display: flex;
@@ -292,7 +294,7 @@ header ul li{
     background-color: #fff;
     z-index: 4;
     padding: 8px;
-    height:160px;
+    height:120px;
     border: #22668D 2px solid;
     border-radius: 8px 0 0 8px;
 }
@@ -303,6 +305,9 @@ header ul li{
     justify-content: space-around;
     color: #22668D;
 }
+.navbar_phone_title p{
+    font-size: 12px;
+}
 .navbar_phone ul{
     height: 100%;
     padding-left: 8px;
@@ -312,6 +317,7 @@ header ul li{
 }
 .navbar_phone li{
     border-bottom: #22668D 2px solid;
+    font-size: 12px;
 }
 .navbar_phone ul.show{
     display: flex;
@@ -894,6 +900,9 @@ header ul li{
     padding: 12px;
     overflow-y: auto;
 }
+.memberMainBody.setting {
+    overflow: visible;
+}
 .memberMainBody::-webkit-scrollbar{
     width: 8px; 
     height: 8px;
@@ -938,6 +947,9 @@ header ul li{
     }
 }
 @media screen and (max-width: 740px){
+    .memberMainBody{
+        padding: 4px;
+    }
     .memberNav{
         width: 90%;
     }
@@ -948,6 +960,9 @@ header ul li{
     }
     .memberNavBtn h3{
         display: none;
+    }
+    .memberMain{
+        width: 90%;
     }
 }
 /* -----setting----- */
@@ -966,6 +981,9 @@ header ul li{
     height: 100px;
     margin-bottom: 20px;
 }
+.setting .member_img img{
+    width: 100%;
+} 
 .settingItem{
     margin: 12px 0;
     border-bottom: #22668D 2px solid;
@@ -982,17 +1000,35 @@ header ul li{
     margin-right: 8px;
     justify-content: space-between;
 }
+.settingItem pre{
+    line-height: 20px;
+}
+.intro{
+    word-wrap: break-word;
+}
 @media screen and (max-width: 740px){
-    .memberNav{
-        width: 90%;
+    .setting{
+        padding:12px;
     }
-    .memberNavBtn img{
-        margin: 0;
-        width: 32px;
-        height: 32px;
+    .settingItem{
+        flex-direction: column;
+        align-items: flex-start;
     }
-    .memberNavBtn h3{
-        display: none;
+    .settingItem .settingItemTitle{
+        justify-content: flex-start;
+        
+    }
+    .settingItem h3,.settingItem p{
+        font-size: 12px;
+    }
+    .setting .member_img{
+        width: 50px;
+        height: 50px;
+    }
+
+    .setting .btn_group{
+        top: 12px;
+        right: 12px;
     }
 }
 /* -----note----- */
@@ -1021,15 +1057,29 @@ header ul li{
 .noteBoxTContent{
     padding: 4px 0;
 }
-.delet{
-    background: none;
-    cursor: pointer;
-    z-index: 5;
+.point{
+    font-weight: bold;
+    color: #22668D;
+    font-size: 20px;
+    border-bottom:  #22668D solid 2px ;
 }
-.delet img{
-    width: 20px;
+@media screen and (max-width: 740px){
+    .note{
+        height: 560px;
+    }
+    .noteBoxTop{
+        flex-direction: column;
+    }
+    .subject h3{
+        font-size: 16px;
+    }
+    .noteBoxTContent .point{
+        font-size: 14px;
+    }
+    .noteBoxTContent p{
+        font-size: 12px;
+    }
 }
-
 /* -----record----- */
 .memberEvent {
     display: flex; 
@@ -1056,7 +1106,7 @@ header ul li{
     padding: 8px;
     text-align: center;
     color: #f0f0f0;
-    background-color: red;
+    background-color: #FFCC70;
     transform: rotate(45deg);
 }
 .memberEventImg {
@@ -1113,16 +1163,12 @@ header ul li{
         justify-content: space-around;
     }
 }
-@media screen and (max-width: 740px){
-    .memberEvent{
-        flex-direction: column;
-    }
-}
+
 
 
 /* -----joinRecord----- */
 .joinRecord{
-    background-color: #22668D;
+    background-color: #22668D !important;
 }
 .joinRecord .memberEvent{
     border: none;
@@ -1134,6 +1180,24 @@ header ul li{
     top: 4px;
     right: 0;
 }
+@media screen and (max-width: 740px){
+    .memberEvent{
+        flex-direction: column;
+        align-items: center;
+        max-width: 320px;
+        margin: 12px auto;
+        padding: 12px;
+    }
+    .memberEvent .memberEventContentBlock{
+        width: 100%;
+    }
+    .note,.record,.joinRecord,.like{
+        background-color: #fff;
+        border: none;
+        height: auto;
+    }
+}
+
 
 /* ---------------- *\
 	setting_Edit
@@ -1151,7 +1215,6 @@ header ul li{
     height: 100px;
     margin: 12px 0;
 }
-
 .settingEdit .settingItem{
     border: none;
 }
@@ -1167,6 +1230,27 @@ header ul li{
     display:flex;
     justify-content: center;
 }
+
+@media screen and (max-width: 740px){
+    .cr-boundary{
+        width: 300px !important;
+        height: 200px !important;
+    }
+    .settingEdit{
+        width: 90%;
+    }
+    #main-cropper .member_img{
+        position: relative !important;
+    }
+    .settingEdit .settingItemTitle{
+        margin-bottom: 8px;
+    }
+    .settingItem #btnCrop{
+        font-size: 14px;
+        margin-top: 8px;
+    }
+}
+
 
 /* register */
 #main-cropper {
@@ -1244,6 +1328,24 @@ header ul li{
 #searchInput{
     width: 400px;
 }
+@media screen and (max-width: 740px){
+    .settingItem input{
+        margin: 4px 0;
+    }
+}
+@media screen and (max-width: 540px){
+    .create{
+        padding: 8px;
+    }
+    .create .post_img{
+        width: 270px;
+        height: 180px;
+    }
+    #searchInput{
+        width: 300px;
+    }
+}
+
 
 /* 提示方塊 */
 .delete_box{

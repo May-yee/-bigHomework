@@ -181,7 +181,9 @@ const Members = (props) => {
                             <div className="settingItemTitle row">
                                 <h3>自</h3><h3>我</h3><h3>介</h3><h3>紹:</h3>
                             </div>
-                            <pre>{memberData.introduction} </pre>
+                            <div className='intro'>
+                                {memberData.introduction}
+                            </div>
                         </div>
 
                     </div>

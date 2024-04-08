@@ -122,7 +122,7 @@ router.get("/joinApply/:id", function (req, res) {
   conn.query(
     "SELECT post.title ,joinmember.*,member.userName FROM post "+ 
     "INNER JOIN joinmember ON joinmember.postID = post.postID " +
-    "INNER JOIN member ON post.host = member.userID WHERE joinmember.participants = ?;",
+    "INNER JOIN member ON post.host = member.userID WHERE joinmember.participants = ? ORDER BY joinmember.upTime DESC;",
     [req.params.id],
     function (err, rows) {
       if (err) {
