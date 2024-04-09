@@ -456,7 +456,7 @@ header ul li{
     /* border: #000 1px solid; */
     flex-wrap: wrap;
     margin-top: 40px;
-    justify-content: center;
+    justify-content: flex-start;
 }
 @media screen and (max-width: 740px){
     .filter_area{
@@ -1106,7 +1106,7 @@ header ul li{
     padding: 8px;
     text-align: center;
     color: #f0f0f0;
-    background-color: #FFCC70;
+    background-color: #22668D;
     transform: rotate(45deg);
 }
 .memberEventImg {
