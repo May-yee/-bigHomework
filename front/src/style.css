@@ -552,8 +552,8 @@ header ul li{
 }
 
 .post_item_content .member_box{
-    width: 80%;
     margin-bottom:8px ;
+    width: 300px;
 }
 
 .post_item_content .btn_group{
@@ -1179,6 +1179,11 @@ header ul li{
     position: absolute;
     top: 4px;
     right: 0;
+    z-index: 5;
+    background-color: #fff;
+}
+.like .delet img{
+    width: 20px;
 }
 @media screen and (max-width: 740px){
     .memberEvent{
@@ -1197,7 +1202,35 @@ header ul li{
         height: auto;
     }
 }
-
+.delete_box{
+    position: absolute;
+    top: 25%;
+    left: 40%;
+    background-color: #fff;
+    border: #22668D 4px solid;
+    border-radius: 8px;
+    width: 400px;
+    height: 400px;
+    z-index: 5;
+    display: none;
+}
+.delete_box img{
+    width: 100%;
+}
+.delete_box .btn_group{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 12px;
+}
+.delete_box .btn{
+    padding: 8px 16px;
+}
+.delete_box.show{
+    animation: scale 1.5s;
+    display: block;
+    animation-fill-mode: forwards;
+}
 
 /* ---------------- *\
 	setting_Edit
