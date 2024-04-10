@@ -394,9 +394,9 @@ const Members = (props) => {
                                             <h4>主揪人</h4>
                                             <div className="memberEventAvatar">
 
-                                                <a href="" className="member_img">
+                                                <div className="member_img">
                                                     <img src={join.headShot} alt=""/>
-                                                </a>
+                                                </div>
                                             </div>
                                         </div>
                                         <div>

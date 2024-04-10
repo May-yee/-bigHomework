@@ -101,7 +101,7 @@ router.get("/joinrecord/:id", function (req, res) {
 //揪團被申請通知
 router.get("/ownApplied/:id", function (req, res) {
     conn.query(
-      "SELECT post.title ,joinmember.*,member.userName FROM post INNER JOIN joinmember ON joinmember.postID = post.postID INNER JOIN member ON joinmember.participants = member.userID WHERE joinmember.joinL='C' AND post.host = ?;",
+      "SELECT post.title ,joinmember.*,member.userName FROM post INNER JOIN joinmember ON joinmember.postID = post.postID INNER JOIN member ON joinmember.participants = member.userID WHERE joinmember.joinL='C' AND post.host = ? ORDER BY joinmember.upTime DESC;",
       [req.params.id],
       function (err, rows) {
         if (err) {
