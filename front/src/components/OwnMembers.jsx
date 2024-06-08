@@ -294,7 +294,7 @@ const Members = (props) => {
                                         <div className="content_box_group">
                                             <div className="content_box">
                                                 <p>
-                                                    <span className="p_letter">活動時間</span>
+                                                    <span className="p_letter">活動時間:</span>
                                                     {record.activityDate} {record.activityTime}
                                                 </p>
                                             </div>
